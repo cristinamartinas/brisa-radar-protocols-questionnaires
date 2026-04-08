@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -41,7 +41,7 @@
         },
         "completionWindow": {
           "unit": "minutes",
-          "amount": 99999999999999
+          "amount": 2628000
         }
       }
     },
@@ -82,7 +82,7 @@
         },
         "completionWindow": {
           "unit": "minutes",
-          "amount": 99999999999999
+          "amount": 2628000
         }
       }
     }
