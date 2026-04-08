@@ -544,7 +544,7 @@
     {
         "field_name": "last_night_quantity",
         "form_name":"last_night",
-        "section_header": "1 Small Beer OR 1 Wine Glass OR 1 Shot = 1 Standard Unit || 1 Large Beer OR 1 Strong Beer = 2, Wine Glass = 1, Shot = 1, Cocktail = 2",
+        "section_header": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/units.png' style='width:100%'/>",
         "field_type": "range",
         "field_label": "How many Standard Units did you consume in the reported interval?",
         "select_choices_or_calculations":[
