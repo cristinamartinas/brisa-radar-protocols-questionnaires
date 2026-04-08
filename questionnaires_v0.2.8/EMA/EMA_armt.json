@@ -2,9 +2,9 @@
     {
     "field_name": "EMA_mood",
     "form_name": "EMA",
-    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nThink of your overall disposition at this time.\nRate on the scale:\n0-Very Bad Disposition, Negative Feelings;\n3-Neutral Mood, Neither Good or Bad;\n6-Very Good, Positive Feelings",
+    "section_header": "Describe your feelings at this moment. Think of your disposition right now.",
     "field_type": "range",
-    "field_label": "Rate your current GENERAL MOOD",
+    "field_label": "Overall Mood",
     "select_choices_or_calculations": [
         {
         "code": "0",
@@ -40,9 +40,9 @@
     {
     "field_name": "EMA_stress",
     "form_name": "EMA",
-    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nThink of how tense or worried you feel at this time.\nRate on the scale:\n0-Very Relaxed;\n3-Moderately Tense or Manageable Stress;\n6-Extremely Stressed or Very Anxious",
+    "section_header": "Only consider what you are feeling right now Think of how tense or worried you feel at this time.",
     "field_type": "range",
-    "field_label": "Rate your current STRESS LEVEL",
+    "field_label": "Stress level",
     "select_choices_or_calculations": [
     {
         "code": "0",
@@ -78,9 +78,9 @@
     {
     "field_name": "EMA_craving",
     "form_name": "EMA",
-    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nAre you thinking about consumption?\nRate on the scale:\n0-Not at all;\n3-Manageable Cravings;\nVery Intense Urge to Consume",
+    "section_header": "Are you thinking about consumption? Do you feel driven by an internal urge right now?",
     "field_type": "range",
-    "field_label": "Rate your current CRAVING LEVEL",
+    "field_label": "Craving",
     "select_choices_or_calculations": [
     {
         "code": "0",

@@ -1,8 +1,14 @@
-[
+[    
+    {
+        "field_name": "last_night_intro",
+        "form_name": "last_night",
+        "field_type": "descriptive",
+        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/nightdrinking.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Last Night Report</h2><p style='text-align:center;'>Consider the time between <b style='color:white;'>20:00PM yesterday and 08:00AM today</b>. Please indicate any recent events that happened later than 08:00AM in the Daytime Report.</p>"
+    },
     {
         "field_name": "last_night_1",
         "form_name": "last_night",
-        "section_header": "Consider the time between 20:00PM yesterday and 08:00AM today. PILOT: imagine this questionnaire is available between 08:00AM and 20:00PM",
+        "section_header": "Consider the time between 20:00PM yesterday and 08:00AM today.",
         "field_type": "radio",
         "field_label": "Do you have anything to report?",
         "select_choices_or_calculations": [
@@ -15,16 +21,12 @@
                 "label": "Yes"
             }
         ],
-        "required_field": "y",
-        "field_annotation": 
-            { 
-            "image":"https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/nightdrinking.png" 
-            }
+        "required_field": "y"
     },
     {
         "field_name": "last_night_start",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it started.",
+        "section_header": "Approximate the time you had the first unit.",
         "field_type": "radio",
         "field_label": "When did you start?",
         "select_choices_or_calculations":[
@@ -84,7 +86,7 @@
     {
         "field_name": "last_night_end_0",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -144,7 +146,7 @@
     {
         "field_name": "last_night_end_1",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -200,7 +202,7 @@
     {
         "field_name": "last_night_end_2",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -252,7 +254,7 @@
     {
         "field_name": "last_night_end_3",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -300,7 +302,7 @@
     {
         "field_name": "last_night_end_4",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -344,7 +346,7 @@
     {
         "field_name": "last_night_end_5",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -384,7 +386,7 @@
     {
         "field_name": "last_night_end_6",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -420,7 +422,7 @@
     {
         "field_name": "last_night_end_7",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -452,7 +454,7 @@
     {
         "field_name": "last_night_end_8",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -480,7 +482,7 @@
     {
         "field_name": "last_night_end_9",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -504,7 +506,7 @@
     {
         "field_name": "last_night_end_10",
         "form_name": "last_night",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -542,9 +544,17 @@
         "evaluated_logic": "responses['last_night_start'] == \"7\"" 
     },
     {
+        "field_name": "last_night_units",
+        "form_name": "last_night",
+        "field_type": "descriptive",
+        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/standard_drink.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Keep in mind!</h2><p style='text-align:center;'>Report your consumption in the next page.</p>",
+        "branching_logic": "last_night_1=\"1\"",
+        "evaluated_logic": "responses['last_night_1'] == \"1\""
+    },
+    {
         "field_name": "last_night_quantity",
         "form_name":"last_night",
-        "section_header": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/units.png' style='width:100%'/>",
+        "section_header": "Check the previous page for conversion to Standard Units.",
         "field_type": "range",
         "field_label": "How many Standard Units did you consume in the reported interval?",
         "select_choices_or_calculations":[

@@ -3,12 +3,12 @@
         "field_name": "last_day_intro",
         "form_name": "last_day",
         "field_type": "descriptive",
-        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/daydrinking.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Daytime Report</h2><p style='text-align:center;'>Consider the time between 08:00AM and 20:00PM of the day that just passed. Please indicate any later events in the Night-time Report.</p>"
+        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/daydrinking.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Daytime Report</h2><p style='text-align:center;'>Consider the time between <b style='color:white;'>08:00AM and 20:00PM</b> of the day that just passed. Please indicate any later events in the Night-time Report.</p>"
     },
     {
         "field_name": "last_day_1",
         "form_name": "last_day",
-        "section_header": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/daydrinking.png' style='width:100%'/><p>Consider the time between 08:00AM and 20:00PM of the day that just passed. Please indicate any later events in the Night-time Report.</p>",
+        "section_header": "Consider the time between <b style='color:white;'>08:00AM and 20:00PM</b> of the day that just passed. Please indicate any later events in the Night-time Report.",
         "field_type": "radio",
         "field_label": "Do you have anything to report?",
         "select_choices_or_calculations": [
@@ -26,7 +26,7 @@
     {
         "field_name": "last_day_start",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it started.",
+        "section_header": "Approximate the time when you had the first unit.",
         "field_type": "radio",
         "field_label": "When did you start?",
         "select_choices_or_calculations":[
@@ -86,7 +86,7 @@
     {
         "field_name": "last_day_end_0",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -150,7 +150,7 @@
     {
         "field_name": "last_day_end_1",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -210,7 +210,7 @@
     {
         "field_name": "last_day_end_2",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -266,7 +266,7 @@
     {
         "field_name": "last_day_end_3",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -318,7 +318,7 @@
     {
         "field_name": "last_day_end_4",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -366,7 +366,7 @@
     {
         "field_name": "last_day_end_5",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -410,7 +410,7 @@
     {
         "field_name": "last_day_end_6",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -486,7 +486,7 @@
     {
         "field_name": "last_day_end_8",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -518,7 +518,7 @@
     {
         "field_name": "last_day_end_9",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -546,7 +546,7 @@
     {
         "field_name": "last_day_end_10",
         "form_name": "last_day",
-        "section_header": "Approximate the time when it stopped.",
+        "section_header": "Approximate the time when you had your last one..",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -591,12 +591,14 @@
         "field_name": "last_day_units",
         "form_name": "last_day",
         "field_type": "descriptive",
-        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/alcohol_units-min.jpg' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Keep in mind!</h2><p style='text-align:center;'>Report your consumption in the next page.</p>"
+        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/standard_drink.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Keep in mind!</h2><p style='text-align:center;'>Report your consumption in the next page.</p>",
+        "branching_logic": "last_day_1=\"1\"",
+        "evaluated_logic": "responses['last_day_1'] == \"1\""
     },
     {
         "field_name": "last_day_quantity",
         "form_name":"last_day",
-        "section_header": "For reference, in general:<br/>One regular vaasje, one glass of wine OR one 40 ml shot = <b>1 Standard Unit</b><br/>One regular pint, one strong beer or one cocktail = <b>2 Standard Units</b>.",
+        "section_header": "Check the previous page for conversion to Standard Units.",
         "field_type": "range",
         "field_label": "How many Standard Units did you consume in the reported interval?",
         "select_choices_or_calculations":[
@@ -653,6 +655,4 @@
         "required_field": "y",
         "evaluated_logic": "responses['last_day_1'] == \"1\""
     }
-
-
 ]
