@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.1.1",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -8,8 +8,8 @@
       "name": "EMA",
       "showIntroduction": true,
       "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/peyman-mohtashami/brissa-radar-protocols-questionnaires/master/questionnaires/",
-        "name": "EMA_daily",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/EMA_daily",
+        "name": "EMA_daily_armt",
         "avsc": "questionnaire"
       },
       "startText": {
@@ -49,8 +49,8 @@
       "name": "Questions Viz Test",
       "showIntroduction": true,
       "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires",
-        "name": "test_1",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/test_1",
+        "name": "test_1_armt",
         "avsc": "questionnaire"
       },
       "startText": {
