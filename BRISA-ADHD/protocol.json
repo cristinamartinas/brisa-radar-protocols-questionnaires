@@ -78,8 +78,8 @@
         "name": "last_day",
         "avsc": "questionnaire"
       },
-      "startText": {},
-      "endText": {},
+      "startText": {"en":""},
+      "endText": {"en":""},
       "warn": {},
       "estimatedCompletionTime": 1,
       "protocol": 
@@ -130,8 +130,8 @@
         "name": "last_night",
         "avsc": "questionnaire"
       },
-      "startText": {},
-      "endText": {},
+      "startText": {"en":""},
+      "endText": {"en":""},
       "warn": {},
       "estimatedCompletionTime": 1,
       "protocol": 
