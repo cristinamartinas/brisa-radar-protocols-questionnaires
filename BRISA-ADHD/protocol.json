@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.3",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -8,7 +8,7 @@
       "name": "EMA",
       "showIntroduction": true,
       "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires",
+        "repository": "https://raw.githubusercontent.com/peyman-mohtashami/brissa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "EMA_daily",
         "avsc": "questionnaire"
       },
