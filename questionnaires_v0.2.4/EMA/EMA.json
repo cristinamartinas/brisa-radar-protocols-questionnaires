@@ -1,0 +1,117 @@
+[
+    {
+    "field_name": "EMA_mood",
+    "form_name": "EMA",
+    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nThink of your overall disposition at this time.\nRate on the scale:\n0-Very Bad Disposition, Negative Feelings;\n3-Neutral Mood, Neither Good or Bad;\n6-Very Good, Positive Feelings",
+    "field_type": "range",
+    "field_label": "Rate your current GENERAL MOOD",
+    "select_choices_or_calculations": [
+        {
+        "code": "0",
+        "label": "Very Bad"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": "Neutral"
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "Very Good"
+    }
+    ],
+    "required_field": "y"
+    },
+    {
+    "field_name": "EMA_stress",
+    "form_name": "EMA",
+    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nThink of how tense or worried you feel at this time.\nRate on the scale:\n0-Very Relaxed;\n3-Moderately Tense or Manageable Stress;\n6-Extremely Stressed or Very Anxious",
+    "field_type": "range",
+    "field_label": "Rate your current STRESS LEVEL",
+    "select_choices_or_calculations": [
+    {
+        "code": "0",
+        "label": "Not at all"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": ""
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "Very Stressed"
+    }
+    ],
+    "required_field": "y"
+    },
+    {
+    "field_name": "EMA_craving",
+    "form_name": "EMA",
+    "section_header": "Describe your feelings at this moment. Only consider what you are feeling right now.\n\nAre you thinking about consumption?\nRate on the scale:\n0-Not at all;\n3-Manageable Cravings;\nVery Intense Urge to Consume",
+    "field_type": "range",
+    "field_label": "Rate your current CRAVING LEVEL",
+    "select_choices_or_calculations": [
+    {
+        "code": "0",
+        "label": "No craving"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": ""
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "High urge"
+    }
+    ],
+    "field_note": "Right now, are you thinking about consuming alcohol?",
+    "required_field": "y"
+    }
+]

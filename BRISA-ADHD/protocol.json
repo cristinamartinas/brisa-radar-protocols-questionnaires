@@ -1,172 +1,81 @@
 {
-  "version": "0.2.3",
+  "version": "0.2.4",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
-  "protocols": [
+  "protocols": 
+  [
     {
-      "name": "EMA_v1",
+      "name": "Daily EMA",
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
-        "name": "EMA_v1",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
+        "name": "EMA",
         "avsc": "questionnaire"
       },
       "startText": 
       {
-        "en": "How are you feeling today?",
-        "nl": "..."
+        "en": "How are you feeling today?"
       },
       "endText": 
       {
         "en": "Thank you!"
       },
-      "warn": {},
       "estimatedCompletionTime": 1,
-      "protocol": 
+      "protocol":
       {
         "repeatProtocol": 
         {
-          "unit": "minutes",
+          "unit": "day",
           "amount": 3
         },
         "repeatQuestionnaire": 
         {
-          "unit": "min",
-          "unitsFromZero": [0]
+            "unit": "min",
+            "unitsFromZero": 
+            [
+              480,
+              2280,
+              4080
+            ]
         },
         "reminders": 
-        {
-          "repeat": 0,
-          "amount": 0,
-          "unit": "min"
-        },
-        "notification": 
-        {
-          "title": { "en": "Survey available" },
-          "text": { "en": "A survey is available for you to complete." }
-        },
-        "completionWindow": 
-        {
-          "unit": "minutes",
-          "amount": 3
+        [
+          {
+            "offset": 
+            {
+              "unit": "min",
+              "amount": 210
+            },
+            "notification": {
+              "title": {
+                "en": "Don't forget the Daily EMA!"
+              },
+              "text": {
+                "en": "You only have one hour left. Please fill it in, it only takes 1 minute!"
+              }
+            }
+          }
+        ],
+        "completionWindow": {
+          "unit": "hour",
+          "amount": 4
         }
       }
     },
     {
-      "name": "EMA_v2",
+      "name": "Report: Last DAY",
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
-        "name": "EMA_v2",
-        "avsc": "questionnaire"
-      },
-      "startText": 
-      {
-        "en": "How are you feeling today?",
-        "nl": "..."
-      },
-      "endText": 
-      {
-        "en": "Thank you!"
-      },
-      "warn": {},
-      "estimatedCompletionTime": 1,
-      "protocol": 
-      {
-        "repeatProtocol": 
-        {
-          "unit": "minutes",
-          "amount": 3
-        },
-        "repeatQuestionnaire": 
-        {
-          "unit": "min",
-          "unitsFromZero": [0]
-        },
-        "reminders": 
-        {
-          "repeat": 0,
-          "amount": 0,
-          "unit": "min"
-        },
-        "notification": 
-        {
-          "title": { "en": "Survey available" },
-          "text": { "en": "A survey is available for you to complete." }
-        },
-        "completionWindow": 
-        {
-          "unit": "minutes",
-          "amount": 3
-        }
-      }
-    },
-    {
-      "name": "EMA_v3",
-      "showIntroduction": true,
-      "questionnaire": 
-      {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
-        "name": "EMA_v3",
-        "avsc": "questionnaire"
-      },
-      "startText": 
-      {
-        "en": "How are you feeling today?",
-        "nl": "..."
-      },
-      "endText": 
-      {
-        "en": "Thank you!"
-      },
-      "warn": {},
-      "estimatedCompletionTime": 1,
-      "protocol": 
-      {
-        "repeatProtocol": 
-        {
-          "unit": "minutes",
-          "amount": 3
-        },
-        "repeatQuestionnaire": 
-        {
-          "unit": "min",
-          "unitsFromZero": [0]
-        },
-        "reminders": 
-        {
-          "repeat": 0,
-          "amount": 0,
-          "unit": "min"
-        },
-        "notification": 
-        {
-          "title": { "en": "Survey available" },
-          "text": { "en": "A survey is available for you to complete." }
-        },
-        "completionWindow": 
-        {
-          "unit": "minutes",
-          "amount": 3
-        }
-      }
-    },    
-    {
-      "name": "day consumption report",
-      "showIntroduction": true,
-      "questionnaire": 
-      {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
         "name": "last_day",
         "avsc": "questionnaire"
       },
       "startText": 
       {
-        "en": "Consider the day that just passed (time between 08:00AM and 20:00PM)",
-        "nl": "..."
+        "en": "Consider the day that just passed (time between 08:00AM and 20:00PM)"
       },
       "endText": 
       {
@@ -178,7 +87,7 @@
       {
         "repeatProtocol": 
         {
-          "unit": "minutes",
+          "unit": "min",
           "amount": 3
         },
         "repeatQuestionnaire": 
@@ -199,7 +108,7 @@
         },
         "completionWindow": 
         {
-          "unit": "minutes",
+          "unit": "min",
           "amount": 3
         }
       }
@@ -209,7 +118,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
         "name": "last_night",
         "avsc": "questionnaire"
       },
@@ -228,7 +137,7 @@
       {
         "repeatProtocol": 
         {
-          "unit": "minutes",
+          "unit": "min",
           "amount": 3
         },
         "repeatQuestionnaire": 
@@ -249,7 +158,7 @@
         },
         "completionWindow": 
         {
-          "unit": "minutes",
+          "unit": "min",
           "amount": 3
         }
       }
