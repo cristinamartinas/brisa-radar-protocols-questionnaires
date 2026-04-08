@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2",
+  "version": "0.2.3",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -9,7 +9,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
         "name": "EMA_v1",
         "avsc": "questionnaire"
       },
@@ -49,8 +49,8 @@
         },
         "completionWindow": 
         {
-          "unit": "day",
-          "amount": 365
+          "unit": "minutes",
+          "amount": 3
         }
       }
     },
@@ -59,7 +59,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
         "name": "EMA_v2",
         "avsc": "questionnaire"
       },
@@ -99,8 +99,8 @@
         },
         "completionWindow": 
         {
-          "unit": "day",
-          "amount": 365
+          "unit": "minutes",
+          "amount": 3
         }
       }
     },
@@ -109,7 +109,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
         "name": "EMA_v3",
         "avsc": "questionnaire"
       },
@@ -149,8 +149,108 @@
         },
         "completionWindow": 
         {
-          "unit": "day",
-          "amount": 365
+          "unit": "minutes",
+          "amount": 3
+        }
+      }
+    },    
+    {
+      "name": "day consumption report",
+      "showIntroduction": true,
+      "questionnaire": 
+      {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
+        "name": "last_day",
+        "avsc": "questionnaire"
+      },
+      "startText": 
+      {
+        "en": "Consider the day that just passed (time between 08:00AM and 20:00PM)",
+        "nl": "..."
+      },
+      "endText": 
+      {
+        "en": "Thank you!"
+      },
+      "warn": {},
+      "estimatedCompletionTime": 1,
+      "protocol": 
+      {
+        "repeatProtocol": 
+        {
+          "unit": "minutes",
+          "amount": 3
+        },
+        "repeatQuestionnaire": 
+        {
+          "unit": "min",
+          "unitsFromZero": [0]
+        },
+        "reminders": 
+        {
+          "repeat": 0,
+          "amount": 0,
+          "unit": "min"
+        },
+        "notification": 
+        {
+          "title": { "en": "Survey available" },
+          "text": { "en": "A survey is available for you to complete." }
+        },
+        "completionWindow": 
+        {
+          "unit": "minutes",
+          "amount": 3
+        }
+      }
+    },
+    {
+      "name": "night consumption report",
+      "showIntroduction": true,
+      "questionnaire": 
+      {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.3/",
+        "name": "last_night",
+        "avsc": "questionnaire"
+      },
+      "startText": 
+      {
+        "en": "Consider the last night (time between 20:00PM yesterday and 08:00AM today)",
+        "nl": "..."
+      },
+      "endText": 
+      {
+        "en": "Thank you!"
+      },
+      "warn": {},
+      "estimatedCompletionTime": 1,
+      "protocol": 
+      {
+        "repeatProtocol": 
+        {
+          "unit": "minutes",
+          "amount": 3
+        },
+        "repeatQuestionnaire": 
+        {
+          "unit": "min",
+          "unitsFromZero": [0]
+        },
+        "reminders": 
+        {
+          "repeat": 0,
+          "amount": 0,
+          "unit": "min"
+        },
+        "notification": 
+        {
+          "title": { "en": "Survey available" },
+          "text": { "en": "A survey is available for you to complete." }
+        },
+        "completionWindow": 
+        {
+          "unit": "minutes",
+          "amount": 3
         }
       }
     }

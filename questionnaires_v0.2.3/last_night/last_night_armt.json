@@ -2,7 +2,7 @@
     {
         "field_name": "last_night_1",
         "form_name": "last_night",
-        "section_header": "Consider the time from 20:00PM yesterday and 08:00AM today. PILOT: imagine this questionnaire is available between 08:00AM and 20:00PM",
+        "section_header": "Consider the time between 20:00PM yesterday and 08:00AM today. PILOT: imagine this questionnaire is available between 08:00AM and 20:00PM",
         "field_type": "radio",
         "field_label": "Do you have anything to report?",
         "select_choices_or_calculations": [
@@ -75,7 +75,7 @@
         ],
         "branching_logic": "last_night_1=\"1\"", 
         "required_field": "y",
-        "evaluated_logic": "responses['daydrinking_check_initial'] == \"1\"" 
+        "evaluated_logic": "responses['last_night_1'] == \"1\"" 
     },
     {
         "field_name": "last_night_end_0",
@@ -378,16 +378,12 @@
         "evaluated_logic": "responses['last_night_start'] == \"1\"" 
     },
     {
-        "field_name": "last_night_end_5",
+        "field_name": "last_night_end_6",
         "form_name": "last_night",
         "section_header": "Approximate the time when it stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
-            {
-                "code": "2",
-                "label": "02:00"
-            },
             {
                 "code": "3",
                 "label": "03:00"
@@ -413,8 +409,192 @@
                 "label": "I did not stop yet"
             }
         ],
-        "branching_logic": "last_night_start=\"1\"", 
+        "branching_logic": "last_night_start=\"2\"", 
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"1\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"2\"" 
     },
+    {
+        "field_name": "last_night_end_7",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"3\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"3\"" 
+    },
+    {
+        "field_name": "last_night_end_8",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"4\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"4\"" 
+    },
+    {
+        "field_name": "last_night_end_9",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"5\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"5\"" 
+    },
+    {
+        "field_name": "last_night_end_10",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"6\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"6\"" 
+    },
+    {
+        "field_name": "last_night_end_10",
+        "form_name": "last_night",
+        "section_header": "",
+        "field_type": "radio",
+        "field_label": "Did you stop? If not, report in the next question your consumption until now.",
+        "select_choices_or_calculations":[
+            {
+                "code": "7",
+                "label": "Yes, I stopped"
+            },
+            {
+                "code": "0",
+                "label": "No, I did not stop"
+            }
+        ],
+        "branching_logic": "last_night_start=\"7\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"7\"" 
+    },
+    {
+        "field_name": "last_night_quantity",
+        "form_name":"last_night",
+        "section_header": "1 Small Beer OR 1 Wine Glass OR 1 Shot = 1 Standard Unit || 1 Large Beer OR 1 Strong Beer = 2, Wine Glass = 1, Shot = 1, Cocktail = 2",
+        "field_type": "range",
+        "field_label": "How many Standard Units did you consume in the reported interval?",
+        "select_choices_or_calculations":[
+            {
+                "code": "1",
+                "label": "1"
+            },
+            {
+                "code": "2",
+                "label": "2"
+            },
+            {
+                "code": "3",
+                "label": "3"
+            },
+            {
+                "code": "4",
+                "label": "4"
+            },
+            {
+                "code": "5",
+                "label": "5"
+            },
+            {
+                "code": "6",
+                "label": "6"
+            },
+            {
+                "code": "7",
+                "label": "7"
+            },
+            {
+                "code": "8",
+                "label": "More"
+            }
+        ],
+        "branching_logic": "last_night_1=\"1\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_1'] == \"1\""
+    },
+    {
+        "field_name": "last_night_recall",
+        "form_name": "last_night",
+        "section_header": "Estimate your confidence in recalling the reported events. How well do you remember?",
+        "field_type": "slider",
+        "field_label": "How sure are you?",
+        "range":
+        {
+            "min": "0",
+            "max": "10",
+            "step": "1"
+        },
+        "branching_logic": "last_night_1=\"1\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_1'] == \"1\""
+    }
 ]

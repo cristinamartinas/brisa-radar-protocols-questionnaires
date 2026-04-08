@@ -1,0 +1,103 @@
+[
+  {
+    "field_name": "EMA_v1_mood",
+    "form_name": "EMA_v1",
+    "section_header": "Describe your feelings in this moment. What do you feel RIGHT NOW?",
+    "field_type": "matrix-radio",
+    "field_label": "How is your MOOD right now? Click on question for scale deails",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "1"
+      },
+      {
+        "code": "2",
+        "label": "2"
+      },
+      {
+        "code": "3",
+        "label": "3"
+      },
+      {
+        "code": "4",
+        "label": "4"
+      },
+      {
+        "code": "5",
+        "label": "5"
+      }
+    ],
+    "field_note": "1 - Very bad ; 5 - Very good",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "1",
+    "field_annotation": ""
+  },
+  {
+    "field_name": "EMA_v1_stress",
+    "form_name": "EMA_v1",
+    "field_type": "matrix-radio",
+    "field_label": "How STRESSED are you now? Click on question for scale deails.",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "1"
+      },
+      {
+        "code": "2",
+        "label": "2"
+      },
+      {
+        "code": "3",
+        "label": "3"
+      },
+      {
+        "code": "4",
+        "label": "4"
+      },
+      {
+        "code": "5",
+        "label": "5"
+      }
+    ],
+    "field_note": "1 - Not at all ; 5 - Very Stressed",
+    "required_field": "y",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "2"
+  },
+  {
+    "field_name": "EMA_v1_craving",
+    "form_name": "EMA_v1",
+    "field_type": "matrix-radio",
+    "field_label": "Craving - click on question for details.",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "1"
+      },
+      {
+        "code": "2",
+        "label": "2"
+      },
+      {
+        "code": "3",
+        "label": "3"
+      },
+      {
+        "code": "4",
+        "label": "4"
+      },
+      {
+        "code": "5",
+        "label": "5"
+      }
+    ],
+    "field_note": "Right now, are you thinking about consuming alcohol? 1 - Not at all; 5 - High Urge",
+    "required_field": "y",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "3"
+  }
+]
