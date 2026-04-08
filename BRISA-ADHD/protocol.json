@@ -1,5 +1,5 @@
 {
-  "version": "0.2.5",
+  "version": "0.2.6",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -16,11 +16,13 @@
       },
       "startText": 
       {
-        "en": "How are you feeling today?"
+        "en": "How are you feeling today?",
+        "nl": ""
       },
       "endText": 
       {
-        "en": "Thank you!"
+        "en": "Thank you!",
+        "nl": ""
       },
       "estimatedCompletionTime": 1,
       "protocol":
@@ -50,10 +52,12 @@
             },
             "notification": {
               "title": {
-                "en": "Don't forget the Daily EMA!"
+                "en": "Don't forget the Daily EMA!",
+                "nl": ""
               },
               "text": {
-                "en": "You only have one hour left. Please fill it in, it only takes 1 minute!"
+                "en": "You only have one hour left. Please fill it in, it only takes 1 minute!",
+                "nl": ""
               }
             }
           }
@@ -99,10 +103,12 @@
             },
             "notification": {
               "title": {
-                "en": "Daytime Report:"
+                "en": "Daytime Report:",
+                "nl": ""
               },
               "text": {
-                "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!"
+                "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!",
+                "nl": ""
               }
             }
           }
@@ -149,10 +155,12 @@
             },
             "notification": {
               "title": {
-                "en": "Night-time Report:"
+                "en": "Night-time Report:",
+                "nl": ""
               },
               "text": {
-                "en": "Make sure to fill in last night's events before the evening, even if you didn't consume anything!"
+                "en": "Make sure to fill in last night's events before the evening, even if you didn't consume anything!",
+                "nl": ""
               }
             }
           },
@@ -164,10 +172,12 @@
             },
             "notification": {
               "title": {
-                "en": "Last chance for the Night Report!"
+                "en": "Last chance for the Night Report!",
+                "nl": ""
               },
               "text": {
-                "en": "It's been a long time, but try to report the events from last night until this morning! Careful: don't include any events after 8AM."
+                "en": "It's been a long time, but try to report the events from last night until this morning! Careful: don't include any events after 8AM.",
+                "nl": ""
               }
             }
           }
