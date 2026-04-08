@@ -1,5 +1,5 @@
 {
-  "version": "0.2.4",
+  "version": "0.2.5",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -10,7 +10,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
         "name": "EMA",
         "avsc": "questionnaire"
       },
@@ -65,101 +65,117 @@
       }
     },
     {
-      "name": "Report: Last DAY",
-      "showIntroduction": true,
+      "name": "Daytime Report",
+      "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
         "name": "last_day",
         "avsc": "questionnaire"
       },
-      "startText": 
-      {
-        "en": "Consider the day that just passed (time between 08:00AM and 20:00PM)"
-      },
-      "endText": 
-      {
-        "en": "Thank you!"
-      },
+      "startText": {},
+      "endText": {},
       "warn": {},
       "estimatedCompletionTime": 1,
       "protocol": 
       {
         "repeatProtocol": 
         {
-          "unit": "min",
-          "amount": 3
+          "unit": "day",
+          "amount": 1
         },
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [0]
+          "unitsFromZero": [1200]
         },
         "reminders": 
-        {
-          "repeat": 0,
-          "amount": 0,
-          "unit": "min"
-        },
-        "notification": 
-        {
-          "title": { "en": "Survey available" },
-          "text": { "en": "A survey is available for you to complete." }
-        },
+        [
+          {
+            "offset": 
+            {
+              "unit": "min",
+              "amount": 120
+            },
+            "notification": {
+              "title": {
+                "en": "Daytime Report:"
+              },
+              "text": {
+                "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!"
+              }
+            }
+          }
+        ],
         "completionWindow": 
         {
-          "unit": "min",
-          "amount": 3
+          "unit": "hour",
+          "amount": 12
         }
       }
     },
     {
-      "name": "night consumption report",
-      "showIntroduction": true,
+      "name": "Night Report",
+      "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.4/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
         "name": "last_night",
         "avsc": "questionnaire"
       },
-      "startText": 
-      {
-        "en": "Consider the last night (time between 20:00PM yesterday and 08:00AM today)",
-        "nl": "..."
-      },
-      "endText": 
-      {
-        "en": "Thank you!"
-      },
+      "startText": {},
+      "endText": {},
       "warn": {},
       "estimatedCompletionTime": 1,
       "protocol": 
       {
         "repeatProtocol": 
         {
-          "unit": "min",
-          "amount": 3
+          "unit": "day",
+          "amount": 1
         },
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [0]
+          "unitsFromZero": [480]
         },
         "reminders": 
-        {
-          "repeat": 0,
-          "amount": 0,
-          "unit": "min"
-        },
-        "notification": 
-        {
-          "title": { "en": "Survey available" },
-          "text": { "en": "A survey is available for you to complete." }
-        },
+        [
+          {
+            "offset": 
+            {
+              "unit": "hour",
+              "amount": 3
+            },
+            "notification": {
+              "title": {
+                "en": "Night-time Report:"
+              },
+              "text": {
+                "en": "Make sure to fill in last night's events before the evening, even if you didn't consume anything!"
+              }
+            }
+          },
+          {
+            "offset": 
+            {
+              "unit": "hour",
+              "amount": 10
+            },
+            "notification": {
+              "title": {
+                "en": "Last chance for the Night Report!"
+              },
+              "text": {
+                "en": "It's been a long time, but try to report the events from last night until this morning! Careful: don't include any events after 8AM."
+              }
+            }
+          }
+        ],
         "completionWindow": 
         {
-          "unit": "min",
-          "amount": 3
+          "unit": "hour",
+          "amount": 12
         }
       }
     }

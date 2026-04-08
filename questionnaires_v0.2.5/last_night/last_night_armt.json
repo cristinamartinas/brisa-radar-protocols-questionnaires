@@ -15,7 +15,11 @@
                 "label": "Yes"
             }
         ],
-        "required_field": "y"
+        "required_field": "y",
+        "field_annotation": 
+            { 
+            "image":"https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/nightdrinking.png" 
+            }
     },
     {
         "field_name": "last_night_start",
