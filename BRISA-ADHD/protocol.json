@@ -1,5 +1,5 @@
 {
-  "version": "0.2.1",
+  "version": "0.3.0",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -27,7 +27,7 @@
           "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "day",
+          "unit": "min",
           "unitsFromZero": [0]
         },
         "reminders": {
@@ -68,7 +68,7 @@
           "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "day",
+          "unit": "min",
           "unitsFromZero": [0]
         },
         "reminders": {
