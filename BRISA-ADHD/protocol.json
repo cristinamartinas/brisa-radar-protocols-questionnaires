@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.2.1",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -19,29 +19,29 @@
       "endText": {
         "en": "Thank you!"
       },
-      "warn": "",
+      "warn": {},
       "estimatedCompletionTime": 1,
       "protocol": {
         "repeatProtocol": {
-          "unit": "days",
+          "unit": "day",
           "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "days",
+          "unit": "day",
           "unitsFromZero": [0]
         },
         "reminders": {
           "repeat": 0,
           "amount": 0,
-          "unit": "minutes"
-        },        
+          "unit": "min"
+        },
         "notification": {
           "title": { "en": "Survey available" },
           "text": { "en": "A survey is available for you to complete." }
         },
         "completionWindow": {
-          "unit": "minutes",
-          "amount": 2628000
+          "unit": "day",
+          "amount": 365
         }
       }
     },
@@ -60,29 +60,29 @@
       "endText": {
         "en": "That was a lot."
       },
-      "warn": "",
+      "warn": {},
       "estimatedCompletionTime": 5,
       "protocol": {
         "repeatProtocol": {
-          "unit": "days",
+          "unit": "day",
           "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "days",
+          "unit": "day",
           "unitsFromZero": [0]
         },
         "reminders": {
           "repeat": 0,
           "amount": 0,
-          "unit": "minutes"
-        },        
+          "unit": "min"
+        },
         "notification": {
           "title": { "en": "TestTestTEstTEST NOW" },
           "text": { "en": "A TEST test is available for you to complete." }
         },
         "completionWindow": {
-          "unit": "minutes",
-          "amount": 2628000
+          "unit": "day",
+          "amount": 365
         }
       }
     }
