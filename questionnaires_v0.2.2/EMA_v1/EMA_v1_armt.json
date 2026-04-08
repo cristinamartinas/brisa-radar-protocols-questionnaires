@@ -1,0 +1,123 @@
+[
+  {
+    "field_name": "EMA_v1_mood",
+    "form_name": "EMA_v1",
+    "section_header": "Describe your feelings at this moment.",
+    "field_type": "matrix-radio",
+    "field_label": "Mood",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "Very Bad"
+      },
+      {
+        "code": "2",
+        "label": "Bad"
+      },
+      {
+        "code": "3",
+        "label": "Neutral"
+      },
+      {
+        "code": "4",
+        "label": "Good"
+      },
+      {
+        "code": "5",
+        "label": "Very Good"
+      }
+    ],
+    "field_note": "How is your mood right now?",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "1",
+    "field_annotation": ""
+  },
+  {
+    "field_name": "EMA_v1_stress",
+    "form_name": "EMA_v1",
+    "section_header": "",
+    "field_type": "matrix-radio",
+    "field_label": "Stress Level",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "Very Relaxed"
+      },
+      {
+        "code": "2",
+        "label": "Relaxed"
+      },
+      {
+        "code": "3",
+        "label": "Neutral"
+      },
+      {
+        "code": "4",
+        "label": "Tense"
+      },
+      {
+        "code": "5",
+        "label": "Very Stressed"
+      }
+    ],
+    "field_note": "How stressed do you feel right now?",
+    "text_validation_type_or_show_slider_number": "",
+    "text_validation_min": "",
+    "text_validation_max": "",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "2",
+    "field_annotation": "",
+    "evaluated_logic": ""
+  },
+  {
+    "field_name": "EMA_v1_craving",
+    "form_name": "EMA_v1",
+    "section_header": "",
+    "field_type": "matrix-radio",
+    "field_label": "Craving",
+    "select_choices_or_calculations": [
+      {
+        "code": "1",
+        "label": "Not at all"
+      },
+      {
+        "code": "2",
+        "label": "Very Little"
+      },
+      {
+        "code": "3",
+        "label": "Manageable"
+      },
+      {
+        "code": "4",
+        "label": "Intense"
+      },
+      {
+        "code": "5",
+        "label": "High Urge"
+      }
+    ],
+    "field_note": "Right now, are you thinking about consuming alcohol?",
+    "text_validation_type_or_show_slider_number": "",
+    "text_validation_min": "",
+    "text_validation_max": "",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "3",
+    "field_annotation": "",
+    "evaluated_logic": ""
+  }
+]

@@ -1,0 +1,420 @@
+[
+    {
+        "field_name": "last_night_1",
+        "form_name": "last_night",
+        "section_header": "Consider the time from 20:00PM yesterday and 08:00AM today. PILOT: imagine this questionnaire is available between 08:00AM and 20:00PM",
+        "field_type": "radio",
+        "field_label": "Do you have anything to report?",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "No"
+            },
+            {
+                "code": "1",
+                "label": "Yes"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "last_night_start",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it started.",
+        "field_type": "radio",
+        "field_label": "When did you start?",
+        "select_choices_or_calculations":[
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            }
+        ],
+        "branching_logic": "last_night_1=\"1\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['daydrinking_check_initial'] == \"1\"" 
+    },
+    {
+        "field_name": "last_night_end_0",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"20\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"20\"" 
+    },
+    {
+        "field_name": "last_night_end_1",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"21\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"21\"" 
+    },
+    {
+        "field_name": "last_night_end_2",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"22\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"22\"" 
+    },
+    {
+        "field_name": "last_night_end_3",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "24",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"23\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"23\"" 
+    },
+    {
+        "field_name": "last_night_end_4",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"24\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"24\"" 
+    },
+    {
+        "field_name": "last_night_end_5",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"1\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"1\"" 
+    },
+    {
+        "field_name": "last_night_end_5",
+        "form_name": "last_night",
+        "section_header": "Approximate the time when it stopped.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations":[
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "0",
+                "label": "I did not stop yet"
+            }
+        ],
+        "branching_logic": "last_night_start=\"1\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_night_start'] == \"1\"" 
+    },
+]

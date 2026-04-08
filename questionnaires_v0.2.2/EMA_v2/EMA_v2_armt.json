@@ -1,0 +1,137 @@
+[
+    {
+    "field_name": "EMA_v2_mood_happy",
+    "form_name": "EMA_v2",
+    "section_header": "Describe your feelings at this moment.",
+    "field_type": "matrix-radio",
+    "field_label": "Happiness",
+    "select_choices_or_calculations": [
+        {
+        "code": "1",
+        "label": "0"
+        },
+        {
+        "code": "2",
+        "label": "1"
+        },
+        {
+        "code": "3",
+        "label": "2"
+        },
+        {
+        "code": "4",
+        "label": "3"
+        }
+    ],
+    "field_note": "How is your mood right now? 0 - Not happy at all ; 3 - Very happy",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "1",
+    "field_annotation": ""
+    },
+    {
+    "field_name": "EMA_v2_mood_sad",
+    "form_name": "EMA_v2",
+    "section_header": "Describe your feelings at this moment.",
+    "field_type": "matrix-radio",
+    "field_label": "Sadness",
+    "select_choices_or_calculations": [
+        {
+        "code": "1",
+        "label": "0"
+        },
+        {
+        "code": "2",
+        "label": "1"
+        },
+        {
+        "code": "3",
+        "label": "2"
+        },
+        {
+        "code": "4",
+        "label": "3"
+        }
+    ],
+    "field_note": "How is your mood right now? 0 - Not sad at all ; 3 - Very sad",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "2"
+    },
+    {
+    "field_name": "EMA_v2_stress",
+    "form_name": "EMA_v2",
+    "section_header": "",
+    "field_type": "matrix-radio",
+    "field_label": "Stress Level",
+    "select_choices_or_calculations": [
+        {
+        "code": "1",
+        "label": "0"
+        },
+        {
+        "code": "2",
+        "label": "1"
+        },
+        {
+        "code": "3",
+        "label": "2"
+        },
+        {
+        "code": "4",
+        "label": "3"
+        }
+    ],
+    "field_note": "How stressed do you feel right now? 0 - Not at all ; 3 - Very Stressed",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "3",
+    "field_annotation": ""
+    },
+    {
+    "field_name": "EMA_v2_craving",
+    "form_name": "EMA_v2",
+    "section_header": "",
+    "field_type": "matrix-radio",
+    "field_label": "Craving",
+    "select_choices_or_calculations": [
+        {
+        "code": "1",
+        "label": "0"
+        },
+        {
+        "code": "2",
+        "label": "1"
+        },
+        {
+        "code": "3",
+        "label": "2"
+        },
+        {
+        "code": "4",
+        "label": "3"
+        }
+    ],
+    "field_note": "Right now, are you thinking about consuming alcohol? 0 - Not at all; 3 - High Urge",
+    "identifier": "",
+    "branching_logic": "",
+    "required_field": "y",
+    "custom_alignment": "",
+    "question_number": "",
+    "matrix_group_name": "ema",
+    "matrix_ranking": "4",
+    "field_annotation": ""
+    }
+]

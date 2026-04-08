@@ -1,86 +1,154 @@
 {
-  "version": "0.2.1",
+  "version": "0.2.2",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
   "protocols": [
     {
-      "name": "EMA",
+      "name": "EMA_v1",
       "showIntroduction": true,
-      "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
-        "name": "EMA_daily",
+      "questionnaire": 
+      {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "name": "EMA_v1",
         "avsc": "questionnaire"
       },
-      "startText": {
+      "startText": 
+      {
         "en": "How are you feeling today?",
         "nl": "..."
       },
-      "endText": {
+      "endText": 
+      {
         "en": "Thank you!"
       },
       "warn": {},
       "estimatedCompletionTime": 1,
-      "protocol": {
-        "repeatProtocol": {
-          "unit": "day",
-          "amount": 1
+      "protocol": 
+      {
+        "repeatProtocol": 
+        {
+          "unit": "minutes",
+          "amount": 3
         },
-        "repeatQuestionnaire": {
+        "repeatQuestionnaire": 
+        {
           "unit": "min",
           "unitsFromZero": [0]
         },
-        "reminders": {
+        "reminders": 
+        {
           "repeat": 0,
           "amount": 0,
           "unit": "min"
         },
-        "notification": {
+        "notification": 
+        {
           "title": { "en": "Survey available" },
           "text": { "en": "A survey is available for you to complete." }
         },
-        "completionWindow": {
+        "completionWindow": 
+        {
           "unit": "day",
           "amount": 365
         }
       }
     },
     {
-      "name": "Questions Viz Test",
+      "name": "EMA_v2",
       "showIntroduction": true,
-      "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
-        "name": "test_1",
+      "questionnaire": 
+      {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "name": "EMA_v2",
         "avsc": "questionnaire"
       },
-      "startText": {
-        "en": "Let's see all different types of questions",
+      "startText": 
+      {
+        "en": "How are you feeling today?",
         "nl": "..."
       },
-      "endText": {
-        "en": "That was a lot."
+      "endText": 
+      {
+        "en": "Thank you!"
       },
       "warn": {},
-      "estimatedCompletionTime": 5,
-      "protocol": {
-        "repeatProtocol": {
-          "unit": "day",
-          "amount": 1
+      "estimatedCompletionTime": 1,
+      "protocol": 
+      {
+        "repeatProtocol": 
+        {
+          "unit": "minutes",
+          "amount": 3
         },
-        "repeatQuestionnaire": {
+        "repeatQuestionnaire": 
+        {
           "unit": "min",
           "unitsFromZero": [0]
         },
-        "reminders": {
+        "reminders": 
+        {
           "repeat": 0,
           "amount": 0,
           "unit": "min"
         },
-        "notification": {
-          "title": { "en": "TestTestTEstTEST NOW" },
-          "text": { "en": "A TEST test is available for you to complete." }
+        "notification": 
+        {
+          "title": { "en": "Survey available" },
+          "text": { "en": "A survey is available for you to complete." }
         },
-        "completionWindow": {
+        "completionWindow": 
+        {
+          "unit": "day",
+          "amount": 365
+        }
+      }
+    },
+    {
+      "name": "EMA_v3",
+      "showIntroduction": true,
+      "questionnaire": 
+      {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.2/",
+        "name": "EMA_v3",
+        "avsc": "questionnaire"
+      },
+      "startText": 
+      {
+        "en": "How are you feeling today?",
+        "nl": "..."
+      },
+      "endText": 
+      {
+        "en": "Thank you!"
+      },
+      "warn": {},
+      "estimatedCompletionTime": 1,
+      "protocol": 
+      {
+        "repeatProtocol": 
+        {
+          "unit": "minutes",
+          "amount": 3
+        },
+        "repeatQuestionnaire": 
+        {
+          "unit": "min",
+          "unitsFromZero": [0]
+        },
+        "reminders": 
+        {
+          "repeat": 0,
+          "amount": 0,
+          "unit": "min"
+        },
+        "notification": 
+        {
+          "title": { "en": "Survey available" },
+          "text": { "en": "A survey is available for you to complete." }
+        },
+        "completionWindow": 
+        {
           "unit": "day",
           "amount": 365
         }
