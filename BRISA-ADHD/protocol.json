@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -8,7 +8,7 @@
       "name": "EMA",
       "showIntroduction": true,
       "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/peyman-mohtashami/brissa-radar-protocols-questionnaires/master/questionnaires/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires",
         "name": "EMA_daily",
         "avsc": "questionnaire"
       },
@@ -17,159 +17,72 @@
         "nl": "..."
       },
       "endText": {
-        "en": "Thank you!",
-        "nl": "Bedankt!"
+        "en": "Thank you!"
       },
       "warn": "",
       "estimatedCompletionTime": 1,
       "protocol": {
         "repeatProtocol": {
-          "unit": "day",
-          "amount": 3
+          "unit": "days",
+          "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "min",
-          "unitsFromZero": [
-            480,
-            2280,
-            4080
-          ]
+          "unit": "days",
+          "unitsFromZero": [0]
         },
-        "reminders": [
-          {
-            "offset": {
-              "unit": "hour",
-              "amount": 1
-            },
-            "notification": {
-              "title": {
-                "en": "EMA reminder 1",
-                "nl": "EMA reminder 1"
-              },
-              "text": {
-                "en": "Fill in the questionnaire!",
-                "nl": "Fill in the questionnaire!"
-              }
-            }
-          },
-          {
-            "offset": {
-              "unit": "min",
-              "amount": 210
-            },
-            "notification": {
-              "title": {
-                "en": "EMA reminder 2",
-                "nl": "EMA reminder 2"
-              },
-              "text": {
-                "en": "Don't forget to fill in the questionnaire!",
-                "nl": "Don't forget to fill in the questionnaire!"
-              }
-            }
-          }
-        ],
+        "reminders": {
+          "repeat": 0,
+          "amount": 0,
+          "unit": "minutes"
+        },        
+        "notification": {
+          "title": { "en": "Survey available" },
+          "text": { "en": "A survey is available for you to complete." }
+        },
         "completionWindow": {
-          "unit": "hour",
-          "amount": 4
+          "unit": "minutes",
+          "amount": 99999999999999
         }
       }
     },
     {
-      "name": "Day Consumption Report",
-      "showIntroduction": false,
+      "name": "Questions Viz Test",
+      "showIntroduction": true,
       "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/peyman-mohtashami/brissa-radar-protocols-questionnaires/master/questionnaires/",
-        "name": "daydrinking_check",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires",
+        "name": "test_1",
         "avsc": "questionnaire"
       },
-      "startText": "",
+      "startText": {
+        "en": "Let's see all different types of questions",
+        "nl": "..."
+      },
       "endText": {
-        "en": "Thank you"
+        "en": "That was a lot."
       },
       "warn": "",
-      "estimatedCompletionTime": 1,
+      "estimatedCompletionTime": 5,
       "protocol": {
         "repeatProtocol": {
-          "unit": "day",
+          "unit": "days",
           "amount": 1
         },
         "repeatQuestionnaire": {
-          "unit": "min",
-          "unitsFromZero": [
-            1200
-          ]
+          "unit": "days",
+          "unitsFromZero": [0]
         },
-        "reminders": [
-          {
-            "offset": {
-              "unit": "hour",
-              "amount": 2
-            },
-            "notification": {
-              "title": {
-                "en": "Daydrinking Report",
-                "nl": "Daydrinking Report"
-              },
-              "text": {
-                "en": "Fill in the questionnaire!",
-                "nl": "Fill in the questionnaire!"
-              }
-            }
-          }
-        ],
+        "reminders": {
+          "repeat": 0,
+          "amount": 0,
+          "unit": "minutes"
+        },        
+        "notification": {
+          "title": { "en": "TestTestTEstTEST NOW" },
+          "text": { "en": "A TEST test is available for you to complete." }
+        },
         "completionWindow": {
-          "unit": "hour",
-          "amount": 12
-        }
-      }
-    },
-    {
-      "name": "Night Consumption Report",
-      "showIntroduction": false,
-      "questionnaire": {
-        "repository": "https://raw.githubusercontent.com/peyman-mohtashami/brissa-radar-protocols-questionnaires/master/questionnaires/",
-        "name": "nightdrinking_check",
-        "avsc": "questionnaire"
-      },
-      "startText": "",
-      "endText": {
-        "en": "Thank you"
-      },
-      "warn": "",
-      "estimatedCompletionTime": 1,
-      "protocol": {
-        "repeatProtocol": {
-          "unit": "day",
-          "amount": 1
-        },
-        "repeatQuestionnaire": {
-          "unit": "min",
-          "unitsFromZero": [
-            480
-          ]
-        },
-        "reminders": [
-          {
-            "offset": {
-              "unit": "hour",
-              "amount": 6
-            },
-            "notification": {
-              "title": {
-                "en": "Nightdrinking Report",
-                "nl": "Nigthdrinking Report"
-              },
-              "text": {
-                "en": "Fill in the questionnaire!",
-                "nl": "Fill in the questionnaire!"
-              }
-            }
-          }
-        ],
-        "completionWindow": {
-          "unit": "hour",
-          "amount": 12
+          "unit": "minutes",
+          "amount": 99999999999999
         }
       }
     }

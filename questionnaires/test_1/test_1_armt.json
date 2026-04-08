@@ -1,0 +1,166 @@
+[
+    {
+      "field_name": "q_info_screen",
+      "field_label": "Welcome to this demo questionnaire! \n\nThis survey demonstrates every available question type in the RADAR aRMT app. \n\nTap <b>Next</b> to begin.",
+      "field_type": "info-screen",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_descriptive",
+      "field_label": "<h3>Section 1: Text & Information</h3><p>The <em>descriptive</em> type renders static HTML text. It is used for section headers, instructions, or any informational content that does not require an answer.</p><p>This block supports <b>bold</b>, <i>italic</i>, and other basic HTML tags.</p>",
+      "field_type": "descriptive",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_text",
+      "field_label": "How would you describe how you are feeling today in your own words?",
+      "field_type": "text",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_radio",
+      "field_label": "Overall, how would you rate your mood right now?",
+      "field_type": "radio",
+      "required": false,
+      "select_choices_or_calculations": "1, Very low | 2, Low | 3, Neutral | 4, Good | 5, Very good",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_checkbox",
+      "field_label": "Which of the following symptoms have you experienced today? (Select all that apply)",
+      "field_type": "checkbox",
+      "required": false,
+      "select_choices_or_calculations": "1, Headache | 2, Fatigue | 3, Difficulty concentrating | 4, Irritability | 5, Muscle tension | 6, None of the above",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_slider",
+      "field_label": "On a scale from 0 to 100, how stressed do you feel right now?\n\n(0 = not at all stressed, 100 = extremely stressed)",
+      "field_type": "slider",
+      "required": false,
+      "select_choices_or_calculations": "0, 100",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_range_info",
+      "field_label": "How energetic do you feel?",
+      "field_type": "range-info",
+      "required": false,
+      "select_choices_or_calculations": "1, Not energetic at all | 2, Slightly energetic | 3, Moderately energetic | 4, Very energetic | 5, Extremely energetic",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_range_input",
+      "field_label": "How many hours of sleep did you get last night?",
+      "field_type": "range-input",
+      "required": false,
+      "select_choices_or_calculations": "0, 12",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_matrix_radio_header",
+      "field_label": "<h3>Section 2: Matrix Questions</h3><p>Rate each of the following aspects of your day on the same scale.</p>",
+      "field_type": "descriptive",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_matrix_radio_1",
+      "field_label": "Quality of your sleep last night",
+      "field_type": "matrix-radio",
+      "required": false,
+      "select_choices_or_calculations": "1, Very poor | 2, Poor | 3, Fair | 4, Good | 5, Very good",
+      "matrix_group_name": "daily_ratings",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_matrix_radio_2",
+      "field_label": "Quality of your diet today",
+      "field_type": "matrix-radio",
+      "required": false,
+      "select_choices_or_calculations": "1, Very poor | 2, Poor | 3, Fair | 4, Good | 5, Very good",
+      "matrix_group_name": "daily_ratings",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_matrix_radio_3",
+      "field_label": "Level of physical activity today",
+      "field_type": "matrix-radio",
+      "required": false,
+      "select_choices_or_calculations": "1, Very poor | 2, Poor | 3, Fair | 4, Good | 5, Very good",
+      "matrix_group_name": "daily_ratings",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_matrix_radio_4",
+      "field_label": "Social interaction quality today",
+      "field_type": "matrix-radio",
+      "required": false,
+      "select_choices_or_calculations": "1, Very poor | 2, Poor | 3, Fair | 4, Good | 5, Very good",
+      "matrix_group_name": "daily_ratings",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_date",
+      "field_label": "When did you last visit a healthcare provider?",
+      "field_type": "date",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_time",
+      "field_label": "At what time did you wake up this morning?",
+      "field_type": "time",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_audio_intro",
+      "field_label": "<h3>Section 3: Audio Recording</h3><p>The next question will ask you to make a short voice recording. Please find a quiet place before proceeding.</p>",
+      "field_type": "descriptive",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_audio",
+      "field_label": "Please read the following sentence aloud and record yourself:\n\n\"The quick brown fox jumps over the lazy dog near the riverbank on a sunny afternoon.\"",
+      "field_type": "audio",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_timed_test_intro",
+      "field_label": "<h3>Section 4: Timed Task</h3><p>The following is a timed test. You will be shown instructions and then asked to complete a task within a set time.</p><p>When you are ready, press <b>Next</b>.</p>",
+      "field_type": "descriptive",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_timed_test",
+      "field_label": "Tap the button as many times as you can in 30 seconds.",
+      "field_type": "timed-test",
+      "required": false,
+      "select_choices_or_calculations": "30",
+      "branching_logic": ""
+    },
+    {
+      "field_name": "q_end_screen",
+      "field_label": "Thank you for completing this demo questionnaire!\n\nYou have now seen all available question types in the RADAR aRMT app.",
+      "field_type": "info-screen",
+      "required": false,
+      "select_choices_or_calculations": "",
+      "branching_logic": ""
+    }
+]
