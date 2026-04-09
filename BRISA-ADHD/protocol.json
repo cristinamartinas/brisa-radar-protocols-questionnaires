@@ -1,5 +1,5 @@
 {
-  "version": "0.2.8",
+  "version": "0.2.9",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -10,7 +10,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.8/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.9/",
         "name": "EMA",
         "avsc": "questionnaire"
       },
@@ -22,7 +22,7 @@
       },
       "endText": 
       {
-        "en": "Thank you!",
+        "en": "",
         "nl": ""
       },
       "estimatedCompletionTime": 1,
@@ -72,7 +72,7 @@
       "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.8/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.9/",
         "name": "last_day",
         "avsc": "questionnaire"
       },
@@ -124,7 +124,7 @@
       "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.8/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.9/",
         "name": "last_night",
         "avsc": "questionnaire"
       },

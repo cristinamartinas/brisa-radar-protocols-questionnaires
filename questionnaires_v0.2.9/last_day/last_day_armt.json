@@ -8,7 +8,7 @@
     {
         "field_name": "last_day_1",
         "form_name": "last_day",
-        "section_header": "Consider the time between <b style='color:white;'>08:00AM and 20:00PM</b> of the day that just passed. Please indicate any later events in the Night-time Report.",
+        "section_header": "Consider the time between 08:00AM and 20:00PM of the day that just passed. Please indicate any later events in the Night-time Report.",
         "field_type": "radio",
         "field_label": "Do you have anything to report?",
         "select_choices_or_calculations": [
@@ -546,7 +546,7 @@
     {
         "field_name": "last_day_end_10",
         "form_name": "last_day",
-        "section_header": "Approximate the time when you had your last one..",
+        "section_header": "Approximate the time when you had your last one.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations":[
@@ -590,6 +590,7 @@
     {
         "field_name": "last_day_units",
         "form_name": "last_day",
+        "section_header": "",
         "field_type": "descriptive",
         "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/standard_drink.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Keep in mind!</h2><p style='text-align:center;'>Report your consumption in the next page.</p>",
         "branching_logic": "last_day_1=\"1\"",
