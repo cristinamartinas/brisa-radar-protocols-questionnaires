@@ -26,7 +26,7 @@
     {
         "field_name": "last_night_start",
         "form_name": "last_night",
-        "section_header": "Indicate the approximate time when you had the first alcohol unit",
+        "section_header": "Indicate the approximate time when you had the first alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you start?",
         "select_choices_or_calculations":[
@@ -544,20 +544,11 @@
         "evaluated_logic": "responses['last_night_start'] == \"7\"" 
     },
     {
-        "field_name": "last_night_units",
-        "form_name": "last_night",
-        "section_header":"Keep in mind",
-        "field_type": "descriptive",
-        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/standard_drink.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Report your consumption in the next page.</h2><p style='text-align:center;'></p>",
-        "branching_logic": "last_night_1=\"1\"",
-        "evaluated_logic": "responses['last_night_1'] == \"1\""
-    },
-    {
         "field_name": "last_night_quantity",
         "form_name":"last_night",
-        "section_header": "Check the previous page for conversion to Standard Units.",
+        "section_header": "How many Standard Units did you consume in the reported interval?",
         "field_type": "range",
-        "field_label": "How many Standard Units did you consume in the reported interval?",
+        "field_label": "<pre style='font-family:monospace;font-size:12px;'>1 Standard Unit:\n⠀⣀⣠⡤⣴⢴⡴⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠒⠨⠭⠭⢷⢦⠀\n⣏⠉⠉⣀⣤⡄⣠⣬⣩⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠈⡾⡄\n⢩⣿⣴⡟⣧⣽⣽⡯⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⡀⠀⠀⠀⠀⣀⡇\n⢸⣿⡟⠛⣿⡚⢻⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢏⡍⠉⠒⠊⠉⢩⠇\n⠸⣿⡆⠈⠀⠀⠀⢻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣷⣤⣀⡴⠃⠀\n⠀⢿⡟⠀⢀⠡⠁⣸⡏⠀⠀⣠⣤⣤⣤⣤⣤⡄⠀⠀⠀⠀⠈⣏⡏⠀⠀⠀\n⠀⠘⣿⡀⠀⠥⢴⣿⠃⠀⠀⣇⣀⣀⣀⣀⣀⡇⠀⠀⠀⠀⠀⡏⠇⠀⠀⠀\n⠀⠀⣿⡆⠀⠰⠸⣿⠀⠀⠀⢻⡍⠉⠉⠉⢹⡇⠀⠀⠀⠀⠀⣷⠀⠀⠀⠀\n⠀⢸⡿⡇⠀⠀⢁⣿⡀⠀⠀⢸⢷⣦⣤⣀⣼⠃⠀⠁⠀⠀⠀⡟⡀⠀⠀⠀\n⠀⠘⠿⢯⣹⣯⣽⠿⠃⠀⠀⠘⠚⠐⠂⠘⠛⠀⠀⠀⢴⣖⣚⣷⣟⣒⣶⠄\n330ml beer | 150ml wine | 40ml liquor</pre>",
         "select_choices_or_calculations":[
             {
                 "code": "1",
