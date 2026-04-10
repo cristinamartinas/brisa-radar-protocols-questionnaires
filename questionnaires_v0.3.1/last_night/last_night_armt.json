@@ -546,9 +546,9 @@
     {
         "field_name": "last_night_quantity",
         "form_name":"last_night",
-        "section_header": "How many Standard Units did you consume in the reported interval?",
+        "section_header": "1 Standard Unit:\n\uD83C\uDF7A 330ml beer | \uD83E\uDD43 40ml liquor | \uD83C\uDF77 150ml wine",
         "field_type": "range",
-        "field_label": "<pre style='font-family:monospace;font-size:12px;'>1 Standard Unit:\n⠀⣀⣠⡤⣴⢴⡴⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠒⠨⠭⠭⢷⢦⠀\n⣏⠉⠉⣀⣤⡄⣠⣬⣩⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠈⡾⡄\n⢩⣿⣴⡟⣧⣽⣽⡯⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⡀⠀⠀⠀⠀⣀⡇\n⢸⣿⡟⠛⣿⡚⢻⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢏⡍⠉⠒⠊⠉⢩⠇\n⠸⣿⡆⠈⠀⠀⠀⢻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣷⣤⣀⡴⠃⠀\n⠀⢿⡟⠀⢀⠡⠁⣸⡏⠀⠀⣠⣤⣤⣤⣤⣤⡄⠀⠀⠀⠀⠈⣏⡏⠀⠀⠀\n⠀⠘⣿⡀⠀⠥⢴⣿⠃⠀⠀⣇⣀⣀⣀⣀⣀⡇⠀⠀⠀⠀⠀⡏⠇⠀⠀⠀\n⠀⠀⣿⡆⠀⠰⠸⣿⠀⠀⠀⢻⡍⠉⠉⠉⢹⡇⠀⠀⠀⠀⠀⣷⠀⠀⠀⠀\n⠀⢸⡿⡇⠀⠀⢁⣿⡀⠀⠀⢸⢷⣦⣤⣀⣼⠃⠀⠁⠀⠀⠀⡟⡀⠀⠀⠀\n⠀⠘⠿⢯⣹⣯⣽⠿⠃⠀⠀⠘⠚⠐⠂⠘⠛⠀⠀⠀⢴⣖⣚⣷⣟⣒⣶⠄\n330ml beer | 150ml wine | 40ml liquor</pre>",
+        "field_label": "How many Standard Units did you consume in the reported interval?",
         "select_choices_or_calculations":[
             {
                 "code": "1",
