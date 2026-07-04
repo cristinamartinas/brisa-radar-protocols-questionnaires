@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.3.2",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
@@ -10,7 +10,7 @@
       "showIntroduction": true,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "EMA",
         "avsc": "questionnaire"
       },
@@ -22,7 +22,7 @@
       },
       "endText": 
       {
-        "en": "Thank you!",
+        "en": "",
         "nl": ""
       },
       "estimatedCompletionTime": 1,
@@ -31,16 +31,14 @@
         "repeatProtocol": 
         {
           "unit": "day",
-          "amount": 3
+          "amount": 1
         },
         "repeatQuestionnaire": 
         {
             "unit": "min",
             "unitsFromZero": 
             [
-              480,
-              2280,
-              4080
+              0, 1, 2, 3, 4, 5, 6
             ]
         },
         "reminders": 
@@ -49,7 +47,7 @@
             "offset": 
             {
               "unit": "min",
-              "amount": 210
+              "amount": 0
             },
             "notification": {
               "title": {
@@ -65,7 +63,7 @@
         ],
         "completionWindow": {
           "unit": "hour",
-          "amount": 4
+          "amount": 24
         }
       }
     },
@@ -74,7 +72,7 @@
       "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "last_day",
         "avsc": "questionnaire"
       },
@@ -92,7 +90,7 @@
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [1200]
+          "unitsFromZero": [1, 2, 3, 4, 5, 6, 7, 8]
         },
         "reminders": 
         [
@@ -100,7 +98,7 @@
             "offset": 
             {
               "unit": "min",
-              "amount": 120
+              "amount": 0
             },
             "notification": {
               "title": {
@@ -117,7 +115,7 @@
         "completionWindow": 
         {
           "unit": "hour",
-          "amount": 12
+          "amount": 24
         }
       }
     },
@@ -126,7 +124,7 @@
       "showIntroduction": false,
       "questionnaire": 
       {
-        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires_v0.2.5/",
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "last_night",
         "avsc": "questionnaire"
       },
@@ -144,7 +142,7 @@
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [480]
+          "unitsFromZero": [0,1,2,3,4,5,6,7]
         },
         "reminders": 
         [
@@ -152,7 +150,7 @@
             "offset": 
             {
               "unit": "hour",
-              "amount": 3
+              "amount": 0
             },
             "notification": {
               "title": {
@@ -169,7 +167,7 @@
             "offset": 
             {
               "unit": "hour",
-              "amount": 10
+              "amount": 0
             },
             "notification": {
               "title": {
@@ -186,7 +184,7 @@
         "completionWindow": 
         {
           "unit": "hour",
-          "amount": 12
+          "amount": 24
         }
       }
     }
