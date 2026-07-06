@@ -1,0 +1,75 @@
+// Shakes & Fidget–style idle RPG schema.
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// A player account. One account owns one hero (for now).
+model Player {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  character Character?
+}
+
+/// The hero the player controls. All progression lives here.
+/// IMPORTANT: every number in this model is written only by server-side
+/// game logic — the browser never sets stats directly (anti-cheat).
+model Character {
+  id           String   @id @default(cuid())
+  player       Player   @relation(fields: [playerId], references: [id])
+  playerId     String   @unique
+
+  name         String
+  class        String   // WARRIOR | MAGE | SCOUT
+
+  level        Int      @default(1)
+  experience   Int      @default(0)
+  gold         Int      @default(100)
+  mushrooms    Int      @default(10) // premium currency, S&F flavour
+
+  // Core attributes
+  strength     Int      @default(10)
+  dexterity    Int      @default(10)
+  intelligence Int      @default(10)
+  constitution Int      @default(10)
+  luck         Int      @default(5)
+
+  arenaWins    Int      @default(0)
+  arenaLosses  Int      @default(0)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  questLogs    QuestLog[]
+  battleLogs   BattleLog[]
+}
+
+/// History of completed quests (the idle "go adventure for a while" loop).
+model QuestLog {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  title       String
+  goldReward  Int
+  xpReward    Int
+  createdAt   DateTime  @default(now())
+}
+
+/// History of arena (PvP) fights, including a JSON blow-by-blow log.
+model BattleLog {
+  id           String    @id @default(cuid())
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId  String
+  opponentName String
+  won          Boolean
+  goldChange   Int
+  rounds       String    // JSON-encoded array of round descriptions
+  createdAt    DateTime  @default(now())
+}

@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --background: #1a120b;
+  --surface: #2b1d12;
+  --surface-2: #3a2817;
+  --border: #5c3d21;
+  --foreground: #f3e5d0;
+  --muted: #b99b78;
+  --gold: #e8b923;
+  --accent: #c0392b;
+  --good: #6ab04c;
+  --bad: #eb4d4b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-accent: var(--accent);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #3a2817 0%, transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* A little parchment-panel helper. */
+.panel {
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
