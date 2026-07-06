@@ -12,9 +12,13 @@ import {
   randomOpponent,
   generateShopStock,
   getQuestLength,
+  getDungeon,
+  generateBoss,
+  dungeonReward,
   type CharClass,
   type Progression,
 } from "@/lib/game";
+import type { Prisma } from "@/generated/prisma/client";
 
 export interface ActionResult {
   ok: boolean;
@@ -255,6 +259,131 @@ export async function fightArena(): Promise<ActionResult> {
     : `${foe.name} bested you. ${goldChange} gold`;
   if (xpGain) message += `, +${xpGain} XP`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
+  return { ok: true, message };
+}
+
+// ---------------------------------------------------------------------------
+// Dungeons: fight the next floor's boss
+// ---------------------------------------------------------------------------
+
+export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
+  const character = await loadCharacter();
+  if (!character) return { ok: false, message: "No hero found." };
+
+  const dungeon = getDungeon(dungeonKey);
+  if (!dungeon) return { ok: false, message: "Unknown dungeon." };
+
+  const progress = character.dungeons.find((d) => d.dungeonKey === dungeonKey);
+  const floor = progress?.floor ?? 1;
+  if (progress?.clearedAt || floor > dungeon.floors) {
+    return { ok: false, message: `${dungeon.name} is already cleared. 🏅` };
+  }
+
+  const boss = generateBoss(dungeon, floor);
+  const result = resolveBattle(toFighter(character, character.items), boss);
+  const label = `${dungeon.emoji} ${boss.name} — ${dungeon.name} floor ${floor}`;
+
+  const ops: Prisma.PrismaPromise<unknown>[] = [];
+
+  if (!result.won) {
+    ops.push(
+      prisma.battleLog.create({
+        data: {
+          characterId: character.id,
+          opponentName: label,
+          won: false,
+          goldChange: 0,
+          rounds: JSON.stringify(result.rounds),
+        },
+      }),
+    );
+    await prisma.$transaction(ops);
+    revalidatePath("/");
+    return {
+      ok: true,
+      message: `${boss.name} defeated you on floor ${floor}. Regroup and try again!`,
+    };
+  }
+
+  // Victory: reward, possible loot, and advance the run.
+  const reward = dungeonReward(dungeon, floor);
+
+  const progression: Progression = {
+    class: character.class as CharClass,
+    level: character.level,
+    experience: character.experience + reward.xp,
+    strength: character.strength,
+    dexterity: character.dexterity,
+    intelligence: character.intelligence,
+    constitution: character.constitution,
+    luck: character.luck,
+  };
+  const levels = applyLevelUps(progression);
+
+  const nextFloor = floor + 1;
+  const cleared = nextFloor > dungeon.floors;
+
+  ops.push(
+    prisma.character.update({
+      where: { id: character.id },
+      data: {
+        gold: character.gold + reward.gold,
+        experience: progression.experience,
+        level: progression.level,
+        strength: progression.strength,
+        dexterity: progression.dexterity,
+        intelligence: progression.intelligence,
+        constitution: progression.constitution,
+        luck: progression.luck,
+        battleLogs: {
+          create: {
+            opponentName: label,
+            won: true,
+            goldChange: reward.gold,
+            rounds: JSON.stringify(result.rounds),
+          },
+        },
+      },
+    }),
+    prisma.dungeonProgress.upsert({
+      where: {
+        characterId_dungeonKey: {
+          characterId: character.id,
+          dungeonKey,
+        },
+      },
+      create: {
+        characterId: character.id,
+        dungeonKey,
+        floor: nextFloor,
+        clearedAt: cleared ? new Date() : null,
+      },
+      update: {
+        floor: nextFloor,
+        clearedAt: cleared ? new Date() : null,
+      },
+    }),
+  );
+
+  if (reward.loot) {
+    ops.push(
+      prisma.item.create({
+        data: {
+          ...reward.loot,
+          characterId: character.id,
+          location: "INVENTORY",
+        },
+      }),
+    );
+  }
+
+  await prisma.$transaction(ops);
+  revalidatePath("/");
+
+  let message = `Floor ${floor} cleared! +${reward.gold} gold, +${reward.xp} XP`;
+  if (reward.loot) message += ` — loot: ${reward.loot.name}! 🎁`;
+  if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
+  if (cleared) message += ` You have conquered ${dungeon.name}! 🏅`;
   return { ok: true, message };
 }
 

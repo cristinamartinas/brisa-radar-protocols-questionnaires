@@ -65,13 +65,17 @@ second hero's arena fights will match against the first. That's the real PvP.
   randomised gear (Common → Legendary, scaled to level). Buy with gold, equip
   into weapon/armor/amulet slots for stat bonuses, sell what you don't need.
   Refresh the stock to reroll the offers.
+- **Dungeons** — staged PvE. Three dungeons (Goblin Warren → Whispering Crypt →
+  Dragon's Keep) with escalating bosses. Fight one floor at a time; winning
+  advances you and pays gold + XP with a chance at loot (the final boss always
+  drops), losing sends you back to regroup. Fights use your equipped gear and
+  are recorded in the Battle Chronicle.
 - **Hall of Fame** — top heroes by level.
 
 ## Ideas for where to take it next
 
 - **Auth** — replace the cookie session with NextAuth/Auth.js for real accounts.
 - **Guilds** — a `Guild` model + shared raids.
-- **Dungeons** — staged multi-fight PvE with boss rewards.
 - **Postgres** — swap the SQLite datasource for Postgres (Neon/Supabase) to
   deploy on Vercel.
 

@@ -456,6 +456,122 @@ export function effectiveAttributes(
 }
 
 // ---------------------------------------------------------------------------
+// Dungeons: staged PvE with escalating bosses and loot
+// ---------------------------------------------------------------------------
+
+export interface DungeonDef {
+  key: string;
+  name: string;
+  emoji: string;
+  floors: number;
+  baseLevel: number;
+  difficulty: number;
+  bossNames: string[];
+}
+
+export const DUNGEONS: DungeonDef[] = [
+  {
+    key: "warren",
+    name: "The Goblin Warren",
+    emoji: "🕳️",
+    floors: 8,
+    baseLevel: 1,
+    difficulty: 1.0,
+    bossNames: [
+      "Snaggletooth",
+      "Grubby the Biter",
+      "Warboss Nix",
+      "The Big Goblin",
+      "Mudfang",
+    ],
+  },
+  {
+    key: "crypt",
+    name: "The Whispering Crypt",
+    emoji: "⚰️",
+    floors: 10,
+    baseLevel: 5,
+    difficulty: 1.3,
+    bossNames: [
+      "Bonelord Achmet",
+      "The Weeping Wraith",
+      "Countess Morlyn",
+      "Skeleton King",
+      "The Lich's Errand-Boy",
+    ],
+  },
+  {
+    key: "keep",
+    name: "The Dragon's Keep",
+    emoji: "🐲",
+    floors: 12,
+    baseLevel: 12,
+    difficulty: 1.7,
+    bossNames: [
+      "Embermaw",
+      "Sir Cinderbane",
+      "The Ashen Knight",
+      "Vyrmalax the Greedy",
+      "The Molten Warden",
+    ],
+  },
+];
+
+export function getDungeon(key: string): DungeonDef | undefined {
+  return DUNGEONS.find((d) => d.key === key);
+}
+
+/** Build a dungeon boss for a given floor. The final floor is markedly tougher. */
+export function generateBoss(dungeon: DungeonDef, floor: number): Fighter {
+  const level = Math.max(1, dungeon.baseLevel + floor - 1);
+  const isFinal = floor >= dungeon.floors;
+  const cls = pick(CLASSES);
+  const bump = isFinal ? 1.25 : 1;
+  const stat = (base: number) =>
+    Math.round((base + (level - 1) * 3) * dungeon.difficulty * bump);
+
+  return {
+    name: (isFinal ? "👑 " : "") + pick(dungeon.bossNames),
+    class: cls.id,
+    level,
+    strength: stat(cls.base.strength),
+    dexterity: stat(cls.base.dexterity),
+    intelligence: stat(cls.base.intelligence),
+    constitution: stat(cls.base.constitution),
+    luck: stat(cls.base.luck),
+  };
+}
+
+export interface DungeonReward {
+  gold: number;
+  xp: number;
+  loot: ItemDraft | null;
+}
+
+/** Compute the spoils for clearing a floor, including a chance at loot. */
+export function dungeonReward(dungeon: DungeonDef, floor: number): DungeonReward {
+  const level = Math.max(1, dungeon.baseLevel + floor - 1);
+  const isFinal = floor >= dungeon.floors;
+
+  const gold = Math.round((15 * level + floor * 8) * dungeon.difficulty);
+  const xp = Math.round(25 * level + floor * 12);
+
+  // Loot chance climbs with depth; the final boss always drops something good.
+  const dropChance = 0.3 + (floor / dungeon.floors) * 0.25;
+  let loot: ItemDraft | null = null;
+  if (isFinal || Math.random() < dropChance) {
+    loot = generateItem(level);
+    if (isFinal) {
+      // Keep the better of two rolls for the final boss.
+      const alt = generateItem(level);
+      if (alt.price > loot.price) loot = alt;
+    }
+  }
+
+  return { gold, xp, loot };
+}
+
+// ---------------------------------------------------------------------------
 // Opponent generation (used when there is no other real player to fight yet)
 // ---------------------------------------------------------------------------
 

@@ -8,6 +8,7 @@ import {
   unequipItem,
   sellItem,
   refreshShop,
+  raidDungeon,
 } from "@/lib/actions";
 import {
   getClass,
@@ -17,6 +18,7 @@ import {
   getRarity,
   SLOTS,
   QUEST_LENGTHS,
+  DUNGEONS,
   type Attributes,
 } from "@/lib/game";
 import { CreateHero } from "@/components/CreateHero";
@@ -360,6 +362,67 @@ export default async function Home() {
             })}
           </div>
         )}
+      </section>
+
+      {/* Dungeons */}
+      <section className="panel mt-6 p-5">
+        <h3 className="mb-1 font-black text-gold">🗝️ Dungeons</h3>
+        <p className="mb-3 text-sm text-muted">
+          Descend one floor at a time. Bosses get tougher — and drop better loot.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {DUNGEONS.map((d) => {
+            const prog = character.dungeons.find((p) => p.dungeonKey === d.key);
+            const floor = prog?.floor ?? 1;
+            const cleared = !!prog?.clearedAt || floor > d.floors;
+            const done = cleared ? d.floors : floor - 1;
+            const pct = Math.round((done / d.floors) * 100);
+            return (
+              <div key={d.key} className="flex flex-col rounded-lg bg-surface p-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{d.emoji}</span>
+                  <div>
+                    <div className="font-bold leading-tight">{d.name}</div>
+                    <div className="text-xs text-muted">
+                      Suggested Lv {d.baseLevel}+ · {d.floors} floors
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-3 mb-1 flex justify-between text-xs text-muted">
+                  <span>{cleared ? "Cleared" : `Floor ${floor} of ${d.floors}`}</span>
+                  <span>
+                    {done}/{d.floors}
+                  </span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-surface-2">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${pct}%`,
+                      background: cleared ? "var(--good)" : "var(--gold)",
+                    }}
+                  />
+                </div>
+
+                <div className="mt-3">
+                  {cleared ? (
+                    <div className="rounded-lg bg-surface-2 px-3 py-2 text-center text-sm font-semibold text-good">
+                      🏅 Conquered
+                    </div>
+                  ) : (
+                    <ActionButton
+                      action={raidDungeon.bind(null, d.key)}
+                      className="w-full bg-accent text-white"
+                    >
+                      Fight Floor {floor} ⚔️
+                    </ActionButton>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* History */}

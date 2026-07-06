@@ -51,6 +51,21 @@ model Character {
   battleLogs   BattleLog[]
   items        Item[]
   activeQuest  ActiveQuest?
+  dungeons     DungeonProgress[]
+}
+
+/// How far a hero has descended into a given dungeon. `floor` is the next
+/// floor to attempt; when it passes the dungeon's floor count the run is
+/// cleared (`clearedAt` is stamped).
+model DungeonProgress {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  dungeonKey  String
+  floor       Int       @default(1)
+  clearedAt   DateTime?
+
+  @@unique([characterId, dungeonKey])
 }
 
 /// A quest currently in progress. A hero can have at most one at a time; the

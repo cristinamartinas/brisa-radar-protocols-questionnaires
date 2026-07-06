@@ -21,6 +21,7 @@ export async function loadCharacter() {
     include: {
       items: true,
       activeQuest: true,
+      dungeons: true,
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },
       battleLogs: { orderBy: { createdAt: "desc" }, take: 8 },
     },
