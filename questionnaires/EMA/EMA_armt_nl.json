@@ -1,0 +1,117 @@
+[
+    {
+    "field_name": "EMA_mood",
+    "form_name": "EMA",
+    "section_header": "Omschrijf in dit moment je gevoelens. Denk aan je huidige gemoedstoestand.",
+    "field_type": "range",
+    "field_label": "Algehele stemming",
+    "select_choices_or_calculations": [
+        {
+        "code": "0",
+        "label": "Erg slecht"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": "Neutraal"
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "Heel goed"
+    }
+    ],
+    "required_field": "y"
+    },
+    {
+    "field_name": "EMA_stress",
+    "form_name": "EMA",
+    "section_header": "Denk alleen aan hoe je je nu voelt. Denk eens na over hoe gespannen of bezorgd je je op dit moment voelt.",
+    "field_type": "range",
+    "field_label": "Stressniveau",
+    "select_choices_or_calculations": [
+    {
+        "code": "0",
+        "label": "Helemaal niet"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": ""
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "Erg gestrest"
+    }
+    ],
+    "required_field": "y"
+    },
+    {
+    "field_name": "EMA_craving",
+    "form_name": "EMA",
+    "section_header": "Denk je aan consumptie? Voel je je op dit moment door een innerlijke drang aangedreven?",
+    "field_type": "range",
+    "field_label": "Smachten",
+    "select_choices_or_calculations": [
+    {
+        "code": "0",
+        "label": "Geen  verlangen naar"
+    },
+    {
+        "code": "1",
+        "label": ""
+    },
+    {
+        "code": "2",
+        "label": ""
+    },
+    {
+        "code": "3",
+        "label": ""
+    },
+    {
+        "code": "4",
+        "label": ""
+    },
+    {
+        "code": "5",
+        "label": ""
+    },
+    {
+        "code": "6",
+        "label": "Sterke drang"
+    }
+    ],
+    "field_note": "Denk er je op dit moment over na om alcohol te nuttigen?",
+    "required_field": "y"
+    }
+]

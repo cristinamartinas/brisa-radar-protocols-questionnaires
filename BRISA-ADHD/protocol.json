@@ -1,12 +1,12 @@
 {
-  "version": "0.4.1",
+  "version": "0.4.4",
   "schemaVersion": "0.0.2",
   "name": "BRISA-ADHD",
   "healthIssues": "",
   "protocols": 
   [
     {
-      "name": "Daily EMA",
+      "name": "EMA",
       "showIntroduction": true,
       "questionnaire": 
       {
@@ -18,7 +18,7 @@
       "startText": 
       {
         "en": "How are you feeling today?",
-        "nl": ""
+        "nl": "Hoe voel je je vandaag?"
       },
       "endText": 
       {
@@ -52,11 +52,11 @@
             "notification": {
               "title": {
                 "en": "Don't forget the Daily EMA!",
-                "nl": ""
+                "nl": "Vergeet de dagelijkse EMA niet!"
               },
               "text": {
                 "en": "You only have one hour left. Please fill it in, it only takes 1 minute!",
-                "nl": ""
+                "nl": "Je hebt nog maar een uur de tijd. Vul het alsjeblieft in, het duurt maar 1 minuut!"
               }
             }
           }
@@ -68,7 +68,7 @@
       }
     },
     {
-      "name": "Daytime Report",
+      "name": "Dag Rapportage",
       "showIntroduction": false,
       "questionnaire": 
       {
@@ -103,7 +103,7 @@
             "notification": {
               "title": {
                 "en": "Daytime Report:",
-                "nl": ""
+                "nl": "Dag Rapportage:"
               },
               "text": {
                 "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!",

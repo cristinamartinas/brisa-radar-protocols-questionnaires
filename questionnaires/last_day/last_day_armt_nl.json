@@ -1,0 +1,650 @@
+[
+    {
+        "field_name": "last_day_intro",
+        "form_name": "last_day",
+        "field_type": "descriptive",
+        "field_label": "<img src='https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/assets/imgs/daydrinking.png' style='width:100%'/><h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Dag Rapportage</h2><p style='text-align:center;'>Denk aan de periode tussen <b style='color:white;'>8:00u en 20:00u vandaag</b></p>"
+    },
+    {
+        "field_name": "last_day_1",
+        "form_name": "last_day",
+        "section_header": "Denk eens na over al je consumptie tussen 8:00u en 20:00u vandaag",
+        "field_type": "radio",
+        "field_label": "Heb je consumptie te melden?",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "Nee"
+            },
+            {
+                "code": "1",
+                "label": "Ja"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "last_day_start",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het eerste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je begonnen?",
+        "select_choices_or_calculations":[
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            }
+        ],
+        "branching_logic": "last_day_1=\"1\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_1'] == \"1\"" 
+    },
+    {
+        "field_name": "last_day_end_0",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"8\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"8\"" 
+    },
+    {
+        "field_name": "last_day_end_1",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"9\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"9\"" 
+    },
+    {
+        "field_name": "last_day_end_2",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"10\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"10\"" 
+    },
+    {
+        "field_name": "last_day_end_3",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"11\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"11\"" 
+    },
+    {
+        "field_name": "last_day_end_4",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"12\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"12\"" 
+    },
+    {
+        "field_name": "last_day_end_5",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"13\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"13\"" 
+    },
+    {
+        "field_name": "last_day_end_6",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"14\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"14\"" 
+    },
+    {
+        "field_name": "last_day_end_7",
+        "form_name": "last_day",
+        "section_header": "Approximate the time when you stopped.",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"15\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"15\"" 
+    },
+    {
+        "field_name": "last_day_end_8",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"16\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"16\"" 
+    },
+    {
+        "field_name": "last_day_end_9",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"17\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"17\"" 
+    },
+    {
+        "field_name": "last_day_end_10",
+        "form_name": "last_day",
+        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations":[
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"18\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"18\"" 
+    },
+    {
+        "field_name": "last_day_end_11",
+        "form_name": "last_day",
+        "section_header": "",
+        "field_type": "radio",
+        "field_label": "Ben je gestopt? Zo niet, geef bij de volgende vraag aan hoevel je tot nu toe hebt genuttigd.",
+        "select_choices_or_calculations":[
+            {
+                "code": "0",
+                "label": "Ik ben niet gestopt"
+            },
+            {
+                "code": "20",
+                "label": "Ja ik ben gestopt"
+            }
+        ],
+        "branching_logic": "last_day_start=\"19\"", 
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_start'] == \"19\"" 
+    },
+    {
+        "field_name": "last_day_quantity",
+        "form_name":"last_day",
+        "section_header": "1 Standard Eenheid:\n\uD83C\uDF7A 250ml bier| \uD83E\uDD43 35ml sterk| \uD83C\uDF77 100ml wijn",
+        "field_type": "range",
+        "field_label": "Hoeveel  eenheden heb je in de aangegeven periode genuttigd?",
+        "select_choices_or_calculations":[
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": ""
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": ""
+            },
+            {
+                "code": "7",
+                "label": ""
+            },
+            {
+                "code": "8",
+                "label": "(8 or more)"
+            }
+        ],
+        "branching_logic": "last_day_1=\"1\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_1'] == \"1\""
+    },
+    {
+        "field_name": "last_day_recall",
+        "form_name": "last_day",
+        "section_header": "Hoe hoog schat je de betrouwbaarheid van de beschreven gebeurtenissen in? Hoe goed kunt je het herrineren?",
+        "field_type": "slider",
+        "field_label": "Hoe zeker ben je?",
+        "range":
+        {
+            "min": "0",
+            "max": "10",
+            "step": "1"
+        },
+        "branching_logic": "last_day_1=\"1\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['last_day_1'] == \"1\""
+    }
+]
