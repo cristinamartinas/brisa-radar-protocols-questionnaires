@@ -2,10 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
-import { getPlayerId, setPlayerId, clearPlayer } from "@/lib/session";
+import { getSessionToken, clearSession } from "@/lib/session";
 import { loadCharacter, toFighter, guildGoldMultiplier } from "@/lib/data";
 import {
-  getClass,
   rollQuest,
   applyLevelUps,
   resolveBattle,
@@ -23,64 +22,6 @@ import type { Prisma } from "@/generated/prisma/client";
 export interface ActionResult {
   ok: boolean;
   message: string;
-}
-
-// ---------------------------------------------------------------------------
-// Create a hero
-// ---------------------------------------------------------------------------
-
-export async function createCharacter(
-  _prev: ActionResult | null,
-  formData: FormData,
-): Promise<ActionResult> {
-  const name = String(formData.get("name") ?? "").trim();
-  const cls = String(formData.get("class") ?? "") as CharClass;
-
-  if (name.length < 2 || name.length > 20) {
-    return { ok: false, message: "Name must be 2–20 characters." };
-  }
-  if (!["WARRIOR", "MAGE", "SCOUT"].includes(cls)) {
-    return { ok: false, message: "Please choose a class." };
-  }
-
-  const existing = await prisma.player.findUnique({ where: { name } });
-  if (existing) {
-    return { ok: false, message: "That name is already taken, hero." };
-  }
-
-  const base = getClass(cls).base;
-  const player = await prisma.player.create({
-    data: {
-      name,
-      character: {
-        create: {
-          name,
-          class: cls,
-          strength: base.strength,
-          dexterity: base.dexterity,
-          intelligence: base.intelligence,
-          constitution: base.constitution,
-          luck: base.luck,
-        },
-      },
-    },
-    include: { character: true },
-  });
-
-  // Stock the hero's personal Magic Shop with a starting selection.
-  if (player.character) {
-    await prisma.item.createMany({
-      data: generateShopStock(1).map((it) => ({
-        ...it,
-        characterId: player.character!.id,
-        location: "SHOP",
-      })),
-    });
-  }
-
-  await setPlayerId(player.id);
-  revalidatePath("/");
-  return { ok: true, message: `Welcome to the realm, ${name}!` };
 }
 
 // ---------------------------------------------------------------------------
@@ -580,12 +521,14 @@ export async function leaveGuild(): Promise<void> {
 // ---------------------------------------------------------------------------
 
 export async function abandonHero(): Promise<void> {
-  const pid = await getPlayerId();
-  if (pid) {
+  const token = await getSessionToken();
+  if (!token) return;
+  const player = await prisma.player.findUnique({ where: { sessionToken: token } });
+  if (player) {
     // Delete the character first (its logs cascade), then the player row.
-    await prisma.character.deleteMany({ where: { playerId: pid } });
-    await prisma.player.deleteMany({ where: { id: pid } });
-    await clearPlayer();
+    await prisma.character.deleteMany({ where: { playerId: player.id } });
+    await prisma.player.deleteMany({ where: { id: player.id } });
+    await clearSession();
   }
   revalidatePath("/");
 }

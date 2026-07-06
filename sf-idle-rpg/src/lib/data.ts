@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { getPlayerId } from "@/lib/session";
+import { getSessionToken } from "@/lib/session";
 import {
   effectiveAttributes,
   type Attributes,
@@ -11,13 +11,13 @@ export type CharacterWithLogs = NonNullable<
   Awaited<ReturnType<typeof loadCharacter>>
 >;
 
-/** Load the current browser's hero along with gear and recent history. */
+/** Load the current session's hero along with gear and recent history. */
 export async function loadCharacter() {
-  const pid = await getPlayerId();
-  if (!pid) return null;
+  const token = await getSessionToken();
+  if (!token) return null;
 
-  return prisma.character.findUnique({
-    where: { playerId: pid },
+  return prisma.character.findFirst({
+    where: { player: { sessionToken: token } },
     include: {
       items: true,
       activeQuest: true,

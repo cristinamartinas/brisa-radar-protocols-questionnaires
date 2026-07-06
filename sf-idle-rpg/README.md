@@ -21,16 +21,20 @@ edit their stats in devtools. This project is built that way from day one:
   imported *only* by server actions. The browser never decides what you earn.
 - Mutations go through **server actions** (`src/lib/actions.ts`) that re-read the
   hero from the database by session, never trusting numbers from the client.
+- **Accounts** (`src/lib/auth.ts`): register/login with bcrypt-hashed passwords
+  and a random per-session token stored on the account row and mirrored in an
+  httpOnly cookie — so a hero is tied to credentials, not to a browser.
 
 ## Project layout
 
 ```
 prisma/schema.prisma     # Player, Character, QuestLog, BattleLog
 src/lib/game.ts          # pure game rules: classes, stats, quests, combat  (server-only)
-src/lib/actions.ts       # server actions: createCharacter, goOnQuest, fightArena, abandonHero
-src/lib/data.ts          # read helpers: loadCharacter, loadLeaderboard
+src/lib/actions.ts       # server actions: quests, arena, dungeons, shop, guilds
+src/lib/auth.ts          # register / login / logout (bcrypt + session tokens)
+src/lib/data.ts          # read helpers: loadCharacter, loadLeaderboard, loadGuilds
 src/lib/db.ts            # Prisma client (better-sqlite3 driver adapter)
-src/lib/session.ts       # cookie-based session (swap for NextAuth later)
+src/lib/session.ts       # token-based session cookie
 src/app/page.tsx         # the dashboard (server component)
 src/components/          # CreateHero + ActionButton (client components)
 ```
@@ -44,8 +48,8 @@ npm run db:migrate          # create the SQLite database
 npm run dev                 # http://localhost:3000
 ```
 
-Open two browsers (or a normal + private window) and create a hero in each — the
-second hero's arena fights will match against the first. That's the real PvP.
+Register an account in two browsers (or a normal + private window) — the second
+hero's arena fights will match against the first. That's the real PvP.
 
 ## Gameplay loop
 
@@ -77,7 +81,6 @@ second hero's arena fights will match against the first. That's the real PvP.
 
 ## Ideas for where to take it next
 
-- **Auth** — replace the cookie session with NextAuth/Auth.js for real accounts.
 - **Guild raids** — shared boss fights and a guild treasury on top of the
   existing guild social layer.
 - **Postgres** — swap the SQLite datasource for Postgres (Neon/Supabase) to

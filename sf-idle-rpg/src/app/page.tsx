@@ -24,7 +24,8 @@ import {
   DUNGEONS,
   type Attributes,
 } from "@/lib/game";
-import { CreateHero } from "@/components/CreateHero";
+import { logout } from "@/lib/auth";
+import { AuthScreen } from "@/components/AuthScreen";
 import { ActionButton } from "@/components/ActionButton";
 import { QuestTimer } from "@/components/QuestTimer";
 
@@ -65,7 +66,7 @@ export default async function Home() {
   if (!character) {
     return (
       <main className="flex flex-1 items-center justify-center p-4">
-        <CreateHero />
+        <AuthScreen />
       </main>
     );
   }
@@ -97,6 +98,11 @@ export default async function Home() {
         <div className="flex items-center gap-4 text-sm font-bold">
           <span className="text-gold">🪙 {character.gold.toLocaleString()}</span>
           <span>🍄 {character.mushrooms}</span>
+          <form action={logout}>
+            <button className="rounded-md bg-surface-2 px-3 py-1.5 text-xs font-semibold text-muted hover:text-gold">
+              Log out
+            </button>
+          </form>
         </div>
       </header>
 

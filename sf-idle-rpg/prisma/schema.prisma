@@ -12,10 +12,12 @@ datasource db {
 
 /// A player account. One account owns one hero (for now).
 model Player {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  createdAt DateTime   @default(now())
-  character Character?
+  id           String     @id @default(cuid())
+  name         String     @unique
+  passwordHash String?
+  sessionToken String?    @unique
+  createdAt    DateTime   @default(now())
+  character    Character?
 }
 
 /// The hero the player controls. All progression lives here.
