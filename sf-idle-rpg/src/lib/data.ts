@@ -22,10 +22,44 @@ export async function loadCharacter() {
       items: true,
       activeQuest: true,
       dungeons: true,
+      guild: {
+        include: {
+          members: {
+            orderBy: [{ level: "desc" }, { experience: "desc" }],
+            select: { id: true, name: true, class: true, level: true },
+          },
+        },
+      },
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },
       battleLogs: { orderBy: { createdAt: "desc" }, take: 8 },
     },
   });
+}
+
+/**
+ * Guild directory ranked by total member level, for the guild leaderboard and
+ * the "join a guild" browser. Returns a small denormalised shape for the UI.
+ */
+export async function loadGuilds(limit = 12) {
+  const guilds = await prisma.guild.findMany({
+    include: { members: { select: { level: true } } },
+  });
+  return guilds
+    .map((g) => ({
+      id: g.id,
+      name: g.name,
+      tag: g.tag,
+      description: g.description,
+      memberCount: g.members.length,
+      totalLevel: g.members.reduce((s, m) => s + m.level, 0),
+    }))
+    .sort((a, b) => b.totalLevel - a.totalLevel || b.memberCount - a.memberCount)
+    .slice(0, limit);
+}
+
+/** Perk multiplier applied to a member's quest gold (+2% per member, capped). */
+export function guildGoldMultiplier(memberCount: number): number {
+  return 1 + Math.min(0.2, memberCount * 0.02);
 }
 
 /** Top heroes by level then experience, for the Hall of Fame. */

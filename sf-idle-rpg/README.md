@@ -70,12 +70,16 @@ second hero's arena fights will match against the first. That's the real PvP.
   advances you and pays gold + XP with a chance at loot (the final boss always
   drops), losing sends you back to regroup. Fights use your equipped gear and
   are recorded in the Battle Chronicle.
+- **Guilds** — the social layer. Found a guild (costs gold) or join an existing
+  one from the ranked directory. Members share a roster and earn a quest-gold
+  perk (+2% per member, capped at +20%). Guilds are ranked by total member level.
 - **Hall of Fame** — top heroes by level.
 
 ## Ideas for where to take it next
 
 - **Auth** — replace the cookie session with NextAuth/Auth.js for real accounts.
-- **Guilds** — a `Guild` model + shared raids.
+- **Guild raids** — shared boss fights and a guild treasury on top of the
+  existing guild social layer.
 - **Postgres** — swap the SQLite datasource for Postgres (Neon/Supabase) to
   deploy on Vercel.
 

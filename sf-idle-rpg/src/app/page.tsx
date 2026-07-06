@@ -1,4 +1,4 @@
-import { loadCharacter, loadLeaderboard, toFighter } from "@/lib/data";
+import { loadCharacter, loadLeaderboard, loadGuilds, toFighter } from "@/lib/data";
 import {
   startQuest,
   fightArena,
@@ -9,7 +9,10 @@ import {
   sellItem,
   refreshShop,
   raidDungeon,
+  joinGuild,
+  leaveGuild,
 } from "@/lib/actions";
+import { CreateGuild } from "@/components/CreateGuild";
 import {
   getClass,
   maxHp,
@@ -75,6 +78,7 @@ export default async function Home() {
   const nextLevelXp = xpForLevel(character.level);
   const xpPct = Math.min(100, Math.round((character.experience / nextLevelXp) * 100));
   const leaderboard = await loadLeaderboard();
+  const guilds = await loadGuilds();
 
   const equippedBySlot = SLOTS.map((s) => ({
     slot: s,
@@ -422,6 +426,99 @@ export default async function Home() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Guilds */}
+      <section className="panel mt-6 p-5">
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Your guild / create + join */}
+          <div>
+            <h3 className="mb-3 font-black text-gold">🏰 Guild</h3>
+            {character.guild ? (
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <span className="font-bold">{character.guild.name}</span>{" "}
+                    <span className="text-xs text-muted">[{character.guild.tag}]</span>
+                  </div>
+                  <form action={leaveGuild}>
+                    <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-bad">
+                      Leave
+                    </button>
+                  </form>
+                </div>
+                <p className="mt-1 text-xs text-good">
+                  Members earn +{Math.min(20, character.guild.members.length * 2)}%
+                  quest gold.
+                </p>
+                <ul className="mt-3 space-y-1 text-sm">
+                  {character.guild.members.map((m) => (
+                    <li
+                      key={m.id}
+                      className="flex items-center justify-between rounded-md px-2 py-1"
+                      style={{
+                        background:
+                          m.id === character.id ? "var(--surface-2)" : "transparent",
+                      }}
+                    >
+                      <span className="truncate">
+                        {getClass(m.class).emoji} {m.name}
+                        {m.id === character.guild!.founderId && (
+                          <span className="ml-1 text-xs text-gold">★ founder</span>
+                        )}
+                      </span>
+                      <span className="ml-2 shrink-0 text-muted">Lv {m.level}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div>
+                <p className="mb-3 text-sm text-muted">
+                  Join forces with other heroes for a quest-gold bonus, or found
+                  your own guild.
+                </p>
+                <CreateGuild canAfford={character.gold >= 500} />
+              </div>
+            )}
+          </div>
+
+          {/* Guild leaderboard / directory */}
+          <div>
+            <h3 className="mb-3 font-black text-gold">📜 Guild Directory</h3>
+            {guilds.length === 0 ? (
+              <p className="text-sm text-muted">No guilds yet — be the first!</p>
+            ) : (
+              <ol className="space-y-1.5 text-sm">
+                {guilds.map((g, i) => {
+                  const mine = g.id === character.guildId;
+                  return (
+                    <li
+                      key={g.id}
+                      className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5"
+                      style={{ background: mine ? "var(--surface-2)" : "transparent" }}
+                    >
+                      <span className="min-w-0 truncate">
+                        <span className="text-muted">{i + 1}.</span> {g.name}{" "}
+                        <span className="text-xs text-muted">
+                          [{g.tag}] · {g.memberCount} 👥 · {g.totalLevel} lv
+                        </span>
+                      </span>
+                      {!character.guildId && !mine && (
+                        <form action={joinGuild.bind(null, g.id)}>
+                          <button className="shrink-0 rounded bg-good px-2 py-1 text-xs font-semibold text-[#10240a]">
+                            Join
+                          </button>
+                        </form>
+                      )}
+                      {mine && <span className="shrink-0 text-xs text-gold">yours</span>}
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+          </div>
         </div>
       </section>
 

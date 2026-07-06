@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getPlayerId, setPlayerId, clearPlayer } from "@/lib/session";
-import { loadCharacter, toFighter } from "@/lib/data";
+import { loadCharacter, toFighter, guildGoldMultiplier } from "@/lib/data";
 import {
   getClass,
   rollQuest,
@@ -146,11 +146,17 @@ export async function collectQuest(): Promise<ActionResult> {
   };
   const levels = applyLevelUps(progression);
 
+  // Guild perk: members earn bonus quest gold (+2% per member, capped at +20%).
+  const guildMult = character.guild
+    ? guildGoldMultiplier(character.guild.members.length)
+    : 1;
+  const goldEarned = Math.round(quest.goldReward * guildMult);
+
   await prisma.$transaction([
     prisma.character.update({
       where: { id: character.id },
       data: {
-        gold: character.gold + quest.goldReward,
+        gold: character.gold + goldEarned,
         mushrooms: character.mushrooms + quest.mushroomReward,
         experience: progression.experience,
         level: progression.level,
@@ -162,7 +168,7 @@ export async function collectQuest(): Promise<ActionResult> {
         questLogs: {
           create: {
             title: quest.title,
-            goldReward: quest.goldReward,
+            goldReward: goldEarned,
             xpReward: quest.xpReward,
           },
         },
@@ -173,7 +179,8 @@ export async function collectQuest(): Promise<ActionResult> {
 
   revalidatePath("/");
 
-  let message = `"${quest.title}" complete! +${quest.goldReward} gold, +${quest.xpReward} XP`;
+  let message = `"${quest.title}" complete! +${goldEarned} gold, +${quest.xpReward} XP`;
+  if (guildMult > 1) message += ` (incl. guild bonus)`;
   if (quest.mushroomReward) message += `, +${quest.mushroomReward} 🍄`;
   if (levels > 0) message += ` — LEVEL UP! You are now level ${progression.level}. ✨`;
   return { ok: true, message };
@@ -494,6 +501,77 @@ export async function sellItem(itemId: string, _formData?: FormData): Promise<vo
     prisma.item.delete({ where: { id: item.id } }),
   ]);
 
+  revalidatePath("/");
+}
+
+// ---------------------------------------------------------------------------
+// Guilds
+// ---------------------------------------------------------------------------
+
+const GUILD_COST = 500;
+
+export async function createGuild(
+  _prev: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  const character = await loadCharacter();
+  if (!character) return { ok: false, message: "No hero found." };
+  if (character.guildId) return { ok: false, message: "Leave your current guild first." };
+
+  const name = String(formData.get("name") ?? "").trim();
+  const tag = String(formData.get("tag") ?? "").trim().toUpperCase();
+
+  if (name.length < 3 || name.length > 24) {
+    return { ok: false, message: "Guild name must be 3–24 characters." };
+  }
+  if (!/^[A-Z0-9]{2,4}$/.test(tag)) {
+    return { ok: false, message: "Tag must be 2–4 letters or digits." };
+  }
+  if (character.gold < GUILD_COST) {
+    return { ok: false, message: `Founding a guild costs ${GUILD_COST} gold.` };
+  }
+  if (await prisma.guild.findUnique({ where: { name } })) {
+    return { ok: false, message: "A guild with that name already exists." };
+  }
+
+  await prisma.$transaction([
+    prisma.character.update({
+      where: { id: character.id },
+      data: {
+        gold: character.gold - GUILD_COST,
+        guild: {
+          create: { name, tag, founderId: character.id },
+        },
+      },
+    }),
+  ]);
+
+  revalidatePath("/");
+  return { ok: true, message: `Guild «${name}» founded! 🏰` };
+}
+
+export async function joinGuild(guildId: string, _formData?: FormData): Promise<void> {
+  const character = await loadCharacter();
+  if (!character || character.guildId) return;
+
+  const guild = await prisma.guild.findUnique({ where: { id: guildId } });
+  if (!guild) return;
+
+  await prisma.character.update({
+    where: { id: character.id },
+    data: { guildId },
+  });
+  revalidatePath("/");
+}
+
+export async function leaveGuild(): Promise<void> {
+  const character = await loadCharacter();
+  if (!character?.guildId) return;
+
+  await prisma.character.update({
+    where: { id: character.id },
+    data: { guildId: null },
+  });
   revalidatePath("/");
 }
 

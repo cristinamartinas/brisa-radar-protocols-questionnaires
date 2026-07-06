@@ -44,6 +44,9 @@ model Character {
   arenaWins    Int      @default(0)
   arenaLosses  Int      @default(0)
 
+  guild        Guild?   @relation(fields: [guildId], references: [id], onDelete: SetNull)
+  guildId      String?
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -52,6 +55,19 @@ model Character {
   items        Item[]
   activeQuest  ActiveQuest?
   dungeons     DungeonProgress[]
+}
+
+/// A player guild. Purely social for now: a shared roster, a leaderboard, and
+/// a small gold perk for members. `founderId` is the character id of whoever
+/// created it.
+model Guild {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  tag         String
+  description String      @default("")
+  founderId   String
+  createdAt   DateTime    @default(now())
+  members     Character[]
 }
 
 /// How far a hero has descended into a given dungeon. `floor` is the next
