@@ -10,6 +10,7 @@ import {
   applyLevelUps,
   resolveBattle,
   randomOpponent,
+  generateShopStock,
   type CharClass,
   type Progression,
 } from "@/lib/game";
@@ -58,7 +59,19 @@ export async function createCharacter(
         },
       },
     },
+    include: { character: true },
   });
+
+  // Stock the hero's personal Magic Shop with a starting selection.
+  if (player.character) {
+    await prisma.item.createMany({
+      data: generateShopStock(1).map((it) => ({
+        ...it,
+        characterId: player.character!.id,
+        location: "SHOP",
+      })),
+    });
+  }
 
   await setPlayerId(player.id);
   revalidatePath("/");
@@ -73,7 +86,7 @@ export async function goOnQuest(): Promise<ActionResult> {
   const character = await loadCharacter();
   if (!character) return { ok: false, message: "No hero found." };
 
-  const quest = rollQuest(toFighter(character));
+  const quest = rollQuest(toFighter(character, character.items));
 
   const progression: Progression = {
     class: character.class as CharClass,
@@ -125,17 +138,21 @@ export async function fightArena(): Promise<ActionResult> {
   const character = await loadCharacter();
   if (!character) return { ok: false, message: "No hero found." };
 
-  // Try to find a real opponent: another player's hero.
+  // Try to find a real opponent: another player's hero (with their gear).
   const others = await prisma.character.findMany({
     where: { id: { not: character.id } },
     take: 25,
+    include: { items: true },
   });
-  const foe =
+  const opponent =
     others.length > 0
-      ? toFighter(others[Math.floor(Math.random() * others.length)])
-      : randomOpponent(character.level);
+      ? others[Math.floor(Math.random() * others.length)]
+      : null;
+  const foe = opponent
+    ? toFighter(opponent, opponent.items)
+    : randomOpponent(character.level);
 
-  const result = resolveBattle(toFighter(character), foe);
+  const result = resolveBattle(toFighter(character, character.items), foe);
 
   // Rewards: winning grants gold + a little XP; losing costs a small stake.
   const stake = Math.round(8 * foe.level + Math.random() * 20);
@@ -186,6 +203,116 @@ export async function fightArena(): Promise<ActionResult> {
   if (xpGain) message += `, +${xpGain} XP`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
   return { ok: true, message };
+}
+
+// ---------------------------------------------------------------------------
+// The Magic Shop + inventory
+// ---------------------------------------------------------------------------
+
+/** Reroll the hero's shop with a fresh selection scaled to their level. */
+export async function refreshShop(): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+
+  await prisma.item.deleteMany({
+    where: { characterId: character.id, location: "SHOP" },
+  });
+  await prisma.item.createMany({
+    data: generateShopStock(character.level).map((it) => ({
+      ...it,
+      characterId: character.id,
+      location: "SHOP",
+    })),
+  });
+
+  revalidatePath("/");
+}
+
+/** Buy a shop item: deduct gold and move it into the inventory. */
+export async function buyItem(itemId: string, _formData?: FormData): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+
+  const item = await prisma.item.findFirst({
+    where: { id: itemId, characterId: character.id, location: "SHOP" },
+  });
+  if (!item || character.gold < item.price) return;
+
+  await prisma.$transaction([
+    prisma.character.update({
+      where: { id: character.id },
+      data: { gold: character.gold - item.price },
+    }),
+    prisma.item.update({
+      where: { id: item.id },
+      data: { location: "INVENTORY" },
+    }),
+  ]);
+
+  revalidatePath("/");
+}
+
+/** Equip an inventory item, moving any item in the same slot back to the bag. */
+export async function equipItem(itemId: string, _formData?: FormData): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+
+  const item = await prisma.item.findFirst({
+    where: { id: itemId, characterId: character.id, location: "INVENTORY" },
+  });
+  if (!item) return;
+
+  await prisma.$transaction([
+    prisma.item.updateMany({
+      where: { characterId: character.id, slot: item.slot, location: "EQUIPPED" },
+      data: { location: "INVENTORY" },
+    }),
+    prisma.item.update({
+      where: { id: item.id },
+      data: { location: "EQUIPPED" },
+    }),
+  ]);
+
+  revalidatePath("/");
+}
+
+/** Move an equipped item back into the inventory. */
+export async function unequipItem(itemId: string, _formData?: FormData): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+
+  await prisma.item.updateMany({
+    where: { id: itemId, characterId: character.id, location: "EQUIPPED" },
+    data: { location: "INVENTORY" },
+  });
+
+  revalidatePath("/");
+}
+
+/** Sell an owned item (equipped or in the bag) for half its price. */
+export async function sellItem(itemId: string, _formData?: FormData): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+
+  const item = await prisma.item.findFirst({
+    where: {
+      id: itemId,
+      characterId: character.id,
+      location: { in: ["INVENTORY", "EQUIPPED"] },
+    },
+  });
+  if (!item) return;
+
+  const payout = Math.max(1, Math.round(item.price / 2));
+  await prisma.$transaction([
+    prisma.character.update({
+      where: { id: character.id },
+      data: { gold: character.gold + payout },
+    }),
+    prisma.item.delete({ where: { id: item.id } }),
+  ]);
+
+  revalidatePath("/");
 }
 
 // ---------------------------------------------------------------------------

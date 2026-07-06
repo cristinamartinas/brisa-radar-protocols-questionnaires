@@ -49,6 +49,32 @@ model Character {
 
   questLogs    QuestLog[]
   battleLogs   BattleLog[]
+  items        Item[]
+}
+
+/// A piece of equipment. Items live in one of three places (see `location`):
+/// the character's personal Magic Shop, their inventory, or an equipment slot.
+/// Bonuses are added on top of the hero's base attributes when equipped.
+model Item {
+  id           String    @id @default(cuid())
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId  String
+
+  name         String
+  slot         String    // WEAPON | ARMOR | AMULET
+  rarity       String    // COMMON | RARE | EPIC | LEGENDARY
+  location     String    @default("SHOP") // SHOP | INVENTORY | EQUIPPED
+
+  strength     Int       @default(0)
+  dexterity    Int       @default(0)
+  intelligence Int       @default(0)
+  constitution Int       @default(0)
+  luck         Int       @default(0)
+  price        Int
+
+  createdAt    DateTime  @default(now())
+
+  @@index([characterId, location])
 }
 
 /// History of completed quests (the idle "go adventure for a while" loop).

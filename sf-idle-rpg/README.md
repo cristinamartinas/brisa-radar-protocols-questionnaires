@@ -55,13 +55,17 @@ second hero's arena fights will match against the first. That's the real PvP.
   by level and luck. Enough XP triggers a level-up (stats grow).
 - **Arena** — turn-based duel resolved server-side against another real hero
   (falls back to a scaled NPC if you're the only player). Win gold, or lose a
-  small stake. Every blow is logged in the Battle Chronicle.
+  small stake. Every blow is logged in the Battle Chronicle. Equipped gear
+  counts toward both fighters' stats.
+- **Magic Shop & equipment** — each hero has a personal shop stocked with
+  randomised gear (Common → Legendary, scaled to level). Buy with gold, equip
+  into weapon/armor/amulet slots for stat bonuses, sell what you don't need.
+  Refresh the stock to reroll the offers.
 - **Hall of Fame** — top heroes by level.
 
 ## Ideas for where to take it next
 
 - **Auth** — replace the cookie session with NextAuth/Auth.js for real accounts.
-- **Equipment & shop** — an `Item` model, an inventory, a gold sink.
 - **Guilds** — a `Guild` model + shared raids.
 - **Dungeons** — staged multi-fight PvE with boss rewards.
 - **Timed quests** — make quests take real minutes (the classic S&F drip),

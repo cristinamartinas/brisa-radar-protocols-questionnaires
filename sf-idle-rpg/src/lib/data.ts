@@ -1,12 +1,17 @@
 import { prisma } from "@/lib/db";
 import { getPlayerId } from "@/lib/session";
-import type { Fighter, CharClass } from "@/lib/game";
+import {
+  effectiveAttributes,
+  type Attributes,
+  type Fighter,
+  type CharClass,
+} from "@/lib/game";
 
 export type CharacterWithLogs = NonNullable<
   Awaited<ReturnType<typeof loadCharacter>>
 >;
 
-/** Load the current browser's hero along with recent quest/battle history. */
+/** Load the current browser's hero along with gear and recent history. */
 export async function loadCharacter() {
   const pid = await getPlayerId();
   if (!pid) return null;
@@ -14,6 +19,7 @@ export async function loadCharacter() {
   return prisma.character.findUnique({
     where: { playerId: pid },
     include: {
+      items: true,
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },
       battleLogs: { orderBy: { createdAt: "desc" }, take: 8 },
     },
@@ -35,25 +41,32 @@ export function loadLeaderboard(limit = 10) {
   });
 }
 
-/** Convert a stored character row into a combat-ready Fighter. */
-export function toFighter(c: {
+type ItemLike = { location: string } & Attributes;
+
+type CharacterLike = {
   name: string;
   class: string;
   level: number;
-  strength: number;
-  dexterity: number;
-  intelligence: number;
-  constitution: number;
-  luck: number;
-}): Fighter {
-  return {
-    name: c.name,
-    class: c.class as CharClass,
-    level: c.level,
+} & Attributes;
+
+/**
+ * Convert a stored character (with its items) into a combat-ready Fighter,
+ * folding equipped-gear bonuses into its attributes. If `items` is omitted
+ * the raw base attributes are used.
+ */
+export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
+  const base: Attributes = {
     strength: c.strength,
     dexterity: c.dexterity,
     intelligence: c.intelligence,
     constitution: c.constitution,
     luck: c.luck,
+  };
+  const eff = effectiveAttributes(base, items);
+  return {
+    name: c.name,
+    class: c.class as CharClass,
+    level: c.level,
+    ...eff,
   };
 }

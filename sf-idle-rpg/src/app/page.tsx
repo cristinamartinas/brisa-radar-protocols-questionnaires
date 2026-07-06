@@ -1,8 +1,56 @@
 import { loadCharacter, loadLeaderboard, toFighter } from "@/lib/data";
-import { goOnQuest, fightArena, abandonHero } from "@/lib/actions";
-import { getClass, maxHp, xpForLevel } from "@/lib/game";
+import {
+  goOnQuest,
+  fightArena,
+  abandonHero,
+  buyItem,
+  equipItem,
+  unequipItem,
+  sellItem,
+  refreshShop,
+} from "@/lib/actions";
+import {
+  getClass,
+  maxHp,
+  xpForLevel,
+  equippedBonus,
+  getRarity,
+  SLOTS,
+  type Attributes,
+} from "@/lib/game";
 import { CreateHero } from "@/components/CreateHero";
 import { ActionButton } from "@/components/ActionButton";
+
+const STAT_KEYS: [string, keyof Attributes][] = [
+  ["Strength", "strength"],
+  ["Dexterity", "dexterity"],
+  ["Intelligence", "intelligence"],
+  ["Constitution", "constitution"],
+  ["Luck", "luck"],
+];
+
+const STAT_ABBR: Record<keyof Attributes, string> = {
+  strength: "STR",
+  dexterity: "DEX",
+  intelligence: "INT",
+  constitution: "CON",
+  luck: "LCK",
+};
+
+type ItemRow = {
+  id: string;
+  name: string;
+  slot: string;
+  rarity: string;
+  location: string;
+  price: number;
+} & Attributes;
+
+function itemBonuses(item: ItemRow): string {
+  return STAT_KEYS.map(([, k]) => (item[k] > 0 ? `+${item[k]} ${STAT_ABBR[k]}` : ""))
+    .filter(Boolean)
+    .join(" · ");
+}
 
 export default async function Home() {
   const character = await loadCharacter();
@@ -16,19 +64,20 @@ export default async function Home() {
   }
 
   const cls = getClass(character.class);
-  const fighter = toFighter(character);
+  const items = character.items as ItemRow[];
+  const bonus = equippedBonus(items);
+  const fighter = toFighter(character, items);
   const hp = maxHp(fighter);
   const nextLevelXp = xpForLevel(character.level);
   const xpPct = Math.min(100, Math.round((character.experience / nextLevelXp) * 100));
   const leaderboard = await loadLeaderboard();
 
-  const stats: [string, number, boolean][] = [
-    ["Strength", character.strength, cls.primary === "strength"],
-    ["Dexterity", character.dexterity, cls.primary === "dexterity"],
-    ["Intelligence", character.intelligence, cls.primary === "intelligence"],
-    ["Constitution", character.constitution, false],
-    ["Luck", character.luck, false],
-  ];
+  const equippedBySlot = SLOTS.map((s) => ({
+    slot: s,
+    item: items.find((i) => i.location === "EQUIPPED" && i.slot === s.id),
+  }));
+  const inventory = items.filter((i) => i.location === "INVENTORY");
+  const shop = items.filter((i) => i.location === "SHOP");
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 p-4 sm:p-6">
@@ -86,18 +135,72 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Attributes */}
+          {/* Attributes (base + equipped gear) */}
           <ul className="mt-4 space-y-1.5">
-            {stats.map(([label, value, primary]) => (
-              <li
-                key={label}
-                className="flex items-center justify-between rounded-md px-3 py-1.5"
-                style={{ background: primary ? "var(--surface-2)" : "transparent" }}
-              >
-                <span className="text-muted">
-                  {label} {primary && <span className="text-gold">★</span>}
-                </span>
-                <span className="font-bold tabular-nums">{value}</span>
+            {STAT_KEYS.map(([label, key]) => {
+              const primary = cls.primary === key;
+              const gearBonus = bonus[key];
+              return (
+                <li
+                  key={key}
+                  className="flex items-center justify-between rounded-md px-3 py-1.5"
+                  style={{ background: primary ? "var(--surface-2)" : "transparent" }}
+                >
+                  <span className="text-muted">
+                    {label} {primary && <span className="text-gold">★</span>}
+                  </span>
+                  <span className="font-bold tabular-nums">
+                    {character[key] + gearBonus}
+                    {gearBonus > 0 && (
+                      <span className="ml-1 text-xs font-normal text-gold">
+                        (+{gearBonus})
+                      </span>
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Equipment slots */}
+          <h3 className="mt-5 mb-2 text-sm font-black uppercase tracking-wide text-muted">
+            Equipment
+          </h3>
+          <ul className="space-y-2">
+            {equippedBySlot.map(({ slot, item }) => (
+              <li key={slot.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2">
+                    <span>{slot.emoji}</span>
+                    {item ? (
+                      <span
+                        className="font-semibold"
+                        style={{ color: getRarity(item.rarity).color }}
+                      >
+                        {item.name}
+                      </span>
+                    ) : (
+                      <span className="text-muted">Empty {slot.label.toLowerCase()}</span>
+                    )}
+                  </span>
+                  {item && (
+                    <span className="flex shrink-0 gap-1">
+                      <form action={unequipItem.bind(null, item.id)}>
+                        <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-gold">
+                          Unequip
+                        </button>
+                      </form>
+                      <form action={sellItem.bind(null, item.id)}>
+                        <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-bad">
+                          Sell
+                        </button>
+                      </form>
+                    </span>
+                  )}
+                </div>
+                {item && (
+                  <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
+                )}
               </li>
             ))}
           </ul>
@@ -110,10 +213,7 @@ export default async function Home() {
             <p className="mt-1 mb-3 text-sm text-muted">
               Take a quest to earn gold and experience.
             </p>
-            <ActionButton
-              action={goOnQuest}
-              className="w-full bg-good text-[#10240a]"
-            >
+            <ActionButton action={goOnQuest} className="w-full bg-good text-[#10240a]">
               Go on a Quest
             </ActionButton>
           </div>
@@ -123,12 +223,47 @@ export default async function Home() {
             <p className="mt-1 mb-3 text-sm text-muted">
               Fight another hero. Win gold, risk a little pride.
             </p>
-            <ActionButton
-              action={fightArena}
-              className="w-full bg-accent text-white"
-            >
+            <ActionButton action={fightArena} className="w-full bg-accent text-white">
               Enter the Arena
             </ActionButton>
+          </div>
+
+          {/* Inventory */}
+          <div className="panel p-5">
+            <h3 className="font-black text-gold">🎒 Inventory</h3>
+            {inventory.length === 0 ? (
+              <p className="mt-2 text-sm text-muted">
+                Your bag is empty. Buy gear in the shop below.
+              </p>
+            ) : (
+              <ul className="mt-3 space-y-2">
+                {inventory.map((item) => (
+                  <li key={item.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
+                    <div className="flex items-center justify-between gap-2">
+                      <span
+                        className="font-semibold"
+                        style={{ color: getRarity(item.rarity).color }}
+                      >
+                        {item.name}
+                      </span>
+                      <span className="flex shrink-0 gap-1">
+                        <form action={equipItem.bind(null, item.id)}>
+                          <button className="rounded bg-good px-2 py-1 text-xs font-semibold text-[#10240a]">
+                            Equip
+                          </button>
+                        </form>
+                        <form action={sellItem.bind(null, item.id)}>
+                          <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-bad">
+                            Sell {Math.max(1, Math.round(item.price / 2))}🪙
+                          </button>
+                        </form>
+                      </span>
+                    </div>
+                    <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
 
@@ -155,6 +290,49 @@ export default async function Home() {
           </ol>
         </section>
       </div>
+
+      {/* Magic Shop */}
+      <section className="panel mt-6 p-5">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h3 className="font-black text-gold">🪄 The Magic Shop</h3>
+          <form action={refreshShop}>
+            <button className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold hover:text-gold">
+              ↻ Refresh stock
+            </button>
+          </form>
+        </div>
+        {shop.length === 0 ? (
+          <p className="text-sm text-muted">Sold out! Refresh the stock.</p>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {shop.map((item) => {
+              const rarity = getRarity(item.rarity);
+              const affordable = character.gold >= item.price;
+              return (
+                <div
+                  key={item.id}
+                  className="flex flex-col rounded-lg border bg-surface p-3"
+                  style={{ borderColor: rarity.color }}
+                >
+                  <div className="text-xs uppercase tracking-wide" style={{ color: rarity.color }}>
+                    {rarity.label}
+                  </div>
+                  <div className="mt-0.5 font-semibold leading-snug">{item.name}</div>
+                  <div className="mt-1 flex-1 text-xs text-muted">{itemBonuses(item)}</div>
+                  <form action={buyItem.bind(null, item.id)} className="mt-3">
+                    <button
+                      disabled={!affordable}
+                      className="w-full rounded-md bg-gold px-2 py-1.5 text-sm font-bold text-[#2b1d12] disabled:opacity-40"
+                    >
+                      Buy {item.price}🪙
+                    </button>
+                  </form>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
 
       {/* History */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2">

@@ -227,7 +227,7 @@ export function applyLevelUps(p: Progression): number {
 }
 
 // ---------------------------------------------------------------------------
-// Opponent generation (used when there is no other real player to fight yet)
+// NPC roster (used to name synthetic arena opponents)
 // ---------------------------------------------------------------------------
 
 const NPC_NAMES = [
@@ -240,6 +240,201 @@ const NPC_NAMES = [
   "Gary, Destroyer of Worlds",
   "A Very Large Badger",
 ];
+
+// ---------------------------------------------------------------------------
+// Equipment + the Magic Shop
+// ---------------------------------------------------------------------------
+
+export type ItemSlot = "WEAPON" | "ARMOR" | "AMULET";
+export type Rarity = "COMMON" | "RARE" | "EPIC" | "LEGENDARY";
+
+export interface RarityDef {
+  id: Rarity;
+  label: string;
+  mult: number;
+  weight: number;
+  color: string;
+}
+
+export const RARITIES: RarityDef[] = [
+  { id: "COMMON", label: "Common", mult: 1.0, weight: 55, color: "#b99b78" },
+  { id: "RARE", label: "Rare", mult: 1.7, weight: 30, color: "#4aa3df" },
+  { id: "EPIC", label: "Epic", mult: 2.6, weight: 12, color: "#a55eea" },
+  { id: "LEGENDARY", label: "Legendary", mult: 4.0, weight: 3, color: "#e8b923" },
+];
+
+export function getRarity(id: string): RarityDef {
+  return RARITIES.find((r) => r.id === id) ?? RARITIES[0];
+}
+
+type StatKey = keyof Attributes;
+
+export interface SlotDef {
+  id: ItemSlot;
+  label: string;
+  emoji: string;
+  favors: StatKey[];
+  nouns: string[];
+}
+
+export const SLOTS: SlotDef[] = [
+  {
+    id: "WEAPON",
+    label: "Weapon",
+    emoji: "🗡️",
+    favors: ["strength", "dexterity", "intelligence"],
+    nouns: ["Sword", "Axe", "Dagger", "War Staff", "Mace", "Bow", "Cudgel"],
+  },
+  {
+    id: "ARMOR",
+    label: "Armor",
+    emoji: "🛡️",
+    favors: ["constitution", "strength"],
+    nouns: ["Plate", "Chainmail", "Robe", "Leather Jerkin", "Cuirass"],
+  },
+  {
+    id: "AMULET",
+    label: "Amulet",
+    emoji: "📿",
+    favors: ["luck", "intelligence", "dexterity"],
+    nouns: ["Amulet", "Ring", "Charm", "Talisman", "Pendant"],
+  },
+];
+
+export function getSlot(id: string): SlotDef {
+  return SLOTS.find((s) => s.id === id) ?? SLOTS[0];
+}
+
+const ADJECTIVES: Record<Rarity, string[]> = {
+  COMMON: ["Rusty", "Worn", "Plain", "Chipped", "Humble"],
+  RARE: ["Sturdy", "Gleaming", "Fine", "Keen", "Blessed"],
+  EPIC: ["Heroic", "Runed", "Vicious", "Radiant", "Ancient"],
+  LEGENDARY: ["Godforged", "Dragonbone", "Mythic", "Cataclysmic", "Eternal"],
+};
+
+const SUFFIXES: Record<Rarity, string[]> = {
+  COMMON: ["", "", "of the Rat"],
+  RARE: ["of Vigor", "of the Fox", "of Warding"],
+  EPIC: ["of the Titan", "of Storms", "of the Phoenix"],
+  LEGENDARY: ["of Annihilation", "of the Ancients", "of Ultimate Doom"],
+};
+
+const pick = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+
+export interface ItemDraft {
+  name: string;
+  slot: ItemSlot;
+  rarity: Rarity;
+  strength: number;
+  dexterity: number;
+  intelligence: number;
+  constitution: number;
+  luck: number;
+  price: number;
+}
+
+function rollRarity(): RarityDef {
+  const total = RARITIES.reduce((s, r) => s + r.weight, 0);
+  let roll = Math.random() * total;
+  for (const r of RARITIES) {
+    roll -= r.weight;
+    if (roll <= 0) return r;
+  }
+  return RARITIES[0];
+}
+
+/** Roll a single shop item appropriate for the given hero level. */
+export function generateItem(level: number): ItemDraft {
+  const slot = pick(SLOTS);
+  const rarity = rollRarity();
+
+  const bonuses: Attributes = {
+    strength: 0,
+    dexterity: 0,
+    intelligence: 0,
+    constitution: 0,
+    luck: 0,
+  };
+
+  const budget = Math.max(1, Math.round((2 + level * 0.7) * rarity.mult));
+  let remaining = budget;
+
+  // The lion's share goes to a favoured stat for the slot.
+  const primary = pick(slot.favors);
+  const primaryAmount = Math.ceil(budget * 0.6);
+  bonuses[primary] += primaryAmount;
+  remaining -= primaryAmount;
+
+  const allStats: StatKey[] = [
+    "strength",
+    "dexterity",
+    "intelligence",
+    "constitution",
+    "luck",
+  ];
+  while (remaining > 0) {
+    // 70% chance to reinforce a favoured stat, else spread anywhere.
+    const target =
+      Math.random() < 0.7 ? pick(slot.favors) : pick(allStats);
+    bonuses[target] += 1;
+    remaining -= 1;
+  }
+
+  const suffix = pick(SUFFIXES[rarity.id]);
+  const name = `${pick(ADJECTIVES[rarity.id])} ${pick(slot.nouns)}${
+    suffix ? " " + suffix : ""
+  }`;
+
+  const totalBonus = allStats.reduce((s, k) => s + bonuses[k], 0);
+  const price = Math.round((8 + totalBonus * 9) * rarity.mult) + level * 3;
+
+  return { name, slot: slot.id, rarity: rarity.id, ...bonuses, price };
+}
+
+export function generateShopStock(level: number, count = 4): ItemDraft[] {
+  return Array.from({ length: count }, () => generateItem(level));
+}
+
+/** Sum the attribute bonuses of a hero's currently equipped items. */
+export function equippedBonus(
+  items: Array<{ location: string } & Attributes>,
+): Attributes {
+  const b: Attributes = {
+    strength: 0,
+    dexterity: 0,
+    intelligence: 0,
+    constitution: 0,
+    luck: 0,
+  };
+  for (const it of items) {
+    if (it.location !== "EQUIPPED") continue;
+    b.strength += it.strength;
+    b.dexterity += it.dexterity;
+    b.intelligence += it.intelligence;
+    b.constitution += it.constitution;
+    b.luck += it.luck;
+  }
+  return b;
+}
+
+/** Base attributes plus equipped-gear bonuses. */
+export function effectiveAttributes(
+  base: Attributes,
+  items: Array<{ location: string } & Attributes>,
+): Attributes {
+  const bonus = equippedBonus(items);
+  return {
+    strength: base.strength + bonus.strength,
+    dexterity: base.dexterity + bonus.dexterity,
+    intelligence: base.intelligence + bonus.intelligence,
+    constitution: base.constitution + bonus.constitution,
+    luck: base.luck + bonus.luck,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Opponent generation (used when there is no other real player to fight yet)
+// ---------------------------------------------------------------------------
 
 /** Build a synthetic opponent roughly matched to the given level. */
 export function randomOpponent(level: number): Fighter {
