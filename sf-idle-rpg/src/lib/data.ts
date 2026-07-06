@@ -20,6 +20,7 @@ export async function loadCharacter() {
     where: { playerId: pid },
     include: {
       items: true,
+      activeQuest: true,
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },
       battleLogs: { orderBy: { createdAt: "desc" }, take: 8 },
     },

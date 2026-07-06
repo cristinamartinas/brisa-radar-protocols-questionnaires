@@ -165,6 +165,29 @@ const QUEST_TITLES = [
   "Reclaim the Stolen Cheese Wheel of Destiny",
 ];
 
+/**
+ * Quest lengths, à la Shakes & Fidget: longer adventures take real time but
+ * pay out proportionally more. Durations are short here so the loop is
+ * pleasant to watch during development.
+ */
+export interface QuestLength {
+  key: string;
+  label: string;
+  emoji: string;
+  durationSec: number;
+  mult: number;
+}
+
+export const QUEST_LENGTHS: QuestLength[] = [
+  { key: "quick", label: "Quick Errand", emoji: "🥾", durationSec: 20, mult: 1 },
+  { key: "standard", label: "Proper Quest", emoji: "🗺️", durationSec: 60, mult: 3 },
+  { key: "epic", label: "Grand Adventure", emoji: "🐉", durationSec: 180, mult: 10 },
+];
+
+export function getQuestLength(key: string): QuestLength {
+  return QUEST_LENGTHS.find((q) => q.key === key) ?? QUEST_LENGTHS[0];
+}
+
 export interface QuestResult {
   title: string;
   goldReward: number;

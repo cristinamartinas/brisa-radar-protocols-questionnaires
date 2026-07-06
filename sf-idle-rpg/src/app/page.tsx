@@ -1,6 +1,6 @@
 import { loadCharacter, loadLeaderboard, toFighter } from "@/lib/data";
 import {
-  goOnQuest,
+  startQuest,
   fightArena,
   abandonHero,
   buyItem,
@@ -16,10 +16,12 @@ import {
   equippedBonus,
   getRarity,
   SLOTS,
+  QUEST_LENGTHS,
   type Attributes,
 } from "@/lib/game";
 import { CreateHero } from "@/components/CreateHero";
 import { ActionButton } from "@/components/ActionButton";
+import { QuestTimer } from "@/components/QuestTimer";
 
 const STAT_KEYS: [string, keyof Attributes][] = [
   ["Strength", "strength"],
@@ -210,12 +212,38 @@ export default async function Home() {
         <section className="flex flex-col gap-4 lg:col-span-1">
           <div className="panel p-5">
             <h3 className="font-black text-gold">🍺 The Tavern</h3>
-            <p className="mt-1 mb-3 text-sm text-muted">
-              Take a quest to earn gold and experience.
-            </p>
-            <ActionButton action={goOnQuest} className="w-full bg-good text-[#10240a]">
-              Go on a Quest
-            </ActionButton>
+            {character.activeQuest ? (
+              <div className="mt-3">
+                <QuestTimer
+                  title={character.activeQuest.title}
+                  endsAt={character.activeQuest.endsAt.getTime()}
+                  startedAt={character.activeQuest.startedAt.getTime()}
+                  serverNow={Date.now()}
+                  goldReward={character.activeQuest.goldReward}
+                  xpReward={character.activeQuest.xpReward}
+                />
+              </div>
+            ) : (
+              <>
+                <p className="mt-1 mb-3 text-sm text-muted">
+                  Send your hero adventuring. Longer trips pay more.
+                </p>
+                <div className="flex flex-col gap-2">
+                  {QUEST_LENGTHS.map((q) => (
+                    <form key={q.key} action={startQuest.bind(null, q.key)}>
+                      <button className="flex w-full items-center justify-between rounded-lg bg-surface px-4 py-2.5 text-left transition hover:bg-surface-2">
+                        <span className="font-semibold">
+                          {q.emoji} {q.label}
+                        </span>
+                        <span className="text-xs text-muted">
+                          {q.durationSec}s · ×{q.mult} reward
+                        </span>
+                      </button>
+                    </form>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div className="panel p-5">

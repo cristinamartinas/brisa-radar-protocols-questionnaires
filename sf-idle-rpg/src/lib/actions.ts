@@ -11,6 +11,7 @@ import {
   resolveBattle,
   randomOpponent,
   generateShopStock,
+  getQuestLength,
   type CharClass,
   type Progression,
 } from "@/lib/game";
@@ -79,14 +80,55 @@ export async function createCharacter(
 }
 
 // ---------------------------------------------------------------------------
-// Go on a quest
+// Timed quests: start one, watch the clock, collect when it's done
 // ---------------------------------------------------------------------------
 
-export async function goOnQuest(): Promise<ActionResult> {
+export async function startQuest(
+  lengthKey: string,
+  _formData?: FormData,
+): Promise<void> {
+  const character = await loadCharacter();
+  if (!character) return;
+  if (character.activeQuest) return; // one quest at a time
+
+  const length = getQuestLength(lengthKey);
+  const roll = rollQuest(toFighter(character, character.items));
+
+  const goldReward = Math.round(roll.goldReward * length.mult);
+  const xpReward = Math.round(roll.xpReward * length.mult);
+  // Longer trips have a better shot at a mushroom.
+  const mushroomReward =
+    roll.mushroomReward + (Math.random() < 0.03 * length.mult ? 1 : 0);
+
+  const endsAt = new Date(Date.now() + length.durationSec * 1000);
+
+  await prisma.activeQuest.create({
+    data: {
+      characterId: character.id,
+      title: roll.title,
+      goldReward,
+      xpReward,
+      mushroomReward,
+      durationSec: length.durationSec,
+      endsAt,
+    },
+  });
+
+  revalidatePath("/");
+}
+
+export async function collectQuest(): Promise<ActionResult> {
   const character = await loadCharacter();
   if (!character) return { ok: false, message: "No hero found." };
 
-  const quest = rollQuest(toFighter(character, character.items));
+  const quest = character.activeQuest;
+  if (!quest) return { ok: false, message: "No quest in progress." };
+
+  // Server-authoritative ready-check: you cannot collect early.
+  if (Date.now() < quest.endsAt.getTime()) {
+    const secs = Math.ceil((quest.endsAt.getTime() - Date.now()) / 1000);
+    return { ok: false, message: `Still adventuring — ${secs}s to go.` };
+  }
 
   const progression: Progression = {
     class: character.class as CharClass,
@@ -100,27 +142,30 @@ export async function goOnQuest(): Promise<ActionResult> {
   };
   const levels = applyLevelUps(progression);
 
-  await prisma.character.update({
-    where: { id: character.id },
-    data: {
-      gold: character.gold + quest.goldReward,
-      mushrooms: character.mushrooms + quest.mushroomReward,
-      experience: progression.experience,
-      level: progression.level,
-      strength: progression.strength,
-      dexterity: progression.dexterity,
-      intelligence: progression.intelligence,
-      constitution: progression.constitution,
-      luck: progression.luck,
-      questLogs: {
-        create: {
-          title: quest.title,
-          goldReward: quest.goldReward,
-          xpReward: quest.xpReward,
+  await prisma.$transaction([
+    prisma.character.update({
+      where: { id: character.id },
+      data: {
+        gold: character.gold + quest.goldReward,
+        mushrooms: character.mushrooms + quest.mushroomReward,
+        experience: progression.experience,
+        level: progression.level,
+        strength: progression.strength,
+        dexterity: progression.dexterity,
+        intelligence: progression.intelligence,
+        constitution: progression.constitution,
+        luck: progression.luck,
+        questLogs: {
+          create: {
+            title: quest.title,
+            goldReward: quest.goldReward,
+            xpReward: quest.xpReward,
+          },
         },
       },
-    },
-  });
+    }),
+    prisma.activeQuest.delete({ where: { id: quest.id } }),
+  ]);
 
   revalidatePath("/");
 
@@ -128,6 +173,14 @@ export async function goOnQuest(): Promise<ActionResult> {
   if (quest.mushroomReward) message += `, +${quest.mushroomReward} 🍄`;
   if (levels > 0) message += ` — LEVEL UP! You are now level ${progression.level}. ✨`;
   return { ok: true, message };
+}
+
+/** Give up on the current quest without collecting any reward. */
+export async function cancelQuest(): Promise<void> {
+  const character = await loadCharacter();
+  if (!character?.activeQuest) return;
+  await prisma.activeQuest.delete({ where: { id: character.activeQuest.id } });
+  revalidatePath("/");
 }
 
 // ---------------------------------------------------------------------------

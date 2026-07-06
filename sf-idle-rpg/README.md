@@ -51,8 +51,12 @@ second hero's arena fights will match against the first. That's the real PvP.
 
 - **Classes** — Warrior (strength/tanky), Mage (intelligence/glass cannon),
   Scout (dexterity/fast & lucky). Each has a primary stat that drives damage.
-- **Quests** — the idle earner. Randomised gold + XP, occasional 🍄 drop, scaled
-  by level and luck. Enough XP triggers a level-up (stats grow).
+- **Timed quests** — the idle heart of the game. Pick a length (Quick Errand /
+  Proper Quest / Grand Adventure); your hero adventures for real time and you
+  collect the reward when the countdown ends. Longer trips pay proportionally
+  more. Randomised gold + XP, occasional 🍄, scaled by level and luck; enough XP
+  triggers a level-up. The "is it ready yet?" check is enforced server-side, so
+  you can't collect early by poking the client.
 - **Arena** — turn-based duel resolved server-side against another real hero
   (falls back to a scaled NPC if you're the only player). Win gold, or lose a
   small stake. Every blow is logged in the Battle Chronicle. Equipped gear
@@ -68,8 +72,6 @@ second hero's arena fights will match against the first. That's the real PvP.
 - **Auth** — replace the cookie session with NextAuth/Auth.js for real accounts.
 - **Guilds** — a `Guild` model + shared raids.
 - **Dungeons** — staged multi-fight PvE with boss rewards.
-- **Timed quests** — make quests take real minutes (the classic S&F drip),
-  resolved on collect.
 - **Postgres** — swap the SQLite datasource for Postgres (Neon/Supabase) to
   deploy on Vercel.
 

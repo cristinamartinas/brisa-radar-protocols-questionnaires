@@ -50,6 +50,23 @@ model Character {
   questLogs    QuestLog[]
   battleLogs   BattleLog[]
   items        Item[]
+  activeQuest  ActiveQuest?
+}
+
+/// A quest currently in progress. A hero can have at most one at a time; the
+/// reward is locked in at start and only paid out when `endsAt` has passed
+/// (the ready-check is enforced server-side in the collect action).
+model ActiveQuest {
+  id             String    @id @default(cuid())
+  character      Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId    String    @unique
+  title          String
+  goldReward     Int
+  xpReward       Int
+  mushroomReward Int       @default(0)
+  durationSec    Int
+  startedAt      DateTime  @default(now())
+  endsAt         DateTime
 }
 
 /// A piece of equipment. Items live in one of three places (see `location`):
