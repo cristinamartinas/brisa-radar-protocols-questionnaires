@@ -28,6 +28,10 @@ import { logout } from "@/lib/auth";
 import { AuthScreen } from "@/components/AuthScreen";
 import { ActionButton } from "@/components/ActionButton";
 import { QuestTimer } from "@/components/QuestTimer";
+import DailiesPanel from "@/components/DailiesPanel";
+import ForgePanel from "@/components/ForgePanel";
+import TalentsPanel from "@/components/TalentsPanel";
+import AchievementsPanel from "@/components/AchievementsPanel";
 
 const STAT_KEYS: [string, keyof Attributes][] = [
   ["Strength", "strength"],
@@ -305,6 +309,9 @@ export default async function Home() {
               </ul>
             )}
           </div>
+
+          {/* Daily tasks & login streak */}
+          <DailiesPanel />
         </section>
 
         {/* Hall of Fame */}
@@ -374,6 +381,9 @@ export default async function Home() {
         )}
       </section>
 
+      {/* The Forge — salvage & crafting */}
+      <ForgePanel />
+
       {/* Dungeons */}
       <section className="panel mt-6 p-5">
         <h3 className="mb-1 font-black text-gold">🗝️ Dungeons</h3>
@@ -434,6 +444,12 @@ export default async function Home() {
           })}
         </div>
       </section>
+
+      {/* Talents */}
+      <TalentsPanel />
+
+      {/* Achievements */}
+      <AchievementsPanel />
 
       {/* Guilds */}
       <section className="panel mt-6 p-5">
