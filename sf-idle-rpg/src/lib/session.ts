@@ -14,6 +14,8 @@ export async function setSessionToken(token: string): Promise<void> {
   (await cookies()).set(COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
+    // HTTPS-only in production; left off in dev so http://localhost still works.
+    secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: ONE_YEAR,
   });

@@ -4,7 +4,13 @@
  * Everything here runs ONLY on the server (it is imported exclusively by
  * server actions). The browser never computes rewards or combat outcomes,
  * which keeps the game server-authoritative and hard to cheat.
+ *
+ * All randomness flows through a seeded `Rng` (see rng.ts) passed in by the
+ * caller — nothing here calls Math.random — so every outcome is reproducible
+ * from its stored seed.
  */
+
+import { type Rng, pick as pickRng } from "@/lib/rng";
 
 export type CharClass = "WARRIOR" | "MAGE" | "SCOUT";
 
@@ -91,13 +97,17 @@ export interface BattleResult {
   opponent: Fighter;
 }
 
-function strike(attacker: Fighter, defender: Fighter): { dmg: number; crit: boolean } {
+function strike(
+  rng: Rng,
+  attacker: Fighter,
+  defender: Fighter,
+): { dmg: number; crit: boolean } {
   const power = primaryValue(attacker);
-  const variance = 0.6 + Math.random() * 0.8; // 0.6x – 1.4x
+  const variance = 0.6 + rng() * 0.8; // 0.6x – 1.4x
   let dmg = power * variance;
 
   const critChance = Math.min(0.5, 0.05 + attacker.luck / 200);
-  const crit = Math.random() < critChance;
+  const crit = rng() < critChance;
   if (crit) dmg *= 2;
 
   // Defender's constitution soaks a little damage.
@@ -108,8 +118,12 @@ function strike(attacker: Fighter, defender: Fighter): { dmg: number; crit: bool
 /**
  * Resolve a full turn-based duel between two fighters and return a
  * blow-by-blow log. The faster (higher dexterity) fighter strikes first.
+ *
+ * Fully deterministic: given the same two fighters and the same `rng` seed,
+ * the fight always resolves identically — which is what makes replays,
+ * spectating, provably-fair ladders, and combat unit tests possible.
  */
-export function resolveBattle(me: Fighter, foe: Fighter): BattleResult {
+export function resolveBattle(rng: Rng, me: Fighter, foe: Fighter): BattleResult {
   let myHp = maxHp(me);
   let foeHp = maxHp(foe);
   const rounds: string[] = [];
@@ -127,7 +141,7 @@ export function resolveBattle(me: Fighter, foe: Fighter): BattleResult {
   for (let turn = 0; turn < 60; turn++) {
     if (myHp <= 0 || foeHp <= 0) break;
 
-    const { dmg, crit } = strike(attacker, defender);
+    const { dmg, crit } = strike(rng, attacker, defender);
     if (attackerIsMe) foeHp -= dmg;
     else myHp -= dmg;
 
@@ -195,18 +209,18 @@ export interface QuestResult {
   mushroomReward: number;
 }
 
-export function rollQuest(f: Fighter): QuestResult {
-  const title = QUEST_TITLES[Math.floor(Math.random() * QUEST_TITLES.length)];
+export function rollQuest(rng: Rng, f: Fighter): QuestResult {
+  const title = pickRng(rng, QUEST_TITLES);
   const luckBonus = 1 + f.luck / 100;
 
   const goldReward = Math.round(
-    (12 * f.level + Math.floor(Math.random() * (10 + f.level * 6))) * luckBonus,
+    (12 * f.level + Math.floor(rng() * (10 + f.level * 6))) * luckBonus,
   );
   const xpReward = Math.round(
-    18 * f.level + Math.floor(Math.random() * (15 + f.level * 8)),
+    18 * f.level + Math.floor(rng() * (15 + f.level * 8)),
   );
   // Occasional lucky mushroom drop.
-  const mushroomReward = Math.random() < 0.05 + f.luck / 400 ? 1 : 0;
+  const mushroomReward = rng() < 0.05 + f.luck / 400 ? 1 : 0;
 
   return { title, goldReward, xpReward, mushroomReward };
 }
@@ -342,8 +356,6 @@ const SUFFIXES: Record<Rarity, string[]> = {
   LEGENDARY: ["of Annihilation", "of the Ancients", "of Ultimate Doom"],
 };
 
-const pick = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
-
 export interface ItemDraft {
   name: string;
   slot: ItemSlot;
@@ -356,9 +368,9 @@ export interface ItemDraft {
   price: number;
 }
 
-function rollRarity(): RarityDef {
+function rollRarity(rng: Rng): RarityDef {
   const total = RARITIES.reduce((s, r) => s + r.weight, 0);
-  let roll = Math.random() * total;
+  let roll = rng() * total;
   for (const r of RARITIES) {
     roll -= r.weight;
     if (roll <= 0) return r;
@@ -367,9 +379,9 @@ function rollRarity(): RarityDef {
 }
 
 /** Roll a single shop item appropriate for the given hero level. */
-export function generateItem(level: number): ItemDraft {
-  const slot = pick(SLOTS);
-  const rarity = rollRarity();
+export function generateItem(rng: Rng, level: number): ItemDraft {
+  const slot = pickRng(rng, SLOTS);
+  const rarity = rollRarity(rng);
 
   const bonuses: Attributes = {
     strength: 0,
@@ -383,7 +395,7 @@ export function generateItem(level: number): ItemDraft {
   let remaining = budget;
 
   // The lion's share goes to a favoured stat for the slot.
-  const primary = pick(slot.favors);
+  const primary = pickRng(rng, slot.favors);
   const primaryAmount = Math.ceil(budget * 0.6);
   bonuses[primary] += primaryAmount;
   remaining -= primaryAmount;
@@ -398,13 +410,13 @@ export function generateItem(level: number): ItemDraft {
   while (remaining > 0) {
     // 70% chance to reinforce a favoured stat, else spread anywhere.
     const target =
-      Math.random() < 0.7 ? pick(slot.favors) : pick(allStats);
+      rng() < 0.7 ? pickRng(rng, slot.favors) : pickRng(rng, allStats);
     bonuses[target] += 1;
     remaining -= 1;
   }
 
-  const suffix = pick(SUFFIXES[rarity.id]);
-  const name = `${pick(ADJECTIVES[rarity.id])} ${pick(slot.nouns)}${
+  const suffix = pickRng(rng, SUFFIXES[rarity.id]);
+  const name = `${pickRng(rng, ADJECTIVES[rarity.id])} ${pickRng(rng, slot.nouns)}${
     suffix ? " " + suffix : ""
   }`;
 
@@ -414,8 +426,8 @@ export function generateItem(level: number): ItemDraft {
   return { name, slot: slot.id, rarity: rarity.id, ...bonuses, price };
 }
 
-export function generateShopStock(level: number, count = 4): ItemDraft[] {
-  return Array.from({ length: count }, () => generateItem(level));
+export function generateShopStock(rng: Rng, level: number, count = 4): ItemDraft[] {
+  return Array.from({ length: count }, () => generateItem(rng, level));
 }
 
 /** Sum the attribute bonuses of a hero's currently equipped items. */
@@ -522,16 +534,16 @@ export function getDungeon(key: string): DungeonDef | undefined {
 }
 
 /** Build a dungeon boss for a given floor. The final floor is markedly tougher. */
-export function generateBoss(dungeon: DungeonDef, floor: number): Fighter {
+export function generateBoss(rng: Rng, dungeon: DungeonDef, floor: number): Fighter {
   const level = Math.max(1, dungeon.baseLevel + floor - 1);
   const isFinal = floor >= dungeon.floors;
-  const cls = pick(CLASSES);
+  const cls = pickRng(rng, CLASSES);
   const bump = isFinal ? 1.25 : 1;
   const stat = (base: number) =>
     Math.round((base + (level - 1) * 3) * dungeon.difficulty * bump);
 
   return {
-    name: (isFinal ? "👑 " : "") + pick(dungeon.bossNames),
+    name: (isFinal ? "👑 " : "") + pickRng(rng, dungeon.bossNames),
     class: cls.id,
     level,
     strength: stat(cls.base.strength),
@@ -549,7 +561,11 @@ export interface DungeonReward {
 }
 
 /** Compute the spoils for clearing a floor, including a chance at loot. */
-export function dungeonReward(dungeon: DungeonDef, floor: number): DungeonReward {
+export function dungeonReward(
+  rng: Rng,
+  dungeon: DungeonDef,
+  floor: number,
+): DungeonReward {
   const level = Math.max(1, dungeon.baseLevel + floor - 1);
   const isFinal = floor >= dungeon.floors;
 
@@ -559,11 +575,11 @@ export function dungeonReward(dungeon: DungeonDef, floor: number): DungeonReward
   // Loot chance climbs with depth; the final boss always drops something good.
   const dropChance = 0.3 + (floor / dungeon.floors) * 0.25;
   let loot: ItemDraft | null = null;
-  if (isFinal || Math.random() < dropChance) {
-    loot = generateItem(level);
+  if (isFinal || rng() < dropChance) {
+    loot = generateItem(rng, level);
     if (isFinal) {
       // Keep the better of two rolls for the final boss.
-      const alt = generateItem(level);
+      const alt = generateItem(rng, level);
       if (alt.price > loot.price) loot = alt;
     }
   }
@@ -576,12 +592,12 @@ export function dungeonReward(dungeon: DungeonDef, floor: number): DungeonReward
 // ---------------------------------------------------------------------------
 
 /** Build a synthetic opponent roughly matched to the given level. */
-export function randomOpponent(level: number): Fighter {
-  const cls = CLASSES[Math.floor(Math.random() * CLASSES.length)];
-  const jitter = () => Math.floor(Math.random() * 5) - 2; // -2..+2
+export function randomOpponent(rng: Rng, level: number): Fighter {
+  const cls = pickRng(rng, CLASSES);
+  const jitter = () => Math.floor(rng() * 5) - 2; // -2..+2
   const scale = level + jitter();
   const lvl = Math.max(1, scale);
-  const name = NPC_NAMES[Math.floor(Math.random() * NPC_NAMES.length)];
+  const name = pickRng(rng, NPC_NAMES);
 
   const grow = (base: number) => base + (lvl - 1) * 3 + jitter();
   return {

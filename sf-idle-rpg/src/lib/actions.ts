@@ -17,6 +17,7 @@ import {
   type CharClass,
   type Progression,
 } from "@/lib/game";
+import { makeRng, randomSeed } from "@/lib/rng";
 import type { Prisma } from "@/generated/prisma/client";
 
 export interface ActionResult {
@@ -37,13 +38,15 @@ export async function startQuest(
   if (character.activeQuest) return; // one quest at a time
 
   const length = getQuestLength(lengthKey);
-  const roll = rollQuest(toFighter(character, character.items));
+  const seed = randomSeed();
+  const rng = makeRng(seed);
+  const roll = rollQuest(rng, toFighter(character, character.items));
 
   const goldReward = Math.round(roll.goldReward * length.mult);
   const xpReward = Math.round(roll.xpReward * length.mult);
   // Longer trips have a better shot at a mushroom.
   const mushroomReward =
-    roll.mushroomReward + (Math.random() < 0.03 * length.mult ? 1 : 0);
+    roll.mushroomReward + (rng() < 0.03 * length.mult ? 1 : 0);
 
   const endsAt = new Date(Date.now() + length.durationSec * 1000);
 
@@ -51,6 +54,7 @@ export async function startQuest(
     data: {
       characterId: character.id,
       title: roll.title,
+      seed,
       goldReward,
       xpReward,
       mushroomReward,
@@ -143,6 +147,9 @@ export async function fightArena(): Promise<ActionResult> {
   const character = await loadCharacter();
   if (!character) return { ok: false, message: "No hero found." };
 
+  const seed = randomSeed();
+  const rng = makeRng(seed);
+
   // Try to find a real opponent: another player's hero (with their gear).
   const others = await prisma.character.findMany({
     where: { id: { not: character.id } },
@@ -151,16 +158,16 @@ export async function fightArena(): Promise<ActionResult> {
   });
   const opponent =
     others.length > 0
-      ? others[Math.floor(Math.random() * others.length)]
+      ? others[Math.floor(rng() * others.length)]
       : null;
   const foe = opponent
     ? toFighter(opponent, opponent.items)
-    : randomOpponent(character.level);
+    : randomOpponent(rng, character.level);
 
-  const result = resolveBattle(toFighter(character, character.items), foe);
+  const result = resolveBattle(rng, toFighter(character, character.items), foe);
 
   // Rewards: winning grants gold + a little XP; losing costs a small stake.
-  const stake = Math.round(8 * foe.level + Math.random() * 20);
+  const stake = Math.round(8 * foe.level + rng() * 20);
   const goldChange = result.won ? stake : -Math.min(character.gold, Math.round(stake / 2));
   const xpGain = result.won ? Math.round(10 * foe.level) : 0;
 
@@ -194,6 +201,7 @@ export async function fightArena(): Promise<ActionResult> {
           opponentName: foe.name,
           won: result.won,
           goldChange,
+          seed,
           rounds: JSON.stringify(result.rounds),
         },
       },
@@ -227,8 +235,10 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
     return { ok: false, message: `${dungeon.name} is already cleared. 🏅` };
   }
 
-  const boss = generateBoss(dungeon, floor);
-  const result = resolveBattle(toFighter(character, character.items), boss);
+  const seed = randomSeed();
+  const rng = makeRng(seed);
+  const boss = generateBoss(rng, dungeon, floor);
+  const result = resolveBattle(rng, toFighter(character, character.items), boss);
   const label = `${dungeon.emoji} ${boss.name} — ${dungeon.name} floor ${floor}`;
 
   const ops: Prisma.PrismaPromise<unknown>[] = [];
@@ -241,6 +251,7 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
           opponentName: label,
           won: false,
           goldChange: 0,
+          seed,
           rounds: JSON.stringify(result.rounds),
         },
       }),
@@ -254,7 +265,7 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
   }
 
   // Victory: reward, possible loot, and advance the run.
-  const reward = dungeonReward(dungeon, floor);
+  const reward = dungeonReward(rng, dungeon, floor);
 
   const progression: Progression = {
     class: character.class as CharClass,
@@ -288,6 +299,7 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
             opponentName: label,
             won: true,
             goldChange: reward.gold,
+            seed,
             rounds: JSON.stringify(result.rounds),
           },
         },
@@ -348,7 +360,7 @@ export async function refreshShop(): Promise<void> {
     where: { characterId: character.id, location: "SHOP" },
   });
   await prisma.item.createMany({
-    data: generateShopStock(character.level).map((it) => ({
+    data: generateShopStock(makeRng(randomSeed()), character.level).map((it) => ({
       ...it,
       characterId: character.id,
       location: "SHOP",

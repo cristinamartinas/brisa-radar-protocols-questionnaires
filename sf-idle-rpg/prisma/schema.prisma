@@ -98,6 +98,7 @@ model ActiveQuest {
   xpReward       Int
   mushroomReward Int       @default(0)
   durationSec    Int
+  seed           String?   // RNG seed the reward roll came from (auditable)
   startedAt      DateTime  @default(now())
   endsAt         DateTime
 }
@@ -147,5 +148,6 @@ model BattleLog {
   won          Boolean
   goldChange   Int
   rounds       String    // JSON-encoded array of round descriptions
+  seed         String?   // RNG seed the fight was resolved from (recomputable)
   createdAt    DateTime  @default(now())
 }

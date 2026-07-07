@@ -10,6 +10,7 @@ import {
   newSessionToken,
 } from "@/lib/session";
 import { getClass, generateShopStock, type CharClass } from "@/lib/game";
+import { makeRng, randomSeed } from "@/lib/rng";
 import type { ActionResult } from "@/lib/actions";
 
 /**
@@ -65,7 +66,7 @@ export async function register(
   // Stock the hero's personal Magic Shop with a starting selection.
   if (player.character) {
     await prisma.item.createMany({
-      data: generateShopStock(1).map((it) => ({
+      data: generateShopStock(makeRng(randomSeed()), 1).map((it) => ({
         ...it,
         characterId: player.character!.id,
         location: "SHOP",
