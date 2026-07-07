@@ -6,6 +6,7 @@ import {
   type Fighter,
   type CharClass,
 } from "@/lib/game";
+import { talentBonuses } from "@/lib/talents";
 
 export type CharacterWithLogs = NonNullable<
   Awaited<ReturnType<typeof loadCharacter>>
@@ -20,6 +21,7 @@ export async function loadCharacter() {
     where: { player: { sessionToken: token } },
     include: {
       items: true,
+      talents: true,
       activeQuest: true,
       dungeons: true,
       guild: {
@@ -83,12 +85,14 @@ type CharacterLike = {
   name: string;
   class: string;
   level: number;
+  talents?: { node: string; rank: number }[];
 } & Attributes;
 
 /**
  * Convert a stored character (with its items) into a combat-ready Fighter,
  * folding equipped-gear bonuses into its attributes. If `items` is omitted
- * the raw base attributes are used.
+ * the raw base attributes are used. When the character carries allocated
+ * `talents`, those flat bonuses are folded in on top of gear.
  */
 export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
   const base: Attributes = {
@@ -99,10 +103,15 @@ export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
     luck: c.luck,
   };
   const eff = effectiveAttributes(base, items);
+  const tal = talentBonuses(c.talents ?? []);
   return {
     name: c.name,
     class: c.class as CharClass,
     level: c.level,
-    ...eff,
+    strength: eff.strength + tal.strength,
+    dexterity: eff.dexterity + tal.dexterity,
+    intelligence: eff.intelligence + tal.intelligence,
+    constitution: eff.constitution + tal.constitution,
+    luck: eff.luck + tal.luck,
   };
 }
