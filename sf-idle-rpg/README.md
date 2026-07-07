@@ -5,8 +5,10 @@ entirely on a React stack. Roll a hero, send them on daft quests for gold and
 experience, and fight other real players (or NPCs when you're alone) in the
 arena. Menu-driven and asynchronous — no real-time netcode required.
 
-**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Prisma 7 · SQLite ·
+**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Prisma 7 · Postgres ·
 Tailwind CSS v4. One language end to end, one codebase for UI *and* server.
+
+**Deploying?** See [DEPLOY.md](./DEPLOY.md) — one-database (Neon) + Vercel, ready to go.
 
 ---
 
@@ -33,7 +35,7 @@ src/lib/game.ts          # pure game rules: classes, stats, quests, combat  (ser
 src/lib/actions.ts       # server actions: quests, arena, dungeons, shop, guilds
 src/lib/auth.ts          # register / login / logout (bcrypt + session tokens)
 src/lib/data.ts          # read helpers: loadCharacter, loadLeaderboard, loadGuilds
-src/lib/db.ts            # Prisma client (better-sqlite3 driver adapter)
+src/lib/db.ts            # Prisma client (Postgres via the pg driver adapter)
 src/lib/session.ts       # token-based session cookie
 src/app/page.tsx         # the dashboard (server component)
 src/components/          # CreateHero + ActionButton (client components)
@@ -42,9 +44,12 @@ src/components/          # CreateHero + ActionButton (client components)
 ## Getting started
 
 ```bash
+# start a local Postgres (or use a Neon dev branch — see DEPLOY.md)
+docker run --name qc-pg -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
+
 npm install
-cp .env.example .env        # DATABASE_URL="file:./dev.db"
-npm run db:migrate          # create the SQLite database
+cp .env.example .env        # DATABASE_URL points at localhost:5432
+npm run db:migrate          # apply migrations (prisma migrate deploy)
 npm run dev                 # http://localhost:3000
 ```
 
@@ -83,12 +88,13 @@ hero's arena fights will match against the first. That's the real PvP.
 
 - **Guild raids** — shared boss fights and a guild treasury on top of the
   existing guild social layer.
-- **Postgres** — swap the SQLite datasource for Postgres (Neon/Supabase) to
-  deploy on Vercel.
+- **Combat replays** — store fighter snapshots next to the fight seed and add a
+  replay/spectate view (the deterministic engine already makes this cheap).
 
 ## Notes
 
-- The game logic in `src/lib/game.ts` is deliberately dependency-free and pure,
-  so it's easy to unit-test and to reason about balance.
-- `src/generated/prisma/` and `dev.db` are git-ignored; `npm install` and
-  `npm run db:migrate` regenerate them.
+- The game logic in `src/lib/game.ts` is pure and takes a seeded RNG, so every
+  outcome is reproducible from a stored seed — easy to unit-test and audit.
+- All randomness runs through `src/lib/rng.ts`; all currency moves through the
+  append-only `CurrencyLedger` (`src/lib/ledger.ts`).
+- `src/generated/prisma/` is git-ignored; `npm install` regenerates the client.

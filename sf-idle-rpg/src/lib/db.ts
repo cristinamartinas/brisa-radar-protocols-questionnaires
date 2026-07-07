@@ -1,19 +1,18 @@
 import { PrismaClient } from "@/generated/prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-// Prisma 7 uses driver adapters. We talk to the local SQLite file through
-// the better-sqlite3 adapter. DATABASE_URL ("file:./dev.db") resolves
-// relative to the project root, which is the cwd for both the Prisma CLI
-// and the Next.js runtime, so the two always agree on the same file.
-const url = process.env.DATABASE_URL ?? "file:./dev.db";
+// Prisma 7 uses driver adapters. We talk to Postgres through the pg adapter.
+// DATABASE_URL is a standard Postgres connection string (see .env.example);
+// locally that can be a dev Postgres, in production a hosted one (Neon/Supabase).
+const connectionString = process.env.DATABASE_URL;
 
-// Reuse a single PrismaClient across hot reloads in development to avoid
-// exhausting connections / re-opening the database file.
+// Reuse a single PrismaClient across hot reloads / warm serverless invocations
+// to avoid exhausting the connection pool.
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 export const prisma =
   globalForPrisma.prisma ??
-  new PrismaClient({ adapter: new PrismaBetterSqlite3({ url }) });
+  new PrismaClient({ adapter: new PrismaPg({ connectionString }) });
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
