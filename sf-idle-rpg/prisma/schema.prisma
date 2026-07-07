@@ -57,6 +57,26 @@ model Character {
   items        Item[]
   activeQuest  ActiveQuest?
   dungeons     DungeonProgress[]
+  ledger       CurrencyLedger[]
+}
+
+/// Append-only record of every currency movement. `Character.gold`/`mushrooms`
+/// are cached balances; this ledger is the source of truth. Enables economy
+/// auditing, anti-cheat anomaly detection, and dispute/refund handling — the
+/// invariant is: sum(delta) for a currency == the cached balance, and the most
+/// recent row's balanceAfter == the cached balance. Rows are never updated or
+/// deleted (except by cascade when a hero is removed).
+model CurrencyLedger {
+  id           String    @id @default(cuid())
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId  String
+  currency     String    // GOLD | MUSHROOMS
+  delta        Int
+  balanceAfter Int
+  reason       String
+  createdAt    DateTime  @default(now())
+
+  @@index([characterId, createdAt])
 }
 
 /// A player guild. Purely social for now: a shared roster, a leaderboard, and

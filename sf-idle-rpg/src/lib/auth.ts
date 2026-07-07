@@ -11,6 +11,7 @@ import {
 } from "@/lib/session";
 import { getClass, generateShopStock, type CharClass } from "@/lib/game";
 import { makeRng, randomSeed } from "@/lib/rng";
+import { currencyLedgerOps } from "@/lib/ledger";
 import type { ActionResult } from "@/lib/actions";
 
 /**
@@ -63,15 +64,25 @@ export async function register(
     include: { character: true },
   });
 
-  // Stock the hero's personal Magic Shop with a starting selection.
+  // Stock the hero's personal Magic Shop, and open the currency ledger with the
+  // starting grant so sum(deltas) always reconciles to the cached balance.
   if (player.character) {
-    await prisma.item.createMany({
-      data: generateShopStock(makeRng(randomSeed()), 1).map((it) => ({
-        ...it,
-        characterId: player.character!.id,
-        location: "SHOP",
-      })),
-    });
+    const c = player.character;
+    await prisma.$transaction([
+      prisma.item.createMany({
+        data: generateShopStock(makeRng(randomSeed()), 1).map((it) => ({
+          ...it,
+          characterId: c.id,
+          location: "SHOP",
+        })),
+      }),
+      ...currencyLedgerOps(
+        c.id,
+        { gold: 0, mushrooms: 0 },
+        { gold: c.gold, mushrooms: c.mushrooms },
+        "SIGNUP_GRANT",
+      ),
+    ]);
   }
 
   await setSessionToken(token);

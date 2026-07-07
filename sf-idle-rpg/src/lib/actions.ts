@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getSessionToken, clearSession } from "@/lib/session";
 import { loadCharacter, toFighter, guildGoldMultiplier } from "@/lib/data";
+import { currencyLedgerOps } from "@/lib/ledger";
 import {
   rollQuest,
   applyLevelUps,
@@ -120,6 +121,12 @@ export async function collectQuest(): Promise<ActionResult> {
       },
     }),
     prisma.activeQuest.delete({ where: { id: quest.id } }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: goldEarned, mushrooms: quest.mushroomReward },
+      "QUEST_REWARD",
+    ),
   ]);
 
   revalidatePath("/");
@@ -183,30 +190,38 @@ export async function fightArena(): Promise<ActionResult> {
   };
   const levels = applyLevelUps(progression);
 
-  await prisma.character.update({
-    where: { id: character.id },
-    data: {
-      gold: character.gold + goldChange,
-      arenaWins: character.arenaWins + (result.won ? 1 : 0),
-      arenaLosses: character.arenaLosses + (result.won ? 0 : 1),
-      experience: progression.experience,
-      level: progression.level,
-      strength: progression.strength,
-      dexterity: progression.dexterity,
-      intelligence: progression.intelligence,
-      constitution: progression.constitution,
-      luck: progression.luck,
-      battleLogs: {
-        create: {
-          opponentName: foe.name,
-          won: result.won,
-          goldChange,
-          seed,
-          rounds: JSON.stringify(result.rounds),
+  await prisma.$transaction([
+    prisma.character.update({
+      where: { id: character.id },
+      data: {
+        gold: character.gold + goldChange,
+        arenaWins: character.arenaWins + (result.won ? 1 : 0),
+        arenaLosses: character.arenaLosses + (result.won ? 0 : 1),
+        experience: progression.experience,
+        level: progression.level,
+        strength: progression.strength,
+        dexterity: progression.dexterity,
+        intelligence: progression.intelligence,
+        constitution: progression.constitution,
+        luck: progression.luck,
+        battleLogs: {
+          create: {
+            opponentName: foe.name,
+            won: result.won,
+            goldChange,
+            seed,
+            rounds: JSON.stringify(result.rounds),
+          },
         },
       },
-    },
-  });
+    }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: goldChange },
+      result.won ? "ARENA_WIN" : "ARENA_LOSS",
+    ),
+  ]);
 
   revalidatePath("/");
 
@@ -323,6 +338,12 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
         clearedAt: cleared ? new Date() : null,
       },
     }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: reward.gold },
+      "DUNGEON_REWARD",
+    ),
   );
 
   if (reward.loot) {
@@ -389,6 +410,12 @@ export async function buyItem(itemId: string, _formData?: FormData): Promise<voi
       where: { id: item.id },
       data: { location: "INVENTORY" },
     }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: -item.price },
+      "SHOP_BUY",
+    ),
   ]);
 
   revalidatePath("/");
@@ -452,6 +479,12 @@ export async function sellItem(itemId: string, _formData?: FormData): Promise<vo
       data: { gold: character.gold + payout },
     }),
     prisma.item.delete({ where: { id: item.id } }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: payout },
+      "SHOP_SELL",
+    ),
   ]);
 
   revalidatePath("/");
@@ -497,6 +530,12 @@ export async function createGuild(
         },
       },
     }),
+    ...currencyLedgerOps(
+      character.id,
+      { gold: character.gold, mushrooms: character.mushrooms },
+      { gold: -GUILD_COST },
+      "GUILD_FOUND",
+    ),
   ]);
 
   revalidatePath("/");
