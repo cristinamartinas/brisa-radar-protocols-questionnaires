@@ -15,7 +15,7 @@ import type { Prisma } from "@/generated/prisma/client";
  * The caller is responsible for setting `Character.gold = current + Σdelta`.
  */
 
-export type Wallet = { gold: number; mushrooms: number };
+export type Wallet = { gold: number; mushrooms: number; dust: number };
 export type CurrencyDelta = Partial<Wallet>;
 
 /** Common, greppable reasons — keep the audit trail categorical. */
@@ -27,7 +27,12 @@ export type LedgerReason =
   | "DUNGEON_REWARD"
   | "SHOP_BUY"
   | "SHOP_SELL"
-  | "GUILD_FOUND";
+  | "GUILD_FOUND"
+  | "SALVAGE"
+  | "FORGE_REROLL"
+  | "FORGE_UPGRADE"
+  | "DAILY_REWARD"
+  | "TALENT_RESPEC";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the
@@ -36,7 +41,7 @@ export type LedgerReason =
  */
 export function currencyLedgerOps(
   characterId: string,
-  current: Wallet,
+  current: { gold: number; mushrooms: number; dust?: number },
   delta: CurrencyDelta,
   reason: LedgerReason,
 ): Prisma.PrismaPromise<unknown>[] {
@@ -63,6 +68,19 @@ export function currencyLedgerOps(
           currency: "MUSHROOMS",
           delta: delta.mushrooms,
           balanceAfter: current.mushrooms + delta.mushrooms,
+          reason,
+        },
+      }),
+    );
+  }
+  if (delta.dust) {
+    ops.push(
+      prisma.currencyLedger.create({
+        data: {
+          characterId,
+          currency: "DUST",
+          delta: delta.dust,
+          balanceAfter: (current.dust ?? 0) + delta.dust,
           reason,
         },
       }),

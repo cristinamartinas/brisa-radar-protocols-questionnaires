@@ -35,6 +35,7 @@ model Character {
   experience   Int      @default(0)
   gold         Int      @default(100)
   mushrooms    Int      @default(10) // premium currency, S&F flavour
+  dust         Int      @default(0)  // crafting currency from salvaging gear
 
   // Core attributes
   strength     Int      @default(10)
@@ -58,6 +59,52 @@ model Character {
   activeQuest  ActiveQuest?
   dungeons     DungeonProgress[]
   ledger       CurrencyLedger[]
+  talents      Talent[]
+  achievements CharacterAchievement[]
+  daily        DailyState?
+}
+
+// ---------------------------------------------------------------------------
+// M2 feature tables (built in parallel — see docs/design). Each is owned by
+// one feature module; the models live here so relations to Character resolve.
+// ---------------------------------------------------------------------------
+
+/// An allocated rank in the talent tree. Available points are DERIVED
+/// (level - 1 - sum of ranks), so no separate points column is needed.
+/// Owned by the Talents feature (src/lib/talents.ts).
+model Talent {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  node        String    // talent node key, defined in code
+  rank        Int       @default(0)
+
+  @@unique([characterId, node])
+}
+
+/// A milestone a hero has unlocked. Achievement definitions live in code;
+/// this only records what's been earned. Owned by the Achievements feature.
+model CharacterAchievement {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  key         String    // achievement key, defined in code
+  unlockedAt  DateTime  @default(now())
+
+  @@unique([characterId, key])
+}
+
+/// Per-hero daily-tasks and login-streak state. Owned by the Dailies feature.
+model DailyState {
+  id            String    @id @default(cuid())
+  character     Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId   String    @unique
+  day           String    // UTC yyyy-mm-dd this state is for
+  streak        Int       @default(0)
+  lastClaimDay  String?   // UTC yyyy-mm-dd of the last streak claim
+  tasksClaimed  String    @default("[]") // JSON array of claimed task keys for `day`
+  loginClaimed  Boolean   @default(false)
+  updatedAt     DateTime  @updatedAt
 }
 
 /// Append-only record of every currency movement. `Character.gold`/`mushrooms`
