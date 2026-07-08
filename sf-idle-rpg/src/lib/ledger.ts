@@ -42,7 +42,11 @@ export type LedgerReason =
   | "PIT_UPGRADE"
   | "PET_FORAGE"
   | "PET_ADOPT"
-  | "MAIL_CLAIM";
+  | "MAIL_CLAIM"
+  | "SEASON_REWARD"
+  | "EXPEDITION_REWARD"
+  | "FISHING_CATCH"
+  | "COSMETIC_PURCHASE";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the
