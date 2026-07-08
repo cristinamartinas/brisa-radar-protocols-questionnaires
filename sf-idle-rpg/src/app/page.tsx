@@ -32,6 +32,11 @@ import DailiesPanel from "@/components/DailiesPanel";
 import ForgePanel from "@/components/ForgePanel";
 import TalentsPanel from "@/components/TalentsPanel";
 import AchievementsPanel from "@/components/AchievementsPanel";
+import SkillsPanel from "@/components/SkillsPanel";
+import TowerPanel from "@/components/TowerPanel";
+import WorldBossPanel from "@/components/WorldBossPanel";
+import ProfilePanel from "@/components/ProfilePanel";
+import GuildHallPanel from "@/components/GuildHallPanel";
 
 const STAT_KEYS: [string, keyof Attributes][] = [
   ["Strength", "strength"],
@@ -445,11 +450,25 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Infinite Tower */}
+      <TowerPanel />
+
+      {/* World Boss (server-wide co-op) */}
+      <div className="mt-6">
+        <WorldBossPanel />
+      </div>
+
       {/* Talents */}
       <TalentsPanel />
 
+      {/* Active skills / rotation */}
+      <SkillsPanel />
+
       {/* Achievements */}
       <AchievementsPanel />
+
+      {/* Hero profile & titles */}
+      <ProfilePanel />
 
       {/* Guilds */}
       <section className="panel mt-6 p-5">
@@ -543,6 +562,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Guild Hall & perks */}
+      <GuildHallPanel />
 
       {/* History */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
