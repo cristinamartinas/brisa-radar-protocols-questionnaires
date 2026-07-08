@@ -37,6 +37,9 @@ model Character {
   mushrooms    Int      @default(10) // premium currency, S&F flavour
   dust         Int      @default(0)  // crafting currency from salvaging gear
 
+  skillLoadout String   @default("[]") // JSON: ordered [{skill,trigger}] rotation
+  title        String?  // equipped cosmetic title key (must be unlocked)
+
   // Core attributes
   strength     Int      @default(10)
   dexterity    Int      @default(10)
@@ -62,6 +65,8 @@ model Character {
   talents      Talent[]
   achievements CharacterAchievement[]
   daily        DailyState?
+  tower        TowerState?
+  bossHits     WorldBossHit[]
 }
 
 // ---------------------------------------------------------------------------
@@ -137,6 +142,66 @@ model Guild {
   founderId   String
   createdAt   DateTime    @default(now())
   members     Character[]
+  rooms       GuildRoom[]
+}
+
+// ---------------------------------------------------------------------------
+// Wave 2 feature tables (endgame + depth), built in parallel. Models live here
+// so relations resolve; each is owned by one feature module.
+// ---------------------------------------------------------------------------
+
+/// Per-hero progress in the Infinite Tower (endless scaling floors).
+/// Owned by the Tower feature (src/lib/tower.ts).
+model TowerState {
+  id           String    @id @default(cuid())
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId  String    @unique
+  highestFloor Int       @default(0) // best floor ever cleared
+  currentFloor Int       @default(1) // next floor to attempt this run
+  runStartedAt DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+/// A server-wide world boss everyone chips away at. Global rows (not per hero).
+/// Owned by the World Boss feature (src/lib/worldboss.ts).
+model WorldBoss {
+  id          String         @id @default(cuid())
+  name        String
+  emoji       String         @default("👹")
+  level       Int
+  maxHp       Int
+  hp          Int
+  active      Boolean        @default(true)
+  spawnedAt   DateTime       @default(now())
+  defeatedAt  DateTime?
+  hits        WorldBossHit[]
+
+  @@index([active])
+}
+
+/// One hero's damage contribution to a world boss.
+model WorldBossHit {
+  id          String    @id @default(cuid())
+  worldBoss   WorldBoss @relation(fields: [worldBossId], references: [id], onDelete: Cascade)
+  worldBossId String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  damage      Int
+  createdAt   DateTime  @default(now())
+
+  @@index([worldBossId, characterId])
+}
+
+/// An upgradable room in a guild hall, granting perks. Owned by the Guild Hall
+/// feature (src/lib/guildhall.ts).
+model GuildRoom {
+  id      String @id @default(cuid())
+  guild   Guild  @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  guildId String
+  room    String // room key, defined in code
+  level   Int    @default(1)
+
+  @@unique([guildId, room])
 }
 
 /// How far a hero has descended into a given dungeon. `floor` is the next

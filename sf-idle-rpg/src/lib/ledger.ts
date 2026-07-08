@@ -32,7 +32,11 @@ export type LedgerReason =
   | "FORGE_REROLL"
   | "FORGE_UPGRADE"
   | "DAILY_REWARD"
-  | "TALENT_RESPEC";
+  | "TALENT_RESPEC"
+  | "TOWER_REWARD"
+  | "WORLDBOSS_REWARD"
+  | "GUILD_UPGRADE"
+  | "TITLE_PURCHASE";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the
