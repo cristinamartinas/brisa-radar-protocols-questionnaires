@@ -96,9 +96,31 @@ export function maxHp(f: Fighter): number {
   return Math.round(f.constitution * (f.level + 1) * getClass(f.class).hpFactor);
 }
 
+/** One resolved swing, with enough state to animate a blow-by-blow replay. */
+export interface BattleEvent {
+  turn: number;
+  /** True when the hero (me) is the attacker this swing. */
+  byMe: boolean;
+  attacker: string;
+  defender: string;
+  /** Damage actually applied (after any shield soak). */
+  dmg: number;
+  crit: boolean;
+  absorbed: number;
+  heal: number;
+  /** Both fighters' HP after this swing (clamped at 0). */
+  myHp: number;
+  foeHp: number;
+  /** Skill flavor lines emitted this swing. */
+  notes: string[];
+}
+
 export interface BattleResult {
   won: boolean;
   rounds: string[];
+  events: BattleEvent[];
+  meMaxHp: number;
+  foeMaxHp: number;
   opponent: Fighter;
 }
 
@@ -147,6 +169,7 @@ export function resolveBattle(
   const myMax = myHp;
   const foeMax = foeHp;
   const rounds: string[] = [];
+  const events: BattleEvent[] = [];
 
   // Determine turn order.
   const meFirst = me.dexterity >= foe.dexterity;
@@ -229,6 +252,20 @@ export function resolveBattle(
       rounds.push(`🛡️ ${defender.name}'s guard absorbs ${absorbed} damage.`);
     }
 
+    events.push({
+      turn: attackerRt.turns,
+      byMe: attackerIsMe,
+      attacker: attacker.name,
+      defender: defender.name,
+      dmg: total,
+      crit,
+      absorbed,
+      heal: outcome.selfHeal,
+      myHp: Math.max(0, myHp),
+      foeHp: Math.max(0, foeHp),
+      notes: outcome.logs,
+    });
+
     // Swap roles (and their aligned skill state) for the next turn.
     [attacker, defender] = [defender, attacker];
     [attackerRt, defenderRt] = [defenderRt, attackerRt];
@@ -238,7 +275,7 @@ export function resolveBattle(
 
   const won = myHp > foeHp;
   rounds.push(won ? `🏆 ${me.name} is victorious!` : `☠️ ${me.name} was defeated…`);
-  return { won, rounds, opponent: foe };
+  return { won, rounds, events, meMaxHp: myMax, foeMaxHp: foeMax, opponent: foe };
 }
 
 // ---------------------------------------------------------------------------

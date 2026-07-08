@@ -19,14 +19,27 @@ import {
   dungeonReward,
   type CharClass,
   type Progression,
+  type BattleEvent,
 } from "@/lib/game";
 import { makeRng, randomSeed } from "@/lib/rng";
 import { parseLoadout } from "@/lib/skills";
 import type { Prisma } from "@/generated/prisma/client";
 
+/** An animatable blow-by-blow replay handed back to the client after a fight. */
+export interface BattleReplay {
+  me: { name: string; className: string; maxHp: number };
+  foe: { name: string; className: string; maxHp: number };
+  events: BattleEvent[];
+  won: boolean;
+  /** Reward summary line to show when the dust settles. */
+  outcome: string;
+}
+
 export interface ActionResult {
   ok: boolean;
   message: string;
+  /** Present on combat actions — drives the animated battle report. */
+  battle?: BattleReplay;
 }
 
 // ---------------------------------------------------------------------------
@@ -185,9 +198,10 @@ export async function fightArena(): Promise<ActionResult> {
     ? toFighter(opponent, opponent.items)
     : randomOpponent(rng, character.level);
 
+  const meFighter = toFighter(character, character.items);
   const result = resolveBattle(
     rng,
-    toFighter(character, character.items),
+    meFighter,
     foe,
     parseLoadout(character.skillLoadout),
   );
@@ -275,7 +289,15 @@ export async function fightArena(): Promise<ActionResult> {
   if (xpGain) message += `, +${xpGain} XP`;
   message += ` · ${ratingStr}`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
-  return { ok: true, message };
+
+  const battle: BattleReplay = {
+    me: { name: meFighter.name, className: meFighter.class, maxHp: result.meMaxHp },
+    foe: { name: foe.name, className: foe.class, maxHp: result.foeMaxHp },
+    events: result.events,
+    won: result.won,
+    outcome: message,
+  };
+  return { ok: true, message, battle };
 }
 
 // ---------------------------------------------------------------------------

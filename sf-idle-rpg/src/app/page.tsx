@@ -2,7 +2,6 @@ import Link from "next/link";
 import { loadCharacter, loadLeaderboard, loadGuilds, toFighter } from "@/lib/data";
 import {
   startQuest,
-  fightArena,
   abandonHero,
   buyItem,
   equipItem,
@@ -53,6 +52,7 @@ import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 import PrestigePanel from "@/components/PrestigePanel";
+import { ArenaButton } from "@/components/ArenaButton";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -389,9 +389,7 @@ export default async function Home({
             <p className="mt-1 mb-3 text-sm text-muted">
               Fight another hero. Win gold, risk a little pride.
             </p>
-            <ActionButton action={fightArena} className="w-full bg-accent text-white">
-              Enter the Arena
-            </ActionButton>
+            <ArenaButton />
           </div>
 
           {/* Inventory */}
