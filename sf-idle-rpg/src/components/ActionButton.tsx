@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import type { ActionResult } from "@/lib/actions";
+import { Celebration } from "@/components/juice/Celebration";
 
 /**
  * Runs a no-argument server action, shows a pending state, and surfaces the
@@ -21,7 +22,7 @@ export function ActionButton({
   const [result, setResult] = useState<ActionResult | null>(null);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="relative flex flex-col gap-2">
       <button
         type="button"
         disabled={pending}
@@ -44,6 +45,9 @@ export function ActionButton({
           {result.message}
         </p>
       )}
+
+      {/* Celebration overlay — reacts to the latest result, self-dismisses. */}
+      <Celebration result={result} />
     </div>
   );
 }
