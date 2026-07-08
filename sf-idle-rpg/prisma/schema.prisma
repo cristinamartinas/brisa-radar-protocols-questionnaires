@@ -77,6 +77,45 @@ model Character {
   seasonPass   SeasonPassState?
   expedition   Expedition?
   fishing      FishingState?
+  bounty       BountyState?
+  dice         DiceState?
+  dailyShop    DailyShopState?
+}
+
+// ---------------------------------------------------------------------------
+// Wave 5 feature tables (economy + meta), built in parallel.
+// ---------------------------------------------------------------------------
+
+/// Per-hero bounty board state: which day's bounties are active and claimed.
+/// Owned by the Bounty feature (src/lib/bounties.ts).
+model BountyState {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String    @unique
+  day         String    // UTC yyyy-mm-dd the current board is for
+  claimed     String    @default("[]") // JSON array of claimed bounty keys
+  updatedAt   DateTime  @updatedAt
+}
+
+/// Tavern dice gambling stats. Owned by the Dice feature (src/lib/dice.ts).
+model DiceState {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String    @unique
+  rolls       Int       @default(0)
+  wins        Int       @default(0)
+  biggestWin  Int       @default(0)
+  updatedAt   DateTime  @updatedAt
+}
+
+/// Per-hero daily-shop rotation marker. The offered items live in the Item
+/// table with location "DAILY_SHOP". Owned by the Daily Shop feature.
+model DailyShopState {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String    @unique
+  day         String    // UTC yyyy-mm-dd the current stock is for
+  updatedAt   DateTime  @updatedAt
 }
 
 // ---------------------------------------------------------------------------

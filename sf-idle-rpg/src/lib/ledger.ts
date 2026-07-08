@@ -46,7 +46,11 @@ export type LedgerReason =
   | "SEASON_REWARD"
   | "EXPEDITION_REWARD"
   | "FISHING_CATCH"
-  | "COSMETIC_PURCHASE";
+  | "COSMETIC_PURCHASE"
+  | "BOUNTY_REWARD"
+  | "DICE_WIN"
+  | "DICE_LOSS"
+  | "DAILY_SHOP_BUY";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the
