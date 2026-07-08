@@ -52,6 +52,7 @@ model Character {
 
   arenaWins    Int      @default(0)
   arenaLosses  Int      @default(0)
+  arenaRating  Int      @default(1200) // Elo-style ranked-ladder rating
 
   guild        Guild?   @relation(fields: [guildId], references: [id], onDelete: SetNull)
   guildId      String?

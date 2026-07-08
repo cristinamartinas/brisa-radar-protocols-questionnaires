@@ -50,6 +50,7 @@ import LorePanel from "@/components/LorePanel";
 import OnboardingPanel from "@/components/OnboardingPanel";
 import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
+import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 
 /** Section heading + scroll anchor for the category nav. */
 function SectionHeading({ id, label }: { id: string; label: string }) {
@@ -543,6 +544,9 @@ export default async function Home() {
       <div className="mt-6">
         <WorldBossPanel />
       </div>
+
+      {/* Ranked arena ladder */}
+      <ArenaLadderPanel />
 
       <SectionHeading id="build" label="🌟 Character Build" />
 

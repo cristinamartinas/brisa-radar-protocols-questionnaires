@@ -6,6 +6,7 @@ import { getSessionToken, clearSession } from "@/lib/session";
 import { loadCharacter, toFighter, guildGoldMultiplier } from "@/lib/data";
 import { currencyLedgerOps } from "@/lib/ledger";
 import { guildPerks } from "@/lib/guildhall";
+import { eloUpdate } from "@/lib/elo";
 import {
   rollQuest,
   applyLevelUps,
@@ -214,13 +215,22 @@ export async function fightArena(): Promise<ActionResult> {
   };
   const levels = applyLevelUps(progression);
 
-  await prisma.$transaction([
+  // Ranked-ladder rating. Against a real hero we use their rating and update
+  // both; against an NPC fallback we use a synthetic rating and only the hero's
+  // moves (bots don't sit on the ladder).
+  const foeRating = opponent
+    ? opponent.arenaRating
+    : Math.max(900, Math.min(1600, 1000 + foe.level * 15));
+  const rating = eloUpdate(character.arenaRating, foeRating, result.won);
+
+  const ops: Prisma.PrismaPromise<unknown>[] = [
     prisma.character.update({
       where: { id: character.id },
       data: {
         gold: character.gold + goldChange,
         arenaWins: character.arenaWins + (result.won ? 1 : 0),
         arenaLosses: character.arenaLosses + (result.won ? 0 : 1),
+        arenaRating: rating.mine,
         experience: progression.experience,
         level: progression.level,
         strength: progression.strength,
@@ -245,14 +255,25 @@ export async function fightArena(): Promise<ActionResult> {
       { gold: goldChange },
       result.won ? "ARENA_WIN" : "ARENA_LOSS",
     ),
-  ]);
+  ];
+  if (opponent) {
+    ops.push(
+      prisma.character.update({
+        where: { id: opponent.id },
+        data: { arenaRating: rating.theirs },
+      }),
+    );
+  }
+  await prisma.$transaction(ops);
 
   revalidatePath("/");
 
+  const ratingStr = `${rating.delta >= 0 ? "+" : ""}${rating.delta} rating (${rating.mine})`;
   let message = result.won
     ? `You defeated ${foe.name}! +${goldChange} gold`
     : `${foe.name} bested you. ${goldChange} gold`;
   if (xpGain) message += `, +${xpGain} XP`;
+  message += ` · ${ratingStr}`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
   return { ok: true, message };
 }
