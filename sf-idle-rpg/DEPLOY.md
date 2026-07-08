@@ -39,8 +39,8 @@ That's it. Notes:
 - **No database at build time:** the image builds with a placeholder
   `DATABASE_URL`; the real connection is only needed at runtime and is provided
   by compose (`postgresql://questcudgel:questcudgel@db:5432/questcudgel`).
-- **Change the port** by editing the `ports:` mapping in `docker-compose.yml`
-  (e.g. `"8080:3000"`).
+- **Port already taken?** The host port defaults to 3000 but is configurable:
+  `APP_PORT=3001 docker compose up --build` serves on http://localhost:3001.
 - **Deploy the image anywhere** (a VPS, Fly.io, Render, a home server): build it
   with `docker build -t quest-cudgel .`, point `DATABASE_URL` at any reachable
   Postgres, publish port 3000, and run it. The entrypoint migrates on boot.

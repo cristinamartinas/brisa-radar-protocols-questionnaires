@@ -1,10 +1,11 @@
 # Quest & Cudgel — one-command self-host stack: the game + its Postgres.
 #
-#   docker compose up --build      # build the image and start everything
-#   → open http://localhost:3000
+#   docker compose up --build              # → http://localhost:3000
+#   APP_PORT=3001 docker compose up --build  # → http://localhost:3001
 #
-# The app waits for Postgres to be healthy, applies migrations on start, then
-# serves. Game data persists in the named volume across restarts.
+# Set APP_PORT if something else already uses 3000 on your machine. The app
+# waits for Postgres to be healthy, applies migrations on start, then serves.
+# Game data persists in the named volume across restarts.
 
 services:
   db:
@@ -33,7 +34,9 @@ services:
       # Optional: pin a key so Server Actions stay valid across restarts.
       # NEXT_SERVER_ACTIONS_ENCRYPTION_KEY: change-me-to-a-base64-32-byte-string
     ports:
-      - "3000:3000"
+      # Host port is configurable (default 3000) so it won't clash with another
+      # app already bound to 3000: `APP_PORT=3001 docker compose up`.
+      - "${APP_PORT:-3000}:3000"
     depends_on:
       db:
         condition: service_healthy
