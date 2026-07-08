@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Character" ADD COLUMN     "ascension" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "prestige" INTEGER NOT NULL DEFAULT 0;
+

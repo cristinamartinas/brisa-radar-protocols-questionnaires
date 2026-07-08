@@ -39,6 +39,8 @@ model Character {
 
   skillLoadout String   @default("[]") // JSON: ordered [{skill,trigger}] rotation
   title        String?  // equipped cosmetic title key (must be unlocked)
+  prestige     Int      @default(0)    // times reborn (Ascension)
+  ascension    Int      @default(0)    // permanent Ascension points (power multiplier)
   avatar       String?  // equipped avatar/portrait emoji key
   frameColor   String?  // equipped profile frame colour key
   banner       String?  // equipped profile banner key

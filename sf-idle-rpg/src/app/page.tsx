@@ -51,6 +51,7 @@ import OnboardingPanel from "@/components/OnboardingPanel";
 import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
+import PrestigePanel from "@/components/PrestigePanel";
 
 /** Section heading + scroll anchor for the category nav. */
 function SectionHeading({ id, label }: { id: string; label: string }) {
@@ -555,6 +556,9 @@ export default async function Home() {
 
       {/* Active skills / rotation */}
       <SkillsPanel />
+
+      {/* Ascension / rebirth */}
+      <PrestigePanel />
 
       <SectionHeading id="meta" label="🏆 Progress & Collection" />
 

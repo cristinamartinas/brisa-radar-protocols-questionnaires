@@ -8,6 +8,7 @@ import {
 } from "@/lib/game";
 import { talentBonuses } from "@/lib/talents";
 import { guildPerks } from "@/lib/guildhall";
+import { ascensionMultiplier } from "@/lib/prestige";
 
 export type CharacterWithLogs = NonNullable<
   Awaited<ReturnType<typeof loadCharacter>>
@@ -89,6 +90,7 @@ type CharacterLike = {
   level: number;
   talents?: { node: string; rank: number }[];
   guild?: { rooms: { room: string; level: number }[] } | null;
+  ascension?: number;
 } & Attributes;
 
 /**
@@ -109,14 +111,17 @@ export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
   const tal = talentBonuses(c.talents ?? []);
   // Guild Barracks grants a flat bonus to every attribute for enlisted members.
   const barracks = c.guild ? guildPerks(c.guild.rooms).statBonus : 0;
+  // Ascension (prestige) is a permanent multiplier on the whole stat line.
+  const asc = ascensionMultiplier(c.ascension ?? 0);
+  const stat = (base: number, t: number) => Math.round((base + t + barracks) * asc);
   return {
     name: c.name,
     class: c.class as CharClass,
     level: c.level,
-    strength: eff.strength + tal.strength + barracks,
-    dexterity: eff.dexterity + tal.dexterity + barracks,
-    intelligence: eff.intelligence + tal.intelligence + barracks,
-    constitution: eff.constitution + tal.constitution + barracks,
-    luck: eff.luck + tal.luck + barracks,
+    strength: stat(eff.strength, tal.strength),
+    dexterity: stat(eff.dexterity, tal.dexterity),
+    intelligence: stat(eff.intelligence, tal.intelligence),
+    constitution: stat(eff.constitution, tal.constitution),
+    luck: stat(eff.luck, tal.luck),
   };
 }
