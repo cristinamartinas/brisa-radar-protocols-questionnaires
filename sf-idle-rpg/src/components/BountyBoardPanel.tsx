@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadBounties, claimBounty, claimAllBounties } from "@/lib/bounties";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /** One-line summary of a currency reward for the UI. */
 function rewardLabel(reward: { gold?: number; mushrooms?: number }): string {
@@ -43,7 +45,15 @@ export default async function BountyBoardPanel() {
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 font-semibold">
-                    <span className="text-lg">{b.emoji}</span>
+                    <GameSprite
+                      sprite={catalogSprite({
+                        kind: "bounty",
+                        id: b.key,
+                        glyph: b.emoji,
+                      })}
+                      size={30}
+                      title={b.label}
+                    />
                     <span className="truncate">{b.label}</span>
                   </div>
                   <div className="mt-0.5 text-xs text-gold">

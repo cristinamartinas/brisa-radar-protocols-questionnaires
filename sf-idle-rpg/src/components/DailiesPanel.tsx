@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadDailies, claimDailyTask, claimLogin } from "@/lib/dailies";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /** One-line summary of a currency reward for the UI. */
 function rewardLabel(reward: { gold?: number; mushrooms?: number }): string {
@@ -75,7 +77,15 @@ export default async function DailiesPanel() {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 font-semibold">
-                  <span>{task.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({
+                      kind: "daily",
+                      id: task.key,
+                      glyph: task.emoji,
+                    })}
+                    size={30}
+                    title={task.label}
+                  />
                   <span className="truncate">{task.label}</span>
                 </div>
                 <div className="mt-0.5 text-xs">

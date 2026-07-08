@@ -53,6 +53,14 @@ import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 import PrestigePanel from "@/components/PrestigePanel";
+import { GameSprite } from "@/components/GameSprite";
+import {
+  itemSprite,
+  classSprite,
+  fighterSprite,
+  currencySprite,
+  catalogSprite,
+} from "@/lib/art/sprite";
 
 /** Section heading + scroll anchor for the category nav. */
 function SectionHeading({ id, label }: { id: string; label: string }) {
@@ -158,8 +166,14 @@ export default async function Home({
           Quest &amp; Cudgel
         </h1>
         <div className="flex items-center gap-4 text-sm font-bold">
-          <span className="text-gold">🪙 {character.gold.toLocaleString()}</span>
-          <span>🍄 {character.mushrooms}</span>
+          <span className="flex items-center gap-1.5 text-gold">
+            <GameSprite sprite={currencySprite("GOLD")} size={22} title="Gold" />
+            {character.gold.toLocaleString()}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <GameSprite sprite={currencySprite("MUSHROOMS")} size={22} title="Mushrooms" />
+            {character.mushrooms}
+          </span>
           <SoundToggle />
           <form action={logout}>
             <button className="rounded-md bg-surface-2 px-3 py-1.5 text-xs font-semibold text-muted hover:text-gold">
@@ -199,7 +213,11 @@ export default async function Home({
         {/* Hero panel */}
         <section className="panel p-5 lg:col-span-1">
           <div className="flex items-center gap-3">
-            <div className="text-4xl">{cls.emoji}</div>
+            <GameSprite
+              sprite={classSprite(character.class, cls.emoji)}
+              size={60}
+              title={`${cls.label} — ${character.name}`}
+            />
             <div>
               <h2 className="text-xl font-black">{character.name}</h2>
               <p className="text-sm text-muted">
@@ -274,16 +292,31 @@ export default async function Home({
               <li key={slot.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
                 <div className="flex items-center justify-between gap-2">
                   <span className="flex items-center gap-2">
-                    <span>{slot.emoji}</span>
                     {item ? (
-                      <span
-                        className="font-semibold"
-                        style={{ color: getRarity(item.rarity).color }}
-                      >
-                        {item.name}
-                      </span>
+                      <>
+                        <GameSprite
+                          sprite={itemSprite({ name: item.name, slot: item.slot, rarity: item.rarity })}
+                          size={34}
+                          title={item.name}
+                        />
+                        <span
+                          className="font-semibold"
+                          style={{ color: getRarity(item.rarity).color }}
+                        >
+                          {item.name}
+                        </span>
+                      </>
                     ) : (
-                      <span className="text-muted">Empty {slot.label.toLowerCase()}</span>
+                      <>
+                        <span style={{ opacity: 0.4 }}>
+                          <GameSprite
+                            sprite={catalogSprite({ kind: "slot", id: slot.id, glyph: slot.emoji })}
+                            size={34}
+                            title={`Empty ${slot.label.toLowerCase()}`}
+                          />
+                        </span>
+                        <span className="text-muted">Empty {slot.label.toLowerCase()}</span>
+                      </>
                     )}
                   </span>
                   {item && (
@@ -332,8 +365,13 @@ export default async function Home({
                   {QUEST_LENGTHS.map((q) => (
                     <form key={q.key} action={startQuest.bind(null, q.key)}>
                       <button className="flex w-full items-center justify-between rounded-lg bg-surface px-4 py-2.5 text-left transition hover:bg-surface-2">
-                        <span className="font-semibold">
-                          {q.emoji} {q.label}
+                        <span className="flex items-center gap-2 font-semibold">
+                          <GameSprite
+                            sprite={catalogSprite({ kind: "quest", id: q.key, glyph: q.emoji })}
+                            size={30}
+                            title={q.label}
+                          />
+                          {q.label}
                         </span>
                         <span className="text-xs text-muted">
                           {q.durationSec}s · ×{q.mult} reward
@@ -368,11 +406,18 @@ export default async function Home({
                 {inventory.map((item) => (
                   <li key={item.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
                     <div className="flex items-center justify-between gap-2">
-                      <span
-                        className="font-semibold"
-                        style={{ color: getRarity(item.rarity).color }}
-                      >
-                        {item.name}
+                      <span className="flex min-w-0 items-center gap-2">
+                        <GameSprite
+                          sprite={itemSprite({ name: item.name, slot: item.slot, rarity: item.rarity })}
+                          size={34}
+                          title={item.name}
+                        />
+                        <span
+                          className="truncate font-semibold"
+                          style={{ color: getRarity(item.rarity).color }}
+                        >
+                          {item.name}
+                        </span>
                       </span>
                       <span className="flex shrink-0 gap-1">
                         <form action={equipItem.bind(null, item.id)}>
@@ -411,9 +456,14 @@ export default async function Home({
                     h.id === character.id ? "var(--surface-2)" : "transparent",
                 }}
               >
-                <span className="truncate">
-                  <span className="text-muted">{i + 1}.</span>{" "}
-                  {getClass(h.class).emoji} {h.name}
+                <span className="flex min-w-0 items-center gap-1.5 truncate">
+                  <span className="text-muted">{i + 1}.</span>
+                  <GameSprite
+                    sprite={fighterSprite({ name: h.name, class: h.class })}
+                    size={22}
+                    title={getClass(h.class).label}
+                  />
+                  {h.name}
                 </span>
                 <span className="ml-2 shrink-0 text-muted">Lv {h.level}</span>
               </li>
@@ -468,6 +518,12 @@ export default async function Home({
                   className="flex flex-col rounded-lg border bg-surface p-3"
                   style={{ borderColor: rarity.color }}
                 >
+                  <GameSprite
+                    sprite={itemSprite({ name: item.name, slot: item.slot, rarity: item.rarity })}
+                    size={48}
+                    title={item.name}
+                    className="mb-2"
+                  />
                   <div className="text-xs uppercase tracking-wide" style={{ color: rarity.color }}>
                     {rarity.label}
                   </div>
@@ -534,7 +590,11 @@ export default async function Home({
             return (
               <div key={d.key} className="flex flex-col rounded-lg bg-surface p-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">{d.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({ kind: "dungeon", id: d.key, glyph: d.emoji, shape: "round" })}
+                    size={40}
+                    title={d.name}
+                  />
                   <div>
                     <div className="font-bold leading-tight">{d.name}</div>
                     <div className="text-xs text-muted">
@@ -677,8 +737,13 @@ export default async function Home({
                           m.id === character.id ? "var(--surface-2)" : "transparent",
                       }}
                     >
-                      <span className="truncate">
-                        {getClass(m.class).emoji} {m.name}
+                      <span className="flex min-w-0 items-center gap-1.5 truncate">
+                        <GameSprite
+                          sprite={fighterSprite({ name: m.name, class: m.class })}
+                          size={22}
+                          title={getClass(m.class).label}
+                        />
+                        {m.name}
                         {m.id === character.guild!.founderId && (
                           <span className="ml-1 text-xs text-gold">★ founder</span>
                         )}
@@ -774,9 +839,14 @@ export default async function Home({
                 return (
                   <li key={b.id}>
                     <details>
-                      <summary className="flex cursor-pointer justify-between gap-3">
-                        <span className="truncate">
-                          {b.won ? "🏆" : "☠️"} vs {b.opponentName}
+                      <summary className="flex cursor-pointer items-center justify-between gap-3">
+                        <span className="flex min-w-0 items-center gap-1.5 truncate">
+                          <GameSprite
+                            sprite={fighterSprite({ name: b.opponentName })}
+                            size={22}
+                            title={b.opponentName}
+                          />
+                          <span>{b.won ? "🏆" : "☠️"}</span> vs {b.opponentName}
                         </span>
                         <span
                           className="shrink-0"

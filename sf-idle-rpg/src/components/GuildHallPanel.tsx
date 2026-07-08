@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadGuildHall, upgradeRoom } from "@/lib/guildhall";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /**
  * The Guild Hall: a shared, upgradable clubhouse. Members pool gold to level
@@ -60,7 +62,11 @@ export default async function GuildHallPanel() {
             >
               <div className="flex items-start justify-between gap-2">
                 <span className="flex items-center gap-2 font-bold leading-tight">
-                  <span className="text-xl">{room.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({ kind: "guildroom", id: room.key, glyph: room.emoji })}
+                    size={36}
+                    title={room.name}
+                  />
                   {room.name}
                 </span>
                 <span className="shrink-0 rounded bg-surface-2 px-2 py-0.5 text-xs font-bold tabular-nums text-gold">

@@ -4,6 +4,8 @@ import {
   type TrophySection,
   type TrophyHighlight,
 } from "@/lib/trophyroom";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /** A small SVG progress ring around a collection's emoji. */
 function TrophyRing({ section }: { section: TrophySection }) {
@@ -35,8 +37,16 @@ function TrophyRing({ section }: { section: TrophySection }) {
             strokeDasharray={`${dash} ${circumference}`}
           />
         </svg>
-        <span className="absolute inset-0 flex items-center justify-center text-2xl leading-none">
-          {section.emoji}
+        <span className="absolute inset-0 flex items-center justify-center leading-none">
+          <GameSprite
+            sprite={catalogSprite({
+              kind: "trophy",
+              id: section.key,
+              glyph: section.emoji,
+            })}
+            size={34}
+            title={section.label}
+          />
         </span>
       </div>
 
@@ -61,7 +71,15 @@ function TrophyRing({ section }: { section: TrophySection }) {
 function Headline({ highlight }: { highlight: TrophyHighlight }) {
   return (
     <div className="flex items-center gap-3 rounded-lg bg-surface px-4 py-3">
-      <span className="text-2xl leading-none">{highlight.emoji}</span>
+      <GameSprite
+        sprite={catalogSprite({
+          kind: "trophy",
+          id: highlight.key,
+          glyph: highlight.emoji,
+        })}
+        size={30}
+        title={highlight.label}
+      />
       <div className="min-w-0">
         <div className="text-[11px] font-semibold uppercase tracking-wide text-muted">
           {highlight.label}

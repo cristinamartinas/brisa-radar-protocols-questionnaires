@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadDice, playDice, winnings, MIN_BET, MAX_BET } from "@/lib/dice";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /** Preset stakes for the felt — clamped to what's in the purse at render time. */
 const WAGERS = [10, 50, 100, 250] as const;
@@ -49,7 +51,11 @@ export default async function DicePanel() {
               }
             >
               <div className="flex items-center gap-2 font-bold leading-tight">
-                <span>{bet.emoji}</span>
+                <GameSprite
+                  sprite={catalogSprite({ kind: "dice", id: bet.key, glyph: bet.emoji })}
+                  size={30}
+                  title={bet.label}
+                />
                 <span style={fairish ? { color: "var(--gold)" } : undefined}>
                   {bet.label}
                 </span>

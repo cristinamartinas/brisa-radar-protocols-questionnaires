@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadFishing, castLine, RARITY_COLOR } from "@/lib/fishing";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /**
  * The Fishing Hole. Self-contained server component: loads the hero and their
@@ -55,11 +57,21 @@ export default async function FishingPanel() {
               <div className="text-muted">Best catch</div>
               {bestCatch ? (
                 <div
-                  className="truncate font-bold"
+                  className="flex items-center gap-2 font-bold"
                   style={{ color: RARITY_COLOR[bestCatch.rarity] }}
                   title={`${bestCatch.name} — ${bestCatch.rarity}`}
                 >
-                  {bestCatch.name}
+                  <GameSprite
+                    sprite={catalogSprite({
+                      kind: "fish",
+                      id: bestCatch.key,
+                      glyph: bestCatch.name.split(" ")[0],
+                      tint: RARITY_COLOR[bestCatch.rarity],
+                    })}
+                    size={30}
+                    title={bestCatch.name}
+                  />
+                  <span className="truncate">{bestCatch.name}</span>
                 </div>
               ) : (
                 <div className="font-bold text-muted">— nothing yet —</div>
@@ -72,23 +84,38 @@ export default async function FishingPanel() {
       {/* What's biting */}
       <h4 className="mt-5 mb-2 font-black text-gold">🐟 What&apos;s Biting</h4>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {table.map((fish) => (
-          <div
-            key={fish.key}
-            className="flex items-center justify-between gap-2 rounded-lg bg-surface px-3 py-2 text-sm"
-          >
-            <span className="min-w-0">
-              <span className="truncate font-semibold">{fish.name}</span>{" "}
-              <span
-                className="text-xs uppercase tracking-wide"
-                style={{ color: RARITY_COLOR[fish.rarity] }}
-              >
-                {fish.rarity}
+        {table.map((fish) => {
+          const glyph = fish.name.split(" ")[0];
+          return (
+            <div
+              key={fish.key}
+              className="flex items-center justify-between gap-2 rounded-lg bg-surface px-3 py-2 text-sm"
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                <GameSprite
+                  sprite={catalogSprite({
+                    kind: "fish",
+                    id: fish.key,
+                    glyph,
+                    tint: RARITY_COLOR[fish.rarity],
+                  })}
+                  size={30}
+                  title={fish.name}
+                />
+                <span className="min-w-0">
+                  <span className="truncate font-semibold">{fish.name}</span>{" "}
+                  <span
+                    className="text-xs uppercase tracking-wide"
+                    style={{ color: RARITY_COLOR[fish.rarity] }}
+                  >
+                    {fish.rarity}
+                  </span>
+                </span>
               </span>
-            </span>
-            <span className="shrink-0 text-gold">{fish.gold}🪙</span>
-          </div>
-        ))}
+              <span className="shrink-0 text-gold">{fish.gold}🪙</span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

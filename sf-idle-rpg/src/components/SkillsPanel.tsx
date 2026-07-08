@@ -1,4 +1,6 @@
 import { loadCharacter } from "@/lib/data";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 import {
   SKILLS,
   TRIGGERS,
@@ -139,7 +141,11 @@ export default async function SkillsPanel() {
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="flex items-center gap-2 font-bold leading-tight">
-                  <span className="text-xl">{s.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({ kind: "skill", id: s.key, glyph: s.emoji })}
+                    size={36}
+                    title={s.name}
+                  />
                   {s.name}
                 </span>
                 {isLocked ? (

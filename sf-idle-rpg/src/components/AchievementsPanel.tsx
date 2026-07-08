@@ -6,6 +6,8 @@ import {
   type EvaluatedAchievement,
 } from "@/lib/achievements";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 import type { ActionResult } from "@/lib/actions";
 
 // Tier accents — warm metals, matched to the game's gold-leaning palette.
@@ -28,10 +30,22 @@ function AchievementCard({ a }: { a: EvaluatedAchievement }) {
     >
       <div className="flex items-start gap-2">
         <div
-          className="text-2xl leading-none"
-          style={{ filter: a.unlocked ? "none" : "grayscale(1)" }}
+          className="leading-none"
+          style={{
+            filter: a.unlocked ? "none" : "grayscale(1)",
+            opacity: a.unlocked ? 1 : 0.7,
+          }}
         >
-          {a.emoji}
+          <GameSprite
+            sprite={catalogSprite({
+              kind: "achievement",
+              id: a.key,
+              glyph: a.emoji,
+              tier: a.tier,
+            })}
+            size={44}
+            title={a.name}
+          />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">

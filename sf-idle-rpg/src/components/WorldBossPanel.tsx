@@ -1,6 +1,7 @@
 import { loadCharacter } from "@/lib/data";
-import { getClass } from "@/lib/game";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { fighterSprite } from "@/lib/art/sprite";
 import {
   getOrSpawnBoss,
   loadBossContributions,
@@ -42,7 +43,11 @@ export default async function WorldBossPanel() {
       {/* The behemoth */}
       <div className="rounded-lg bg-surface p-4">
         <div className="flex items-center gap-3">
-          <span className="text-4xl leading-none">{boss.emoji}</span>
+          <GameSprite
+            sprite={fighterSprite({ name: boss.name, glyph: boss.emoji, boss: true })}
+            size={60}
+            title={boss.name}
+          />
           <div className="min-w-0">
             <div className="truncate text-lg font-black">{boss.name}</div>
             <div className="text-xs text-muted">
@@ -119,7 +124,11 @@ export default async function WorldBossPanel() {
                     <span className="w-5 shrink-0 text-center font-black text-muted">
                       {i + 1}
                     </span>
-                    <span>{getClass(c.class).emoji}</span>
+                    <GameSprite
+                      sprite={fighterSprite({ name: c.name, class: c.class })}
+                      size={22}
+                      title={c.name}
+                    />
                     <span className="truncate font-semibold">
                       {c.name}
                       {isYou && <span className="text-gold"> (you)</span>}

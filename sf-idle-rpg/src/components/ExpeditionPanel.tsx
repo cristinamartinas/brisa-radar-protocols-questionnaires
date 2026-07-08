@@ -6,6 +6,8 @@ import {
 } from "@/lib/expeditions";
 import { ExpeditionTimer } from "@/components/ExpeditionTimer";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /**
  * The War Table — a self-contained expedition panel. Loads the hero and any
@@ -51,8 +53,17 @@ export default async function ExpeditionPanel() {
               >
                 <span className="flex flex-col gap-0.5">
                   <span className="flex items-center justify-between gap-2">
-                    <span className="font-semibold">
-                      {t.emoji} {t.label}
+                    <span className="flex items-center gap-2 font-semibold">
+                      <GameSprite
+                        sprite={catalogSprite({
+                          kind: "expedition",
+                          id: String(t.tier),
+                          glyph: t.emoji,
+                        })}
+                        size={30}
+                        title={t.label}
+                      />
+                      {t.label}
                     </span>
                     <span className="shrink-0 text-xs text-muted">{duration}</span>
                   </span>

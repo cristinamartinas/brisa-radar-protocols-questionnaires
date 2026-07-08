@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadWheel, spin, describeWheelReward, WHEEL_PRIZES } from "@/lib/wheel";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /**
  * The Wheel of Fortune 🎡 — a once-a-day free spin. Self-contained: loads the
@@ -39,7 +41,11 @@ export default async function WheelPanel() {
                 style={jackpot ? { boxShadow: "0 0 0 1px var(--gold) inset" } : undefined}
               >
                 <div className="flex items-center gap-2 font-semibold leading-tight">
-                  <span>{prize.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({ kind: "wheel", id: prize.key, glyph: prize.emoji })}
+                    size={30}
+                    title={prize.label}
+                  />
                   <span
                     className="truncate"
                     style={jackpot ? { color: "var(--gold)" } : undefined}

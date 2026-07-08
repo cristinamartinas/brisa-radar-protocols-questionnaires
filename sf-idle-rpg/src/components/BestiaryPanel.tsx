@@ -1,12 +1,20 @@
 import { loadCharacter } from "@/lib/data";
 import { loadBestiary, type BestiaryFoe } from "@/lib/bestiary";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 function FoeCard({ foe }: { foe: BestiaryFoe }) {
   if (!foe.discovered) {
     return (
       <div className="flex flex-col rounded-lg border border-border bg-surface-2 p-3 opacity-60">
         <div className="flex items-center gap-2">
-          <div className="text-2xl leading-none grayscale">👤</div>
+          <div className="grayscale">
+            <GameSprite
+              sprite={catalogSprite({ kind: "foe", id: "unknown", glyph: "👤" })}
+              size={44}
+              title="Undiscovered foe"
+            />
+          </div>
           <span className="truncate font-bold leading-tight text-muted">???</span>
         </div>
         <p className="mt-2 text-xs italic leading-snug text-muted">
@@ -20,7 +28,11 @@ function FoeCard({ foe }: { foe: BestiaryFoe }) {
   return (
     <div className="flex flex-col rounded-lg border border-border bg-surface p-3">
       <div className="flex items-start gap-2">
-        <div className="text-2xl leading-none">{foe.emoji}</div>
+        <GameSprite
+          sprite={catalogSprite({ kind: "foe", id: foe.key, glyph: foe.emoji })}
+          size={44}
+          title={foe.name}
+        />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="truncate font-bold leading-tight">{foe.name}</span>

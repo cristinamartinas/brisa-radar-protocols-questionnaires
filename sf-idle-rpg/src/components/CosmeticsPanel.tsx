@@ -9,6 +9,8 @@ import {
 } from "@/lib/cosmetics";
 import { getClass } from "@/lib/game";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 
 /** Default frame ring when the hero hasn't equipped a colour. */
 const DEFAULT_FRAME = "var(--border)";
@@ -33,24 +35,35 @@ function CosmeticCard({ c }: { c: EvaluatedCosmetic }) {
       }}
     >
       <div className="flex items-start gap-2">
-        {isFrame ? (
-          <span
-            className="mt-0.5 h-7 w-7 shrink-0 rounded-full border-2"
-            style={{
-              background: c.value,
-              borderColor: "var(--surface-2)",
-              filter: c.unlocked ? "none" : "grayscale(1)",
-            }}
-            aria-hidden
-          />
-        ) : (
-          <div
-            className="text-2xl leading-none"
-            style={{ filter: c.unlocked ? "none" : "grayscale(1)" }}
-          >
-            {c.value}
-          </div>
-        )}
+        <div
+          className="shrink-0 leading-none"
+          style={{ filter: c.unlocked ? "none" : "grayscale(1)" }}
+        >
+          {isFrame ? (
+            <GameSprite
+              sprite={catalogSprite({
+                kind: "frame",
+                id: c.key,
+                glyph: "",
+                tint: c.value,
+                shape: "round",
+                ring: "ornate",
+              })}
+              size={40}
+              title={c.label}
+            />
+          ) : (
+            <GameSprite
+              sprite={catalogSprite({
+                kind: c.kind,
+                id: c.key,
+                glyph: c.value,
+              })}
+              size={40}
+              title={c.label}
+            />
+          )}
+        </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="truncate font-bold leading-tight">{c.label}</span>
@@ -186,10 +199,20 @@ export default async function CosmeticsPanel() {
             {/* Framed portrait */}
             <div className="flex justify-center">
               <div
-                className="flex h-24 w-24 items-center justify-center rounded-full bg-surface text-5xl"
+                className="flex h-24 w-24 items-center justify-center rounded-full bg-surface"
                 style={{ border: `4px solid ${ringColor}` }}
               >
-                {portrait}
+                <GameSprite
+                  sprite={catalogSprite({
+                    kind: "avatar",
+                    id: "preview",
+                    glyph: portrait,
+                    tint: ringColor,
+                    shape: "round",
+                  })}
+                  size={64}
+                  title={character.name}
+                />
               </div>
             </div>
 

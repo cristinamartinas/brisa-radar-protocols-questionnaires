@@ -1,6 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { loadRankings, type RankingCategory, type RankingRow } from "@/lib/rankings";
 import { getClass } from "@/lib/game";
+import { GameSprite } from "@/components/GameSprite";
+import { fighterSprite } from "@/lib/art/sprite";
 
 /** Medal for the podium, plain numeral thereafter. */
 function placeMark(rank: number): string {
@@ -43,8 +45,13 @@ function RankRow({ row, categoryKey, unit }: {
       <span className="w-6 shrink-0 text-center font-black text-muted">
         {placeMark(row.rank)}
       </span>
-      <span className="min-w-0 flex-1 truncate">
-        <span title={cls.label}>{cls.emoji}</span> {row.name}
+      <span className="flex min-w-0 flex-1 items-center gap-1.5 truncate">
+        <GameSprite
+          sprite={fighterSprite({ name: row.name, class: row.class })}
+          size={24}
+          title={cls.label}
+        />
+        <span className="truncate">{row.name}</span>
         {row.isMe && <span className="ml-1 text-xs text-gold">(you)</span>}
       </span>
       <span className="shrink-0 font-bold tabular-nums text-gold">

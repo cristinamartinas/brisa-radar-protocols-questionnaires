@@ -15,6 +15,8 @@ import {
   type Attributes,
 } from "@/lib/game";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { classSprite, catalogSprite } from "@/lib/art/sprite";
 
 const STAT_KEYS: [string, keyof Attributes][] = [
   ["Strength", "strength"],
@@ -51,10 +53,19 @@ function TitleCard({ t }: { t: EvaluatedTitle }) {
     >
       <div className="flex items-start gap-2">
         <div
-          className="text-2xl leading-none"
+          className="leading-none"
           style={{ filter: t.unlocked ? "none" : "grayscale(1)" }}
         >
-          {t.emoji}
+          <GameSprite
+            sprite={catalogSprite({
+              kind: "title",
+              id: t.key,
+              glyph: t.emoji,
+              tier: t.rarity,
+            })}
+            size={40}
+            title={t.label}
+          />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
@@ -138,7 +149,11 @@ export default async function ProfilePanel() {
         {/* Identity + stats card */}
         <div className="rounded-xl bg-surface-2 p-5 lg:col-span-1">
           <div className="flex items-center gap-3">
-            <div className="text-4xl">{cls.emoji}</div>
+            <GameSprite
+              sprite={classSprite(character.class, cls.emoji)}
+              size={60}
+              title={cls.label}
+            />
             <div className="min-w-0">
               <h4 className="truncate text-xl font-black leading-tight">
                 {character.name}

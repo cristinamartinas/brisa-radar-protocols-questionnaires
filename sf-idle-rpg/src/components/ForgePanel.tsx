@@ -1,5 +1,7 @@
 import { loadCharacter } from "@/lib/data";
-import { getRarity, getSlot, type Attributes } from "@/lib/game";
+import { getRarity, type Attributes } from "@/lib/game";
+import { GameSprite } from "@/components/GameSprite";
+import { itemSprite } from "@/lib/art/sprite";
 import {
   STAT_KEYS,
   salvageValue,
@@ -74,7 +76,6 @@ export default async function ForgePanel() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {forgeable.map((item) => {
             const rarity = getRarity(item.rarity);
-            const slot = getSlot(item.slot);
             const equipped = item.location === "EQUIPPED";
 
             const salvage = salvageValue(item);
@@ -106,8 +107,20 @@ export default async function ForgePanel() {
                   )}
                 </div>
                 <div className="mt-0.5 font-semibold leading-snug">
-                  <span style={{ color: rarity.color }}>
-                    {slot.emoji} {item.name}
+                  <span
+                    className="inline-flex items-center gap-2"
+                    style={{ color: rarity.color }}
+                  >
+                    <GameSprite
+                      sprite={itemSprite({
+                        name: item.name,
+                        slot: item.slot,
+                        rarity: item.rarity,
+                      })}
+                      size={34}
+                      title={item.name}
+                    />
+                    {item.name}
                   </span>
                 </div>
                 <div className="mt-1 flex-1 text-xs text-muted">

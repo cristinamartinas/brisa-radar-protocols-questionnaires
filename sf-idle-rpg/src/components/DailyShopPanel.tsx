@@ -2,6 +2,8 @@ import { loadCharacter } from "@/lib/data";
 import { loadDailyShop, buyDailyItem, type DailyShopItem } from "@/lib/dailyshop";
 import { getRarity, type Attributes } from "@/lib/game";
 import { ActionButton } from "@/components/ActionButton";
+import { GameSprite } from "@/components/GameSprite";
+import { itemSprite } from "@/lib/art/sprite";
 
 const STAT_ABBR: [keyof Attributes, string][] = [
   ["strength", "STR"],
@@ -67,8 +69,17 @@ export default async function DailyShopPanel() {
                 className="flex flex-col rounded-lg border bg-surface p-3"
                 style={{ borderColor: rarity.color }}
               >
+                <GameSprite
+                  sprite={itemSprite({
+                    name: item.name,
+                    slot: item.slot,
+                    rarity: item.rarity,
+                  })}
+                  size={44}
+                  title={item.name}
+                />
                 <div
-                  className="text-xs uppercase tracking-wide"
+                  className="mt-1 text-xs uppercase tracking-wide"
                   style={{ color: rarity.color }}
                 >
                   {rarity.label}

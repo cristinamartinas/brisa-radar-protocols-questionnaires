@@ -224,7 +224,9 @@ export function catalogSprite(opts: {
     ? ["legendary", "epic", "premium", "gold"].includes(opts.tier.toLowerCase())
     : false;
   return {
-    glyph: opts.glyph || "❔",
+    // Preserve an explicit empty glyph (e.g. cosmetic frames, which are pure
+    // color) — only fall back for a missing one.
+    glyph: opts.glyph ?? "❔",
     tint,
     accent: DEFAULT_ACCENT,
     shape: opts.shape ?? "rounded",

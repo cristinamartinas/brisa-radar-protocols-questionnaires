@@ -1,4 +1,6 @@
 import { loadCharacter } from "@/lib/data";
+import { GameSprite } from "@/components/GameSprite";
+import { catalogSprite } from "@/lib/art/sprite";
 import {
   TALENT_NODES,
   RESPEC_COST,
@@ -120,7 +122,11 @@ export default async function TalentsPanel() {
             >
               <div className="flex items-start justify-between gap-2">
                 <span className="flex items-center gap-2 font-bold leading-tight">
-                  <span className="text-xl">{node.emoji}</span>
+                  <GameSprite
+                    sprite={catalogSprite({ kind: "talent", id: node.key, glyph: node.emoji })}
+                    size={36}
+                    title={node.label}
+                  />
                   {node.label}
                 </span>
                 <span className="shrink-0 rounded bg-surface-2 px-2 py-0.5 text-xs font-bold tabular-nums text-gold">

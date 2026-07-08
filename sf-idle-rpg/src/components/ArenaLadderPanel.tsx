@@ -1,7 +1,8 @@
 import { loadCharacter } from "@/lib/data";
 import { prisma } from "@/lib/db";
-import { getClass } from "@/lib/game";
 import { arenaTier, tierProgress, ARENA_TIERS } from "@/lib/elo";
+import { GameSprite } from "@/components/GameSprite";
+import { fighterSprite, catalogSprite } from "@/lib/art/sprite";
 
 /**
  * The ranked-ladder standing: your Elo rating, tier, and the top-rated heroes.
@@ -41,7 +42,11 @@ export default async function ArenaLadderPanel() {
       <div className="rounded-lg bg-surface p-4">
         <div className="flex items-center justify-between gap-3">
           <span className="flex items-center gap-2 text-lg font-black">
-            <span className="text-2xl">{tier.emoji}</span>
+            <GameSprite
+              sprite={catalogSprite({ kind: "arenatier", id: tier.name, glyph: tier.emoji, tint: tier.color })}
+              size={38}
+              title={tier.name}
+            />
             <span style={{ color: tier.color }}>{tier.name}</span>
           </span>
           <span className="text-right">
@@ -81,9 +86,19 @@ export default async function ArenaLadderPanel() {
               className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5"
               style={{ background: mine ? "var(--surface-2)" : "transparent" }}
             >
-              <span className="min-w-0 truncate">
-                <span className="text-muted">{i + 1}.</span> {t.emoji}{" "}
-                {getClass(h.class).emoji} {h.name}
+              <span className="flex min-w-0 items-center gap-1.5">
+                <span className="text-muted">{i + 1}.</span>
+                <GameSprite
+                  sprite={catalogSprite({ kind: "arenatier", id: t.name, glyph: t.emoji, tint: t.color })}
+                  size={22}
+                  title={t.name}
+                />
+                <GameSprite
+                  sprite={fighterSprite({ name: h.name, class: h.class })}
+                  size={22}
+                  title={h.name}
+                />
+                <span className="truncate">{h.name}</span>
                 {mine && <span className="ml-1 text-xs text-gold">you</span>}
               </span>
               <span className="shrink-0 font-bold tabular-nums" style={{ color: t.color }}>
