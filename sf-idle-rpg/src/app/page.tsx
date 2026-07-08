@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { loadCharacter, loadLeaderboard, loadGuilds, toFighter } from "@/lib/data";
 import {
   startQuest,
@@ -101,7 +102,27 @@ function itemBonuses(item: ItemRow): string {
     .join(" · ");
 }
 
-export default async function Home() {
+const TABS = [
+  ["overview", "🧭 Overview"],
+  ["liveops", "📅 Daily"],
+  ["market", "🪄 Market"],
+  ["idle", "⛏️ Idle & Games"],
+  ["battle", "⚔️ Battle"],
+  ["build", "🌟 Build"],
+  ["meta", "🏆 Progress"],
+  ["guild", "🏰 Guild"],
+] as const;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string }>;
+}) {
+  const sp = await searchParams;
+  const tab = TABS.some(([id]) => id === sp.tab)
+    ? (sp.tab as string)
+    : "overview";
+
   const character = await loadCharacter();
 
   if (!character) {
@@ -148,32 +169,33 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Sticky category navigation for the (large) dashboard */}
+      {/* Sticky category navigation — each tab renders only its own panels */}
       <nav className="sticky top-0 z-30 -mx-4 mb-4 flex flex-wrap gap-1 border-b border-border bg-background/90 px-4 py-2 text-xs font-semibold backdrop-blur sm:-mx-6 sm:px-6">
-        {[
-          ["overview", "🧭 Overview"],
-          ["liveops", "📅 Daily"],
-          ["market", "🪄 Market"],
-          ["idle", "⛏️ Idle & Games"],
-          ["battle", "⚔️ Battle"],
-          ["build", "🌟 Build"],
-          ["meta", "🏆 Progress"],
-          ["guild", "🏰 Guild"],
-        ].map(([id, label]) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className="rounded-md px-2.5 py-1 text-muted transition hover:bg-surface-2 hover:text-gold"
-          >
-            {label}
-          </a>
-        ))}
+        {TABS.map(([id, label]) => {
+          const active = tab === id;
+          return (
+            <Link
+              key={id}
+              href={id === "overview" ? "/" : `/?tab=${id}`}
+              scroll={false}
+              className="rounded-md px-2.5 py-1 transition"
+              style={{
+                background: active ? "var(--surface-2)" : "transparent",
+                color: active ? "var(--gold)" : "var(--muted)",
+              }}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </nav>
 
-      {/* New-player onboarding (hides itself for veterans) */}
-      <OnboardingPanel />
+      {tab === "overview" && (
+        <>
+          {/* New-player onboarding (hides itself for veterans) */}
+          <OnboardingPanel />
 
-      <div id="overview" className="grid gap-6 scroll-mt-16 lg:grid-cols-3">
+          <div id="overview" className="grid gap-6 scroll-mt-16 lg:grid-cols-3">
         {/* Hero panel */}
         <section className="panel p-5 lg:col-span-1">
           <div className="flex items-center gap-3">
@@ -401,7 +423,12 @@ export default async function Home() {
         </section>
       </div>
 
-      <SectionHeading id="liveops" label="📅 Daily & Live-Ops" />
+        </>
+      )}
+
+      {tab === "liveops" && (
+        <>
+          <SectionHeading id="liveops" label="📅 Daily & Live-Ops" />
 
       {/* Inbox */}
       <MailPanel />
@@ -412,7 +439,12 @@ export default async function Home() {
       {/* Bounty board */}
       <BountyBoardPanel />
 
-      <SectionHeading id="market" label="🪄 Market & Crafting" />
+        </>
+      )}
+
+      {tab === "market" && (
+        <>
+          <SectionHeading id="market" label="🪄 Market & Crafting" />
 
       {/* Magic Shop */}
       <section className="panel mt-6 p-5">
@@ -460,7 +492,12 @@ export default async function Home() {
       {/* The Forge — salvage & crafting */}
       <ForgePanel />
 
-      <SectionHeading id="idle" label="⛏️ Idle Earners & Games" />
+        </>
+      )}
+
+      {tab === "idle" && (
+        <>
+          <SectionHeading id="idle" label="⛏️ Idle Earners & Games" />
 
       {/* Idle earners & collection */}
       <PitPanel />
@@ -475,7 +512,12 @@ export default async function Home() {
       <ExpeditionPanel />
       <FishingPanel />
 
-      <SectionHeading id="battle" label="⚔️ Battle & Dungeons" />
+        </>
+      )}
+
+      {tab === "battle" && (
+        <>
+          <SectionHeading id="battle" label="⚔️ Battle & Dungeons" />
 
       {/* Dungeons */}
       <section className="panel mt-6 p-5">
@@ -549,7 +591,12 @@ export default async function Home() {
       {/* Ranked arena ladder */}
       <ArenaLadderPanel />
 
-      <SectionHeading id="build" label="🌟 Character Build" />
+        </>
+      )}
+
+      {tab === "build" && (
+        <>
+          <SectionHeading id="build" label="🌟 Character Build" />
 
       {/* Talents */}
       <TalentsPanel />
@@ -560,7 +607,12 @@ export default async function Home() {
       {/* Ascension / rebirth */}
       <PrestigePanel />
 
-      <SectionHeading id="meta" label="🏆 Progress & Collection" />
+        </>
+      )}
+
+      {tab === "meta" && (
+        <>
+          <SectionHeading id="meta" label="🏆 Progress & Collection" />
 
       {/* Achievements */}
       <AchievementsPanel />
@@ -586,7 +638,12 @@ export default async function Home() {
       {/* Rankings */}
       <RankingsPanel />
 
-      <SectionHeading id="guild" label="🏰 Guild & Social" />
+        </>
+      )}
+
+      {tab === "guild" && (
+        <>
+          <SectionHeading id="guild" label="🏰 Guild & Social" />
 
       {/* Guilds */}
       <section className="panel mt-6 p-5">
@@ -684,7 +741,10 @@ export default async function Home() {
       {/* Guild Hall & perks */}
       <GuildHallPanel />
 
-      {/* History */}
+        </>
+      )}
+
+      {/* History (always shown, below the active tab) */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <section className="panel p-5">
           <h3 className="mb-3 font-black text-gold">📜 Quest Log</h3>
