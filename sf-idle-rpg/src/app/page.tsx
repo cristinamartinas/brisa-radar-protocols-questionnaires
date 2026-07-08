@@ -42,6 +42,11 @@ import FishingPanel from "@/components/FishingPanel";
 import BestiaryPanel from "@/components/BestiaryPanel";
 import CosmeticsPanel from "@/components/CosmeticsPanel";
 import WheelPanel from "@/components/WheelPanel";
+import BountyBoardPanel from "@/components/BountyBoardPanel";
+import DicePanel from "@/components/DicePanel";
+import DailyShopPanel from "@/components/DailyShopPanel";
+import RecordsPanel from "@/components/RecordsPanel";
+import LorePanel from "@/components/LorePanel";
 import PitPanel from "@/components/PitPanel";
 import PetsPanel from "@/components/PetsPanel";
 import MailPanel from "@/components/MailPanel";
@@ -359,6 +364,9 @@ export default async function Home() {
       {/* Seasonal Pass */}
       <SeasonPassPanel />
 
+      {/* Bounty board */}
+      <BountyBoardPanel />
+
       {/* Magic Shop */}
       <section className="panel mt-6 p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
@@ -408,6 +416,10 @@ export default async function Home() {
       {/* Idle earners & collection */}
       <PitPanel />
       <WheelPanel />
+
+      {/* Daily Deal & Tavern Dice */}
+      <DailyShopPanel />
+      <DicePanel />
       <PetsPanel />
 
       {/* Expeditions & Fishing */}
@@ -494,6 +506,12 @@ export default async function Home() {
 
       {/* Bestiary */}
       <BestiaryPanel />
+
+      {/* Hall of Records */}
+      <RecordsPanel />
+
+      {/* Lore Codex */}
+      <LorePanel />
 
       {/* Hero profile & titles */}
       <ProfilePanel />
