@@ -36,6 +36,11 @@ import SkillsPanel from "@/components/SkillsPanel";
 import TowerPanel from "@/components/TowerPanel";
 import WorldBossPanel from "@/components/WorldBossPanel";
 import ProfilePanel from "@/components/ProfilePanel";
+import WheelPanel from "@/components/WheelPanel";
+import PitPanel from "@/components/PitPanel";
+import PetsPanel from "@/components/PetsPanel";
+import MailPanel from "@/components/MailPanel";
+import RankingsPanel from "@/components/RankingsPanel";
 import GuildHallPanel from "@/components/GuildHallPanel";
 
 const STAT_KEYS: [string, keyof Attributes][] = [
@@ -343,6 +348,9 @@ export default async function Home() {
         </section>
       </div>
 
+      {/* Inbox */}
+      <MailPanel />
+
       {/* Magic Shop */}
       <section className="panel mt-6 p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
@@ -388,6 +396,11 @@ export default async function Home() {
 
       {/* The Forge — salvage & crafting */}
       <ForgePanel />
+
+      {/* Idle earners & collection */}
+      <PitPanel />
+      <WheelPanel />
+      <PetsPanel />
 
       {/* Dungeons */}
       <section className="panel mt-6 p-5">
@@ -469,6 +482,9 @@ export default async function Home() {
 
       {/* Hero profile & titles */}
       <ProfilePanel />
+
+      {/* Rankings */}
+      <RankingsPanel />
 
       {/* Guilds */}
       <section className="panel mt-6 p-5">
