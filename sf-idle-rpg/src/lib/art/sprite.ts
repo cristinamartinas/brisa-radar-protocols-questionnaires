@@ -19,6 +19,7 @@ import {
   pickClassMotif,
   pickMonsterMotif,
   pickCurrencyMotif,
+  pickFoeMotif,
 } from "@/lib/art/motifs";
 
 /** Frame silhouette. Different content families read at a glance by shape. */
@@ -234,6 +235,7 @@ export function catalogSprite(opts: {
   shape?: FrameShape;
   ring?: RingStyle;
   glow?: number;
+  motif?: string | null;
 }): Sprite {
   const tint = opts.tint || tierColor(opts.tier) || DEFAULT_TINT;
   const strong = opts.tier
@@ -251,7 +253,32 @@ export function catalogSprite(opts: {
     seed: hashStr(`${opts.kind}:${opts.id}:${opts.glyph}`),
     kind: opts.kind,
     id: opts.id,
+    motif: opts.motif ?? undefined,
   };
+}
+
+/**
+ * A bestiary foe. Themed foes (dungeon/tower/world-boss) draw a monster
+ * archetype; the joke Arena Regulars keep their expressive emoji. Undiscovered
+ * foes render as a muted silhouette.
+ */
+export function foeSprite(foe: {
+  name: string;
+  emoji: string;
+  category?: string;
+  discovered?: boolean;
+}): Sprite {
+  if (foe.discovered === false) {
+    return catalogSprite({ kind: "foe", id: "unknown", glyph: "👤", shape: "round", ring: "plain" });
+  }
+  return catalogSprite({
+    kind: "foe",
+    id: foe.name,
+    glyph: foe.emoji,
+    shape: "round",
+    ring: "plain",
+    motif: pickFoeMotif(foe.name, foe.emoji, foe.category ?? ""),
+  });
 }
 
 /** Last-resort placeholder for anything without a builder. */

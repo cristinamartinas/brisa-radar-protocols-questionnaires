@@ -5,6 +5,7 @@ import {
   classSprite,
   currencySprite,
   catalogSprite,
+  foeSprite,
 } from "@/lib/art/sprite";
 
 // A visual index of the procedural placeholder art system. Every content family
@@ -93,6 +94,24 @@ export default function GalleryPage() {
         <Cell label="World Boss">
           <GameSprite size={56} sprite={fighterSprite({ name: "Gorehoof", glyph: "👹", boss: true })} />
         </Cell>
+      </Section>
+
+      <Section title="Bestiary — themed foes" blurb="Foes draw a monster archetype from their name + dungeon; the joke 'Arena Regulars' keep their emoji.">
+        {[
+          ["Skeleton King", "💀", "The Whispering Crypt"],
+          ["The Weeping Wraith", "😭", "The Whispering Crypt"],
+          ["Countess Morlyn", "🧛", "The Whispering Crypt"],
+          ["The Big Goblin", "🟢", "The Goblin Warren"],
+          ["Mudfang", "🐗", "The Goblin Warren"],
+          ["Embermaw", "🔥", "The Dragon's Keep"],
+          ["The Ashen Knight", "⚔️", "The Dragon's Keep"],
+          ["The Molten Warden", "🌋", "The Dragon's Keep"],
+          ["Brenda from Accounting", "🧾", "Arena Regulars"],
+        ].map(([name, emoji, category]) => (
+          <Cell key={name} label={name}>
+            <GameSprite size={52} sprite={foeSprite({ name, emoji, category, discovered: true })} title={name} />
+          </Cell>
+        ))}
       </Section>
 
       <Section title="Currencies" blurb="Unified coins for gold, mushrooms, and dust.">

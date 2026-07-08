@@ -265,6 +265,15 @@ const goblin: MotifFn = (c) => (
   </g>
 );
 
+const knight: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M34 34 Q34 26 50 26 Q66 26 66 34 L66 58 Q66 72 50 76 Q34 72 34 58 Z" fill={c.steel} />
+    <rect x={38} y={44} width={24} height={5} rx={1} fill={c.ink} stroke="none" />
+    <rect x={47} y={40} width={6} height={20} rx={1} fill={c.ink} stroke="none" />
+    <path d="M50 26 Q52 16 60 14 Q56 22 54 28 Z" fill={c.accent} />
+  </g>
+);
+
 const fiend: MotifFn = (c) => (
   <g {...stroke(c)}>
     <path d="M30 44 Q30 28 50 28 Q70 28 70 44 Q70 64 50 74 Q30 64 30 44 Z" fill={c.steel} />
@@ -305,7 +314,7 @@ export const MOTIFS: Record<string, MotifFn> = {
   sword, dagger, axe, mace, cudgel, staff, bow,
   shield, robe, chain, amulet, ring,
   warriorCrest, mageCrest, scoutCrest,
-  skull, ghost, dragon, demon, beast, slime, golem, goblin, fiend,
+  skull, ghost, dragon, demon, beast, slime, golem, goblin, knight, fiend,
   coin, mushroom, crystal,
 };
 
@@ -340,6 +349,32 @@ export function pickMonsterMotif(name = "", glyph = ""): string {
   if (/(golem|warden|stone|marble|colossus|rock)/.test(n)) return "golem";
   if (/(ooze|slime|blob|jelly)/.test(n)) return "slime";
   return "fiend";
+}
+
+/**
+ * Bestiary foe motif — category-aware so themed foes get the right archetype
+ * while the joke "Arena Regulars" keep their expressive emoji (returns null).
+ */
+export function pickFoeMotif(name = "", glyph = "", category = ""): string | null {
+  const cat = category.toLowerCase();
+  const n = name.toLowerCase();
+  if (cat.includes("arena")) return null; // Brenda, Gary, the Badger — keep emoji
+  if (cat.includes("crypt")) {
+    if (/wraith|weeping|spirit|ghost|shade/.test(n)) return "ghost";
+    if (/countess|morlyn|vampire|blood/.test(n)) return "demon";
+    return "skull";
+  }
+  if (cat.includes("warren") || cat.includes("goblin")) {
+    if (/mudfang|boar|badger|beast|hog/.test(n)) return "beast";
+    return "goblin";
+  }
+  if (cat.includes("keep") || cat.includes("dragon")) {
+    if (/knight|cinderbane|ashen|sir /.test(n)) return "knight";
+    if (/warden|molten|golem|stone|marble/.test(n)) return "golem";
+    return "dragon";
+  }
+  // Tower / World Boss / anything else → best guess from name + emoji.
+  return pickMonsterMotif(name, glyph);
 }
 
 /** Currency motif. */

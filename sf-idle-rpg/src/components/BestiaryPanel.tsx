@@ -1,7 +1,7 @@
 import { loadCharacter } from "@/lib/data";
 import { loadBestiary, type BestiaryFoe } from "@/lib/bestiary";
 import { GameSprite } from "@/components/GameSprite";
-import { catalogSprite } from "@/lib/art/sprite";
+import { foeSprite } from "@/lib/art/sprite";
 
 function FoeCard({ foe }: { foe: BestiaryFoe }) {
   if (!foe.discovered) {
@@ -10,7 +10,7 @@ function FoeCard({ foe }: { foe: BestiaryFoe }) {
         <div className="flex items-center gap-2">
           <div className="grayscale">
             <GameSprite
-              sprite={catalogSprite({ kind: "foe", id: "unknown", glyph: "👤" })}
+              sprite={foeSprite({ name: foe.name, emoji: foe.emoji, category: foe.category, discovered: false })}
               size={44}
               title="Undiscovered foe"
             />
@@ -29,7 +29,7 @@ function FoeCard({ foe }: { foe: BestiaryFoe }) {
     <div className="flex flex-col rounded-lg border border-border bg-surface p-3">
       <div className="flex items-start gap-2">
         <GameSprite
-          sprite={catalogSprite({ kind: "foe", id: foe.key, glyph: foe.emoji })}
+          sprite={foeSprite({ name: foe.name, emoji: foe.emoji, category: foe.category, discovered: true })}
           size={44}
           title={foe.name}
         />
