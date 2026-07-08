@@ -36,7 +36,13 @@ export type LedgerReason =
   | "TOWER_REWARD"
   | "WORLDBOSS_REWARD"
   | "GUILD_UPGRADE"
-  | "TITLE_PURCHASE";
+  | "TITLE_PURCHASE"
+  | "WHEEL_REWARD"
+  | "PIT_COLLECT"
+  | "PIT_UPGRADE"
+  | "PET_FORAGE"
+  | "PET_ADOPT"
+  | "MAIL_CLAIM";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the

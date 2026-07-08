@@ -67,6 +67,69 @@ model Character {
   daily        DailyState?
   tower        TowerState?
   bossHits     WorldBossHit[]
+  wheel        WheelState?
+  pit          PitState?
+  pets         Pet[]
+  mail         Mail[]
+}
+
+// ---------------------------------------------------------------------------
+// Wave 3 feature tables (idle + collection + live-ops), built in parallel.
+// ---------------------------------------------------------------------------
+
+/// Daily "Wheel of Fortune" spin state. Owned by the Wheel feature.
+model WheelState {
+  id           String    @id @default(cuid())
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId  String    @unique
+  lastSpinDay  String?   // UTC yyyy-mm-dd of the last free spin
+  spinsToday   Int       @default(0)
+  totalSpins   Int       @default(0)
+  updatedAt    DateTime  @updatedAt
+}
+
+/// The Pit — an idle gold generator that accrues over real time. Owned by the
+/// Pit feature (src/lib/pit.ts).
+model PitState {
+  id            String    @id @default(cuid())
+  character     Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId   String    @unique
+  level         Int       @default(1)
+  lastCollected DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+/// A collectable pet/companion. A hero may adopt several. Owned by the Pets
+/// feature (src/lib/pets.ts).
+model Pet {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  species     String    // pet species key, defined in code
+  name        String
+  level       Int       @default(1)
+  xp          Int       @default(0)
+  lastForaged DateTime?
+  adoptedAt   DateTime  @default(now())
+
+  @@index([characterId])
+}
+
+/// An inbox message, optionally carrying claimable rewards. Owned by the Mail
+/// feature (src/lib/mail.ts). Other systems can enqueue mail via a helper.
+model Mail {
+  id             String    @id @default(cuid())
+  character      Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId    String
+  subject        String
+  body           String    @default("")
+  rewardGold     Int       @default(0)
+  rewardMushrooms Int      @default(0)
+  rewardDust     Int       @default(0)
+  claimed        Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+
+  @@index([characterId, claimed])
 }
 
 // ---------------------------------------------------------------------------
