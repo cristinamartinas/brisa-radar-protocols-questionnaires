@@ -47,6 +47,20 @@ import DicePanel from "@/components/DicePanel";
 import DailyShopPanel from "@/components/DailyShopPanel";
 import RecordsPanel from "@/components/RecordsPanel";
 import LorePanel from "@/components/LorePanel";
+import OnboardingPanel from "@/components/OnboardingPanel";
+import TrophyRoomPanel from "@/components/TrophyRoomPanel";
+
+/** Section heading + scroll anchor for the category nav. */
+function SectionHeading({ id, label }: { id: string; label: string }) {
+  return (
+    <h2
+      id={id}
+      className="mt-8 mb-1 scroll-mt-16 text-lg font-black tracking-tight text-gold"
+    >
+      {label}
+    </h2>
+  );
+}
 import PitPanel from "@/components/PitPanel";
 import PetsPanel from "@/components/PetsPanel";
 import MailPanel from "@/components/MailPanel";
@@ -130,7 +144,32 @@ export default async function Home() {
         </div>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      {/* Sticky category navigation for the (large) dashboard */}
+      <nav className="sticky top-0 z-30 -mx-4 mb-4 flex flex-wrap gap-1 border-b border-border bg-background/90 px-4 py-2 text-xs font-semibold backdrop-blur sm:-mx-6 sm:px-6">
+        {[
+          ["overview", "🧭 Overview"],
+          ["liveops", "📅 Daily"],
+          ["market", "🪄 Market"],
+          ["idle", "⛏️ Idle & Games"],
+          ["battle", "⚔️ Battle"],
+          ["build", "🌟 Build"],
+          ["meta", "🏆 Progress"],
+          ["guild", "🏰 Guild"],
+        ].map(([id, label]) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className="rounded-md px-2.5 py-1 text-muted transition hover:bg-surface-2 hover:text-gold"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      {/* New-player onboarding (hides itself for veterans) */}
+      <OnboardingPanel />
+
+      <div id="overview" className="grid gap-6 scroll-mt-16 lg:grid-cols-3">
         {/* Hero panel */}
         <section className="panel p-5 lg:col-span-1">
           <div className="flex items-center gap-3">
@@ -358,6 +397,8 @@ export default async function Home() {
         </section>
       </div>
 
+      <SectionHeading id="liveops" label="📅 Daily & Live-Ops" />
+
       {/* Inbox */}
       <MailPanel />
 
@@ -366,6 +407,8 @@ export default async function Home() {
 
       {/* Bounty board */}
       <BountyBoardPanel />
+
+      <SectionHeading id="market" label="🪄 Market & Crafting" />
 
       {/* Magic Shop */}
       <section className="panel mt-6 p-5">
@@ -413,6 +456,8 @@ export default async function Home() {
       {/* The Forge — salvage & crafting */}
       <ForgePanel />
 
+      <SectionHeading id="idle" label="⛏️ Idle Earners & Games" />
+
       {/* Idle earners & collection */}
       <PitPanel />
       <WheelPanel />
@@ -425,6 +470,8 @@ export default async function Home() {
       {/* Expeditions & Fishing */}
       <ExpeditionPanel />
       <FishingPanel />
+
+      <SectionHeading id="battle" label="⚔️ Battle & Dungeons" />
 
       {/* Dungeons */}
       <section className="panel mt-6 p-5">
@@ -495,11 +542,15 @@ export default async function Home() {
         <WorldBossPanel />
       </div>
 
+      <SectionHeading id="build" label="🌟 Character Build" />
+
       {/* Talents */}
       <TalentsPanel />
 
       {/* Active skills / rotation */}
       <SkillsPanel />
+
+      <SectionHeading id="meta" label="🏆 Progress & Collection" />
 
       {/* Achievements */}
       <AchievementsPanel />
@@ -513,6 +564,9 @@ export default async function Home() {
       {/* Lore Codex */}
       <LorePanel />
 
+      {/* Trophy Room — collection capstone */}
+      <TrophyRoomPanel />
+
       {/* Hero profile & titles */}
       <ProfilePanel />
 
@@ -521,6 +575,8 @@ export default async function Home() {
 
       {/* Rankings */}
       <RankingsPanel />
+
+      <SectionHeading id="guild" label="🏰 Guild & Social" />
 
       {/* Guilds */}
       <section className="panel mt-6 p-5">
