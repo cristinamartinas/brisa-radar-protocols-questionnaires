@@ -19,6 +19,7 @@ import {
   type Progression,
 } from "@/lib/game";
 import { makeRng, randomSeed } from "@/lib/rng";
+import { parseLoadout } from "@/lib/skills";
 import type { Prisma } from "@/generated/prisma/client";
 
 export interface ActionResult {
@@ -171,7 +172,12 @@ export async function fightArena(): Promise<ActionResult> {
     ? toFighter(opponent, opponent.items)
     : randomOpponent(rng, character.level);
 
-  const result = resolveBattle(rng, toFighter(character, character.items), foe);
+  const result = resolveBattle(
+    rng,
+    toFighter(character, character.items),
+    foe,
+    parseLoadout(character.skillLoadout),
+  );
 
   // Rewards: winning grants gold + a little XP; losing costs a small stake.
   const stake = Math.round(8 * foe.level + rng() * 20);
@@ -253,7 +259,12 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
   const seed = randomSeed();
   const rng = makeRng(seed);
   const boss = generateBoss(rng, dungeon, floor);
-  const result = resolveBattle(rng, toFighter(character, character.items), boss);
+  const result = resolveBattle(
+    rng,
+    toFighter(character, character.items),
+    boss,
+    parseLoadout(character.skillLoadout),
+  );
   const label = `${dungeon.emoji} ${boss.name} — ${dungeon.name} floor ${floor}`;
 
   const ops: Prisma.PrismaPromise<unknown>[] = [];

@@ -11,6 +11,11 @@
  */
 
 import { type Rng, pick as pickRng } from "@/lib/rng";
+import {
+  applySkills,
+  newSkillRuntime,
+  type LoadoutSlot,
+} from "@/lib/skills";
 
 export type CharClass = "WARRIOR" | "MAGE" | "SCOUT";
 
@@ -101,12 +106,14 @@ function strike(
   rng: Rng,
   attacker: Fighter,
   defender: Fighter,
+  dmgMult = 1,
+  critBonus = 0,
 ): { dmg: number; crit: boolean } {
   const power = primaryValue(attacker);
   const variance = 0.6 + rng() * 0.8; // 0.6x – 1.4x
-  let dmg = power * variance;
+  let dmg = power * variance * dmgMult;
 
-  const critChance = Math.min(0.5, 0.05 + attacker.luck / 200);
+  const critChance = Math.min(0.5, 0.05 + attacker.luck / 200 + critBonus);
   const crit = rng() < critChance;
   if (crit) dmg *= 2;
 
@@ -122,10 +129,23 @@ function strike(
  * Fully deterministic: given the same two fighters and the same `rng` seed,
  * the fight always resolves identically — which is what makes replays,
  * spectating, provably-fair ladders, and combat unit tests possible.
+ *
+ * Optional `meSkills`/`foeSkills` are ordered active-skill loadouts (see
+ * skills.ts). When both are empty — as with every legacy 3-argument caller —
+ * `applySkills` is a no-op that touches neither the log nor the rng, so those
+ * fights resolve bit-for-bit as they did before this system existed.
  */
-export function resolveBattle(rng: Rng, me: Fighter, foe: Fighter): BattleResult {
+export function resolveBattle(
+  rng: Rng,
+  me: Fighter,
+  foe: Fighter,
+  meSkills: LoadoutSlot[] = [],
+  foeSkills: LoadoutSlot[] = [],
+): BattleResult {
   let myHp = maxHp(me);
   let foeHp = maxHp(foe);
+  const myMax = myHp;
+  const foeMax = foeHp;
   const rounds: string[] = [];
 
   // Determine turn order.
@@ -134,6 +154,15 @@ export function resolveBattle(rng: Rng, me: Fighter, foe: Fighter): BattleResult
   let defender = meFirst ? foe : me;
   let attackerIsMe = meFirst;
 
+  // Per-fighter skill runtime + loadout, kept aligned with attacker/defender
+  // as the roles swap each turn.
+  const meRt = newSkillRuntime();
+  const foeRt = newSkillRuntime();
+  let attackerRt = meFirst ? meRt : foeRt;
+  let defenderRt = meFirst ? foeRt : meRt;
+  let attackerSkills = meFirst ? meSkills : foeSkills;
+  let defenderSkills = meFirst ? foeSkills : meSkills;
+
   rounds.push(
     `⚔️ ${me.name} (${maxHp(me)} HP) faces ${foe.name} (${maxHp(foe)} HP)!`,
   );
@@ -141,17 +170,69 @@ export function resolveBattle(rng: Rng, me: Fighter, foe: Fighter): BattleResult
   for (let turn = 0; turn < 60; turn++) {
     if (myHp <= 0 || foeHp <= 0) break;
 
-    const { dmg, crit } = strike(rng, attacker, defender);
-    if (attackerIsMe) foeHp -= dmg;
-    else myHp -= dmg;
-
-    rounds.push(
-      `${crit ? "💥 CRIT! " : ""}${attacker.name} hits ${defender.name} for ${dmg}. ` +
-        `(${me.name}: ${Math.max(0, myHp)} HP · ${foe.name}: ${Math.max(0, foeHp)} HP)`,
+    attackerRt.turns += 1;
+    const { dmg, crit } = strike(
+      rng,
+      attacker,
+      defender,
+      attackerRt.rallyMult,
+      attackerRt.critBonus,
     );
 
-    // Swap roles for the next turn.
+    // Resolve the attacker's skills for this swing.
+    const selfHp = attackerIsMe ? myHp : foeHp;
+    const selfMax = attackerIsMe ? myMax : foeMax;
+    const targetHp = attackerIsMe ? foeHp : myHp;
+    const targetMax = attackerIsMe ? foeMax : myMax;
+    const outcome = applySkills(
+      rng,
+      attackerSkills,
+      {
+        self: attacker,
+        foe: defender,
+        selfHp,
+        selfMaxHp: selfMax,
+        foeHp: targetHp,
+        foeMaxHp: targetMax,
+        baseDmg: dmg,
+        didCrit: crit,
+        turn: attackerRt.turns,
+      },
+      attackerRt,
+    );
+
+    // Combine the base hit with any skill bonus, then let the defender's
+    // pending shield (if any) soak the incoming blow.
+    let total = dmg + outcome.bonusDamage;
+    let absorbed = 0;
+    if (defenderRt.shield > 0) {
+      absorbed = Math.min(defenderRt.shield, Math.max(0, total - 1));
+      total -= absorbed;
+      defenderRt.shield = 0;
+    }
+
+    if (attackerIsMe) foeHp -= total;
+    else myHp -= total;
+
+    // Apply the attacker's self-heal (capped at their maximum).
+    if (outcome.selfHeal > 0) {
+      if (attackerIsMe) myHp = Math.min(myMax, myHp + outcome.selfHeal);
+      else foeHp = Math.min(foeMax, foeHp + outcome.selfHeal);
+    }
+
+    rounds.push(
+      `${crit ? "💥 CRIT! " : ""}${attacker.name} hits ${defender.name} for ${total}. ` +
+        `(${me.name}: ${Math.max(0, myHp)} HP · ${foe.name}: ${Math.max(0, foeHp)} HP)`,
+    );
+    for (const line of outcome.logs) rounds.push(line);
+    if (absorbed > 0) {
+      rounds.push(`🛡️ ${defender.name}'s guard absorbs ${absorbed} damage.`);
+    }
+
+    // Swap roles (and their aligned skill state) for the next turn.
     [attacker, defender] = [defender, attacker];
+    [attackerRt, defenderRt] = [defenderRt, attackerRt];
+    [attackerSkills, defenderSkills] = [defenderSkills, attackerSkills];
     attackerIsMe = !attackerIsMe;
   }
 
