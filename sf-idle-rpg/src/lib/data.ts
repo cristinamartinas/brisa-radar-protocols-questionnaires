@@ -30,6 +30,7 @@ export async function loadCharacter() {
             orderBy: [{ level: "desc" }, { experience: "desc" }],
             select: { id: true, name: true, class: true, level: true },
           },
+          rooms: true,
         },
       },
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },

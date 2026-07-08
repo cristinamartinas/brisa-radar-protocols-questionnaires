@@ -10,12 +10,10 @@
  * cost, and the payer's gold — happens server-side; the client may ask, but
  * the ledger decides.
  *
- * FOLLOW-UP (not this pass): the perk VALUES below are computed and displayed
- * but not yet wired into the live game. Hook `treasury` into
- * `guildGoldMultiplier` (src/lib/data.ts), `barracks` into `toFighter`,
- * `warRoom` into arena stakes (fightArena), and `library` into quest XP so the
- * numbers heroes see here actually bite. The upgrade loop + hall UI are the
- * deliverable for now.
+ * Perks are LIVE: `guildPerks()` (below) resolves built rooms into gameplay
+ * bonuses, and actions.ts applies them — Treasury → quest gold, Library → quest
+ * XP, War Room → arena winnings. (Barracks' flat stat bonus is defined and
+ * displayed but not yet folded into combat — a small follow-up in toFighter.)
  */
 
 import { revalidatePath } from "next/cache";
@@ -149,6 +147,25 @@ export function getGuildRoom(key: string): GuildRoomDef | undefined {
  */
 export function upgradeCost(def: GuildRoomDef, currentLevel: number): number {
   return Math.round(def.baseCost * Math.pow(1.75, currentLevel));
+}
+
+/**
+ * Resolve a guild's built rooms into the gameplay bonuses they grant. Pure and
+ * server-only-dep-free, so reward/combat paths can apply it. Missing rooms = 0.
+ */
+export function guildPerks(rooms: { room: string; level: number }[]): {
+  questGoldPct: number;
+  questXpPct: number;
+  arenaGoldPct: number;
+  statBonus: number;
+} {
+  const lvl = (key: string) => rooms.find((r) => r.room === key)?.level ?? 0;
+  return {
+    questGoldPct: lvl("treasury") * 3,
+    questXpPct: lvl("library") * 4,
+    arenaGoldPct: lvl("warRoom") * 5,
+    statBonus: lvl("barracks") * 2,
+  };
 }
 
 /** One room, annotated with its current state for the hall UI. */

@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { getSessionToken, clearSession } from "@/lib/session";
 import { loadCharacter, toFighter, guildGoldMultiplier } from "@/lib/data";
 import { currencyLedgerOps } from "@/lib/ledger";
+import { guildPerks } from "@/lib/guildhall";
 import {
   rollQuest,
   applyLevelUps,
@@ -81,10 +82,17 @@ export async function collectQuest(): Promise<ActionResult> {
     return { ok: false, message: `Still adventuring — ${secs}s to go.` };
   }
 
+  // Guild-hall perks (0 if roomless / guildless): Library adds quest XP,
+  // Treasury adds quest gold on top of the roster bonus.
+  const perks = character.guild
+    ? guildPerks(character.guild.rooms)
+    : { questGoldPct: 0, questXpPct: 0, arenaGoldPct: 0, statBonus: 0 };
+  const xpEarned = Math.round(quest.xpReward * (1 + perks.questXpPct / 100));
+
   const progression: Progression = {
     class: character.class as CharClass,
     level: character.level,
-    experience: character.experience + quest.xpReward,
+    experience: character.experience + xpEarned,
     strength: character.strength,
     dexterity: character.dexterity,
     intelligence: character.intelligence,
@@ -93,11 +101,14 @@ export async function collectQuest(): Promise<ActionResult> {
   };
   const levels = applyLevelUps(progression);
 
-  // Guild perk: members earn bonus quest gold (+2% per member, capped at +20%).
+  // Guild perk: members earn bonus quest gold (+2% per member, capped at +20%,
+  // plus the Treasury room's percentage).
   const guildMult = character.guild
     ? guildGoldMultiplier(character.guild.members.length)
     : 1;
-  const goldEarned = Math.round(quest.goldReward * guildMult);
+  const goldEarned = Math.round(
+    quest.goldReward * guildMult * (1 + perks.questGoldPct / 100),
+  );
 
   await prisma.$transaction([
     prisma.character.update({
@@ -116,7 +127,7 @@ export async function collectQuest(): Promise<ActionResult> {
           create: {
             title: quest.title,
             goldReward: goldEarned,
-            xpReward: quest.xpReward,
+            xpReward: xpEarned,
           },
         },
       },
@@ -132,8 +143,9 @@ export async function collectQuest(): Promise<ActionResult> {
 
   revalidatePath("/");
 
-  let message = `"${quest.title}" complete! +${goldEarned} gold, +${quest.xpReward} XP`;
-  if (guildMult > 1) message += ` (incl. guild bonus)`;
+  let message = `"${quest.title}" complete! +${goldEarned} gold, +${xpEarned} XP`;
+  if (guildMult > 1 || perks.questGoldPct > 0 || perks.questXpPct > 0)
+    message += ` (incl. guild bonus)`;
   if (quest.mushroomReward) message += `, +${quest.mushroomReward} 🍄`;
   if (levels > 0) message += ` — LEVEL UP! You are now level ${progression.level}. ✨`;
   return { ok: true, message };
@@ -180,7 +192,13 @@ export async function fightArena(): Promise<ActionResult> {
   );
 
   // Rewards: winning grants gold + a little XP; losing costs a small stake.
-  const stake = Math.round(8 * foe.level + rng() * 20);
+  // The guild War Room boosts arena winnings.
+  const arenaGoldPct = character.guild
+    ? guildPerks(character.guild.rooms).arenaGoldPct
+    : 0;
+  const stake = Math.round(
+    (8 * foe.level + rng() * 20) * (1 + arenaGoldPct / 100),
+  );
   const goldChange = result.won ? stake : -Math.min(character.gold, Math.round(stake / 2));
   const xpGain = result.won ? Math.round(10 * foe.level) : 0;
 
