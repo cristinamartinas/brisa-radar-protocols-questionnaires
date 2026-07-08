@@ -13,6 +13,7 @@
 
 import type { Sprite, FrameShape } from "@/lib/art/sprite";
 import { resolveArt } from "@/lib/art/overrides";
+import { MOTIFS, ItemMotif } from "@/lib/art/motifs";
 
 // --- small deterministic PRNG (seeded flourishes; no Math.random) -----------
 
@@ -83,6 +84,15 @@ export function GameSprite({ sprite, size = 44, title, className }: GameSpritePr
   const { glyph, tint, accent, shape, ring, glow, seed, kind, id, badge } = sprite;
   const rand = mulberry32(seed);
   const override = resolveArt(kind, id);
+  // Prefer real registered art; else a drawn vector motif; else the emoji glyph.
+  const motifKey = sprite.motif && MOTIFS[sprite.motif] ? sprite.motif : null;
+  const drawMotif = !override && !!motifKey;
+  const motifColors = {
+    steel: "#e9e4d6",
+    ink: "#160f08",
+    accent: lighten(tint, 0.08),
+    glint: lighten(tint, 0.35),
+  };
 
   // A stable, unique gradient id namespace for this sprite instance.
   const uid = `s${(seed % 0xffffff).toString(36)}`;
@@ -234,6 +244,9 @@ export function GameSprite({ sprite, size = 44, title, className }: GameSpritePr
         {pips.map((p, i) => (
           <circle key={i} cx={p.x} cy={p.y} r={p.r} fill={lighten(accent, 0.1)} opacity={0.7} />
         ))}
+
+        {/* drawn vector motif (equipment) — scales with the frame */}
+        {drawMotif && <ItemMotif motif={motifKey} colors={motifColors} />}
       </svg>
 
       {/* the motif: real art if registered, else the emoji glyph */}
@@ -252,7 +265,7 @@ export function GameSprite({ sprite, size = 44, title, className }: GameSpritePr
             filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.6))",
           }}
         />
-      ) : (
+      ) : drawMotif ? null : (
         <span
           aria-hidden="true"
           style={{

@@ -33,7 +33,6 @@ function Cell({ label, children }: { label: string; children: React.ReactNode })
 }
 
 export default function GalleryPage() {
-  const SLOTS = ["WEAPON", "ARMOR", "AMULET"];
   const RARITIES = ["COMMON", "RARE", "EPIC", "LEGENDARY"];
   const CLASSES = ["WARRIOR", "MAGE", "SCOUT"];
 
@@ -47,14 +46,36 @@ export default function GalleryPage() {
         </p>
       </header>
 
-      <Section title="Equipment" blurb="3 slots × 4 rarities. Frame color + glow scale with rarity; the corner tag shows the rarity grade.">
-        {SLOTS.flatMap((slot) =>
-          RARITIES.map((rarity) => (
-            <Cell key={`${slot}-${rarity}`} label={`${rarity} ${slot}`}>
-              <GameSprite size={56} sprite={itemSprite({ name: `${rarity} ${slot}`, slot, rarity })} />
+      <Section title="Equipment — drawn vector art" blurb="Weapons/armor/amulets are real drawn icons picked from the item's name, tinted by rarity. Frame color + glow scale with rarity; the corner tag shows the grade.">
+        {[
+          ["Sword", "WEAPON"],
+          ["Battle Axe", "WEAPON"],
+          ["Hunting Bow", "WEAPON"],
+          ["War Staff", "WEAPON"],
+          ["Dagger", "WEAPON"],
+          ["Spiked Mace", "WEAPON"],
+          ["Knobbly Cudgel", "WEAPON"],
+          ["Plate", "ARMOR"],
+          ["Silk Robe", "ARMOR"],
+          ["Chainmail", "ARMOR"],
+          ["Amulet", "AMULET"],
+          ["Signet Ring", "AMULET"],
+        ].map(([name, slot], i) => {
+          const rarity = RARITIES[i % RARITIES.length];
+          return (
+            <Cell key={name} label={`${rarity} ${name}`}>
+              <GameSprite size={56} sprite={itemSprite({ name, slot, rarity })} title={name} />
             </Cell>
-          )),
-        )}
+          );
+        })}
+      </Section>
+
+      <Section title="Rarity ramp" blurb="The same sword across all four rarities.">
+        {RARITIES.map((rarity) => (
+          <Cell key={rarity} label={`${rarity}`}>
+            <GameSprite size={56} sprite={itemSprite({ name: "Sword", slot: "WEAPON", rarity })} />
+          </Cell>
+        ))}
       </Section>
 
       <Section title="Heroes & Foes" blurb="Fighters are medallions colored by class; bosses get a danger ring and a hot glow.">

@@ -14,6 +14,8 @@
 // the procedural placeholder, so every entity has an image from day one.
 // ---------------------------------------------------------------------------
 
+import { pickItemMotif } from "@/lib/art/motifs";
+
 /** Frame silhouette. Different content families read at a glance by shape. */
 export type FrameShape =
   | "rounded" // items, gear, generic catalog entries — a beveled plaque
@@ -42,6 +44,8 @@ export interface Sprite {
   id: string;
   /** Optional tiny corner tag (rarity initial, level, "★"). */
   badge?: string;
+  /** Optional drawn vector motif key (see art/motifs). Overrides the glyph. */
+  motif?: string;
 }
 
 // --- palettes ---------------------------------------------------------------
@@ -147,6 +151,7 @@ export function itemSprite(item: {
     kind: "item",
     id: String(item.id ?? item.name),
     badge: RARITY_INITIAL[rarity],
+    motif: pickItemMotif(item.name, item.slot) ?? undefined,
   };
 }
 
