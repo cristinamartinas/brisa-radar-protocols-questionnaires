@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ActionResult } from "@/lib/actions";
 import { celebrationFor, floatAmountFor, type CelebrationTier } from "./celebrate";
+import { playSfx } from "@/lib/sound";
 
 /**
  * <Celebration result={...} /> — a self-contained, pointer-events-none overlay
@@ -40,6 +41,7 @@ export function Celebration({ result }: { result: ActionResult | null }) {
     if (!result || result === lastResult.current) return;
     lastResult.current = result;
     if (!result.ok) {
+      playSfx("error");
       setShown(null);
       return;
     }
@@ -48,6 +50,7 @@ export function Celebration({ result }: { result: ActionResult | null }) {
       setShown(null);
       return;
     }
+    playSfx(c.tier);
     seq.current += 1;
     setShown({
       key: seq.current,

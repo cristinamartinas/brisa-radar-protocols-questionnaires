@@ -49,6 +49,7 @@ import RecordsPanel from "@/components/RecordsPanel";
 import LorePanel from "@/components/LorePanel";
 import OnboardingPanel from "@/components/OnboardingPanel";
 import TrophyRoomPanel from "@/components/TrophyRoomPanel";
+import { SoundToggle } from "@/components/SoundToggle";
 
 /** Section heading + scroll anchor for the category nav. */
 function SectionHeading({ id, label }: { id: string; label: string }) {
@@ -136,6 +137,7 @@ export default async function Home() {
         <div className="flex items-center gap-4 text-sm font-bold">
           <span className="text-gold">🪙 {character.gold.toLocaleString()}</span>
           <span>🍄 {character.mushrooms}</span>
+          <SoundToggle />
           <form action={logout}>
             <button className="rounded-md bg-surface-2 px-3 py-1.5 text-xs font-semibold text-muted hover:text-gold">
               Log out

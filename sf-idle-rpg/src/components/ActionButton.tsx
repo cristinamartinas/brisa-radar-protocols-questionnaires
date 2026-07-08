@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import type { ActionResult } from "@/lib/actions";
 import { Celebration } from "@/components/juice/Celebration";
+import { playSfx } from "@/lib/sound";
 
 /**
  * Runs a no-argument server action, shows a pending state, and surfaces the
@@ -26,11 +27,12 @@ export function ActionButton({
       <button
         type="button"
         disabled={pending}
-        onClick={() =>
+        onClick={() => {
+          playSfx("click");
           startTransition(async () => {
             setResult(await action());
-          })
-        }
+          });
+        }}
         className={`rounded-lg px-4 py-3 font-semibold transition active:scale-[0.98] disabled:opacity-60 ${className}`}
       >
         {pending ? "…adventuring…" : children}
