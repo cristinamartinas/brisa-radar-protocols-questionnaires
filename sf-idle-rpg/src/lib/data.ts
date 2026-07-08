@@ -7,6 +7,7 @@ import {
   type CharClass,
 } from "@/lib/game";
 import { talentBonuses } from "@/lib/talents";
+import { guildPerks } from "@/lib/guildhall";
 
 export type CharacterWithLogs = NonNullable<
   Awaited<ReturnType<typeof loadCharacter>>
@@ -87,13 +88,14 @@ type CharacterLike = {
   class: string;
   level: number;
   talents?: { node: string; rank: number }[];
+  guild?: { rooms: { room: string; level: number }[] } | null;
 } & Attributes;
 
 /**
  * Convert a stored character (with its items) into a combat-ready Fighter,
  * folding equipped-gear bonuses into its attributes. If `items` is omitted
- * the raw base attributes are used. When the character carries allocated
- * `talents`, those flat bonuses are folded in on top of gear.
+ * the raw base attributes are used. Allocated `talents` and, when enlisted, the
+ * guild Barracks' flat stat bonus are folded in on top of gear.
  */
 export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
   const base: Attributes = {
@@ -105,14 +107,16 @@ export function toFighter(c: CharacterLike, items: ItemLike[] = []): Fighter {
   };
   const eff = effectiveAttributes(base, items);
   const tal = talentBonuses(c.talents ?? []);
+  // Guild Barracks grants a flat bonus to every attribute for enlisted members.
+  const barracks = c.guild ? guildPerks(c.guild.rooms).statBonus : 0;
   return {
     name: c.name,
     class: c.class as CharClass,
     level: c.level,
-    strength: eff.strength + tal.strength,
-    dexterity: eff.dexterity + tal.dexterity,
-    intelligence: eff.intelligence + tal.intelligence,
-    constitution: eff.constitution + tal.constitution,
-    luck: eff.luck + tal.luck,
+    strength: eff.strength + tal.strength + barracks,
+    dexterity: eff.dexterity + tal.dexterity + barracks,
+    intelligence: eff.intelligence + tal.intelligence + barracks,
+    constitution: eff.constitution + tal.constitution + barracks,
+    luck: eff.luck + tal.luck + barracks,
   };
 }

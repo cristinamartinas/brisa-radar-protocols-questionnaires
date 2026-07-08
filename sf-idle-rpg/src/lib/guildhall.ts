@@ -11,9 +11,10 @@
  * the ledger decides.
  *
  * Perks are LIVE: `guildPerks()` (below) resolves built rooms into gameplay
- * bonuses, and actions.ts applies them — Treasury → quest gold, Library → quest
- * XP, War Room → arena winnings. (Barracks' flat stat bonus is defined and
- * displayed but not yet folded into combat — a small follow-up in toFighter.)
+ * bonuses, applied server-side — Treasury → quest gold, Library → quest XP,
+ * War Room → arena winnings (actions.ts), and Barracks → a flat stat bonus to
+ * every attribute in combat (folded into toFighter for members, including PvP
+ * opponents so the arena stays fair). Trophy Hall is prestige-only.
  */
 
 import { revalidatePath } from "next/cache";

@@ -174,7 +174,7 @@ export async function fightArena(): Promise<ActionResult> {
   const others = await prisma.character.findMany({
     where: { id: { not: character.id } },
     take: 25,
-    include: { items: true },
+    include: { items: true, guild: { include: { rooms: true } } },
   });
   const opponent =
     others.length > 0
