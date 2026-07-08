@@ -1,0 +1,61 @@
+name: Quest & Cudgel CI
+
+# Runs lint, unit tests, and a production build for the game whenever its
+# sources change. The build applies Prisma migrations against a throwaway
+# Postgres service, so it exercises the real database path end to end.
+on:
+  push:
+    paths:
+      - "sf-idle-rpg/**"
+      - ".github/workflows/sf-idle-rpg-ci.yml"
+  pull_request:
+    paths:
+      - "sf-idle-rpg/**"
+      - ".github/workflows/sf-idle-rpg-ci.yml"
+
+defaults:
+  run:
+    working-directory: sf-idle-rpg
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: questcudgel
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/questcudgel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: sf-idle-rpg/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build (applies migrations to Postgres)
+        run: npm run build

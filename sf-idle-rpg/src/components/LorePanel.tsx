@@ -72,7 +72,7 @@ export default async function LorePanel() {
       <div className="mb-4">
         <h3 className="font-black text-gold">📜 The Lore Codex</h3>
         <p className="text-sm text-muted">
-          The realm's own history, written in the aftermath of its saving.{" "}
+          The realm&rsquo;s own history, written in the aftermath of its saving.{" "}
           {unlocked} of {total} pages illuminated —{" "}
           <span className="text-gold">{completion}%</span> of the tale recovered.
         </p>

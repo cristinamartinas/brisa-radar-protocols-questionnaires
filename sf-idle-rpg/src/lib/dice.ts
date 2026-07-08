@@ -4,7 +4,6 @@ import { loadCharacter } from "@/lib/data";
 import { currencyLedgerOps } from "@/lib/ledger";
 import { makeRng, randomSeed, randInt, type Rng } from "@/lib/rng";
 import type { ActionResult } from "@/lib/actions";
-import type { Prisma } from "@/generated/prisma/client";
 
 // ---------------------------------------------------------------------------
 // Tavern Dice 🎲🎲

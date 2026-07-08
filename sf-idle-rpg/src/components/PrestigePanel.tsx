@@ -59,7 +59,7 @@ export default async function PrestigePanel() {
           </>
         ) : (
           <div className="rounded-lg bg-surface-2 px-3 py-3 text-center text-sm text-muted">
-            Reach level {REBIRTH_MIN_LEVEL} to unlock Rebirth — you're level{" "}
+            Reach level {REBIRTH_MIN_LEVEL} to unlock Rebirth — you&rsquo;re level{" "}
             <span className="font-bold text-foreground">{character.level}</span>.
           </div>
         )}

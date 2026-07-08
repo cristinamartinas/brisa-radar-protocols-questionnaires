@@ -5,7 +5,6 @@ import {
   unequipCosmetic,
   buyCosmetic,
   getCosmetic,
-  type CosmeticKind,
   type EvaluatedCosmetic,
 } from "@/lib/cosmetics";
 import { getClass } from "@/lib/game";

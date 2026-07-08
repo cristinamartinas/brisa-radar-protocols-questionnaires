@@ -10,7 +10,10 @@ export function SoundToggle() {
   const [on, setOn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setOn(soundEnabled());
+    // Resolve the persisted value after mount (a frame later, so it reads as an
+    // external-store sync rather than a synchronous cascade in the effect body).
+    const raf = requestAnimationFrame(() => setOn(soundEnabled()));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const toggle = () => {

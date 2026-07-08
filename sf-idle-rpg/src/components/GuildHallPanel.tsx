@@ -52,7 +52,6 @@ export default async function GuildHallPanel() {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {rooms.map((room) => {
           const affordable = character.gold >= room.upgradeCost;
-          const canUpgrade = !room.maxed && affordable;
 
           return (
             <div

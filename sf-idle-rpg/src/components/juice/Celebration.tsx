@@ -37,6 +37,11 @@ export function Celebration({ result }: { result: ActionResult | null }) {
   // Track the last result object identity so we only fire on genuinely new ones.
   const lastResult = useRef<ActionResult | null>(null);
 
+  // This effect handles a discrete event — a genuinely new `result` prop — by
+  // playing a sound and flipping the overlay on. That is exactly the "react to a
+  // prop change" case the set-state-in-effect rule can't distinguish from a
+  // cascade, so it's disabled here deliberately.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!result || result === lastResult.current) return;
     lastResult.current = result;
@@ -60,6 +65,7 @@ export function Celebration({ result }: { result: ActionResult | null }) {
       amount: floatAmountFor(result.message),
     });
   }, [result]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (!shown) return;

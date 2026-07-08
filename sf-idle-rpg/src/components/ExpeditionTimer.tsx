@@ -9,13 +9,13 @@ import type { ActionResult } from "@/lib/actions";
  * label tick on the client every half-second, but the reward is only granted by
  * the server once the deadline passes (the collect action re-checks the clock).
  *
- * `serverNow` seeds the initial clock so SSR and the first client render agree.
+ * The clock seeds from `startedAt` (a stable prop) so SSR and the first client
+ * render agree, then a rAF corrects it to the real wall clock right after mount.
  */
 export function ExpeditionTimer({
   title,
   endsAt,
   startedAt,
-  serverNow,
   goldReward,
   xpReward,
   dustReward,
@@ -23,19 +23,22 @@ export function ExpeditionTimer({
   title: string;
   endsAt: number;
   startedAt: number;
-  serverNow: number;
   goldReward: number;
   xpReward: number;
   dustReward: number;
 }) {
-  const [now, setNow] = useState(serverNow);
+  const [now, setNow] = useState(startedAt);
   const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<ActionResult | null>(null);
 
   useEffect(() => {
-    setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 500);
-    return () => clearInterval(id);
+    const tick = () => setNow(Date.now());
+    const raf = requestAnimationFrame(tick);
+    const id = setInterval(tick, 500);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   const total = Math.max(1, endsAt - startedAt);

@@ -34,7 +34,6 @@ export default async function ExpeditionPanel() {
           title={expedition.name}
           endsAt={expedition.endsAt.getTime()}
           startedAt={expedition.startedAt.getTime()}
-          serverNow={Date.now()}
           goldReward={expedition.rewardGold}
           xpReward={expedition.rewardXp}
           dustReward={expedition.rewardDust}

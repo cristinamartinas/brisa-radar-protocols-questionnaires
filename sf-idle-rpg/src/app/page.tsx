@@ -319,7 +319,6 @@ export default async function Home({
                   title={character.activeQuest.title}
                   endsAt={character.activeQuest.endsAt.getTime()}
                   startedAt={character.activeQuest.startedAt.getTime()}
-                  serverNow={Date.now()}
                   goldReward={character.activeQuest.goldReward}
                   xpReward={character.activeQuest.xpReward}
                 />

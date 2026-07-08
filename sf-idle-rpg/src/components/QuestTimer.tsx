@@ -8,31 +8,34 @@ import { collectQuest, cancelQuest, type ActionResult } from "@/lib/actions";
  * client every half-second; the actual reward is only granted by the server
  * once the deadline has passed (the collect action re-checks the time).
  *
- * `serverNow` seeds the initial clock so SSR and the first client render agree.
+ * The clock seeds from `startedAt` (a stable prop) so SSR and the first client
+ * render agree, then a rAF corrects it to the real wall clock right after mount.
  */
 export function QuestTimer({
   title,
   endsAt,
   startedAt,
-  serverNow,
   goldReward,
   xpReward,
 }: {
   title: string;
   endsAt: number;
   startedAt: number;
-  serverNow: number;
   goldReward: number;
   xpReward: number;
 }) {
-  const [now, setNow] = useState(serverNow);
+  const [now, setNow] = useState(startedAt);
   const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<ActionResult | null>(null);
 
   useEffect(() => {
-    setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 500);
-    return () => clearInterval(id);
+    const tick = () => setNow(Date.now());
+    const raf = requestAnimationFrame(tick);
+    const id = setInterval(tick, 500);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   const total = Math.max(1, endsAt - startedAt);
