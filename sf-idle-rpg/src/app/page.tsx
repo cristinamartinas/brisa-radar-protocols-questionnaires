@@ -36,6 +36,11 @@ import SkillsPanel from "@/components/SkillsPanel";
 import TowerPanel from "@/components/TowerPanel";
 import WorldBossPanel from "@/components/WorldBossPanel";
 import ProfilePanel from "@/components/ProfilePanel";
+import SeasonPassPanel from "@/components/SeasonPassPanel";
+import ExpeditionPanel from "@/components/ExpeditionPanel";
+import FishingPanel from "@/components/FishingPanel";
+import BestiaryPanel from "@/components/BestiaryPanel";
+import CosmeticsPanel from "@/components/CosmeticsPanel";
 import WheelPanel from "@/components/WheelPanel";
 import PitPanel from "@/components/PitPanel";
 import PetsPanel from "@/components/PetsPanel";
@@ -351,6 +356,9 @@ export default async function Home() {
       {/* Inbox */}
       <MailPanel />
 
+      {/* Seasonal Pass */}
+      <SeasonPassPanel />
+
       {/* Magic Shop */}
       <section className="panel mt-6 p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
@@ -401,6 +409,10 @@ export default async function Home() {
       <PitPanel />
       <WheelPanel />
       <PetsPanel />
+
+      {/* Expeditions & Fishing */}
+      <ExpeditionPanel />
+      <FishingPanel />
 
       {/* Dungeons */}
       <section className="panel mt-6 p-5">
@@ -480,8 +492,14 @@ export default async function Home() {
       {/* Achievements */}
       <AchievementsPanel />
 
+      {/* Bestiary */}
+      <BestiaryPanel />
+
       {/* Hero profile & titles */}
       <ProfilePanel />
+
+      {/* Cosmetics */}
+      <CosmeticsPanel />
 
       {/* Rankings */}
       <RankingsPanel />
