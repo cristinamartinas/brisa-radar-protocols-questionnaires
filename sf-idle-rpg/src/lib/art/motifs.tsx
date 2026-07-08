@@ -150,12 +150,207 @@ const ring: MotifFn = (c) => (
   </g>
 );
 
+// --- class crests -----------------------------------------------------------
+
+const warriorCrest: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M30 30 L38 30 L70 66 L66 74 Z" fill={c.steel} />
+    <path d="M70 30 L62 30 L30 66 L34 74 Z" fill={c.steel} />
+    <circle cx={50} cy={52} r={4} fill={c.accent} />
+  </g>
+);
+
+const mageCrest: MotifFn = (c) => {
+  const pts = Array.from({ length: 10 }, (_, i) => {
+    const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+    const r = i % 2 === 0 ? 26 : 11;
+    return `${(50 + Math.cos(a) * r).toFixed(1)},${(50 + Math.sin(a) * r).toFixed(1)}`;
+  }).join(" ");
+  return (
+    <g {...stroke(c)}>
+      <polygon points={pts} fill={c.accent} />
+      <circle cx={50} cy={50} r={4} fill={c.glint} stroke="none" />
+      <circle cx={26} cy={30} r={2.2} fill={c.glint} stroke="none" />
+      <circle cx={74} cy={34} r={1.8} fill={c.glint} stroke="none" />
+    </g>
+  );
+};
+
+const scoutCrest: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M36 20 Q72 50 36 80" fill="none" stroke={c.steel} strokeWidth={4} />
+    <line x1={36} y1={20} x2={36} y2={80} stroke={c.accent} strokeWidth={1.8} />
+    <line x1={30} y1={50} x2={74} y2={50} stroke={c.accent} strokeWidth={2.4} />
+    <path d="M74 50 L67 45 M74 50 L67 55" fill="none" stroke={c.accent} strokeWidth={2.4} />
+    <path d="M30 50 L35 47 M30 50 L35 53" fill="none" stroke={c.accent} strokeWidth={2.2} />
+  </g>
+);
+
+// --- monsters ---------------------------------------------------------------
+
+const skull: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M28 44 Q28 22 50 22 Q72 22 72 44 Q72 58 64 62 L64 70 L36 70 L36 62 Q28 58 28 44 Z" fill={c.steel} />
+    <circle cx={40} cy={46} r={6} fill={c.ink} stroke="none" />
+    <circle cx={60} cy={46} r={6} fill={c.ink} stroke="none" />
+    <path d="M50 52 L46 60 L54 60 Z" fill={c.ink} stroke="none" />
+    <path d="M40 70 L40 76 M50 70 L50 77 M60 70 L60 76" stroke={c.ink} strokeWidth={2} />
+  </g>
+);
+
+const ghost: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M28 54 Q28 24 50 24 Q72 24 72 54 L72 78 L64 70 L56 78 L50 70 L44 78 L36 70 L28 78 Z" fill={c.steel} />
+    <circle cx={42} cy={48} r={4.5} fill={c.ink} stroke="none" />
+    <circle cx={58} cy={48} r={4.5} fill={c.ink} stroke="none" />
+  </g>
+);
+
+const dragon: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* horned dragon head in profile, snout to the right */}
+    <path d="M30 40 Q34 24 46 30 L44 40 Q60 34 74 46 Q78 50 72 54 L58 54 Q60 64 48 66 Q34 66 30 54 Q26 48 30 40 Z" fill={c.steel} />
+    <path d="M40 30 L36 18 L46 28 Z" fill={c.accent} />
+    <circle cx={44} cy={44} r={3} fill={c.ink} stroke="none" />
+    <path d="M66 50 L74 49 M62 55 L70 57" stroke={c.ink} strokeWidth={1.6} />
+  </g>
+);
+
+const demon: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M30 40 Q30 26 50 26 Q70 26 70 40 Q70 60 50 74 Q30 60 30 40 Z" fill={c.steel} />
+    <path d="M30 38 Q20 22 24 18 Q34 24 38 34 Z" fill={c.accent} />
+    <path d="M70 38 Q80 22 76 18 Q66 24 62 34 Z" fill={c.accent} />
+    <path d="M40 44 L47 48 L40 50 Z" fill={c.ink} stroke="none" />
+    <path d="M60 44 L53 48 L60 50 Z" fill={c.ink} stroke="none" />
+    <path d="M42 58 L46 62 L50 58 L54 62 L58 58" fill="none" stroke={c.ink} strokeWidth={2} />
+  </g>
+);
+
+const beast: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M28 34 L38 44 Q50 38 62 44 L72 34 L70 52 Q66 70 50 72 Q34 70 30 52 Z" fill={c.steel} />
+    <circle cx={42} cy={50} r={3.5} fill={c.ink} stroke="none" />
+    <circle cx={58} cy={50} r={3.5} fill={c.ink} stroke="none" />
+    <path d="M44 60 L48 64 L44 66 Z M56 60 L52 64 L56 66 Z" fill={c.glint} stroke="none" />
+    <path d="M48 62 L50 68 L52 62" fill="none" stroke={c.ink} strokeWidth={1.6} />
+  </g>
+);
+
+const slime: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M26 72 Q22 40 50 34 Q78 40 74 72 Q60 66 50 72 Q40 78 26 72 Z" fill={c.accent} />
+    <circle cx={42} cy={54} r={4} fill={c.ink} stroke="none" />
+    <circle cx={60} cy={54} r={4} fill={c.ink} stroke="none" />
+    <circle cx={64} cy={44} r={3} fill={c.glint} stroke="none" />
+  </g>
+);
+
+const golem: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M32 34 L68 34 L72 68 L60 76 L40 76 L28 68 Z" fill={c.steel} />
+    <path d="M32 48 L68 48 M50 34 L50 48 M44 48 L40 76 M56 48 L60 76" stroke={c.ink} strokeWidth={1.6} />
+    <rect x={38} y={38} width={7} height={5} fill={c.accent} stroke="none" />
+    <rect x={55} y={38} width={7} height={5} fill={c.accent} stroke="none" />
+  </g>
+);
+
+const goblin: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M22 40 L40 46 Q50 38 60 46 L78 40 L70 52 Q72 68 50 72 Q28 68 30 52 Z" fill={c.accent} />
+    <circle cx={43} cy={52} r={3.2} fill={c.ink} stroke="none" />
+    <circle cx={57} cy={52} r={3.2} fill={c.ink} stroke="none" />
+    <path d="M50 58 L47 64 L53 64 Z" fill={c.steel} stroke="none" />
+    <path d="M46 66 L48 70" stroke={c.steel} strokeWidth={2} />
+  </g>
+);
+
+const fiend: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M30 44 Q30 28 50 28 Q70 28 70 44 Q70 64 50 74 Q30 64 30 44 Z" fill={c.steel} />
+    <path d="M42 46 L48 50 L42 52 Z M58 46 L52 50 L58 52 Z" fill={c.ink} stroke="none" />
+    <path d="M42 60 L46 56 L50 60 L54 56 L58 60 L54 64 L50 60 L46 64 Z" fill={c.accent} stroke="none" />
+  </g>
+);
+
+// --- currencies -------------------------------------------------------------
+
+const coin: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <circle cx={50} cy={50} r={26} fill={c.accent} />
+    <circle cx={50} cy={50} r={20} fill="none" stroke={c.glint} strokeWidth={2} />
+    <path d="M50 38 L50 62 M44 44 L56 44 M43 56 L57 56" stroke={c.ink} strokeWidth={2.4} />
+  </g>
+);
+
+const mushroom: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M24 50 Q24 26 50 26 Q76 26 76 50 Q60 56 50 54 Q40 56 24 50 Z" fill={c.accent} />
+    <circle cx={40} cy={40} r={4} fill={c.glint} stroke="none" />
+    <circle cx={58} cy={38} r={3} fill={c.glint} stroke="none" />
+    <path d="M42 54 Q44 74 42 78 L58 78 Q56 74 58 54 Z" fill={c.steel} />
+  </g>
+);
+
+const crystal: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    <path d="M50 22 L66 42 L50 78 L34 42 Z" fill={c.accent} />
+    <path d="M34 42 L66 42 M50 22 L50 78 M42 32 L58 32" stroke={c.glint} strokeWidth={1.6} />
+  </g>
+);
+
 // --- registry + picker ------------------------------------------------------
 
 export const MOTIFS: Record<string, MotifFn> = {
   sword, dagger, axe, mace, cudgel, staff, bow,
   shield, robe, chain, amulet, ring,
+  warriorCrest, mageCrest, scoutCrest,
+  skull, ghost, dragon, demon, beast, slime, golem, goblin, fiend,
+  coin, mushroom, crystal,
 };
+
+/** Class crest motif for a hero medallion. */
+export function pickClassMotif(cls: string): string | null {
+  switch ((cls ?? "").toUpperCase()) {
+    case "WARRIOR": return "warriorCrest";
+    case "MAGE": return "mageCrest";
+    case "SCOUT": return "scoutCrest";
+    default: return null;
+  }
+}
+
+/** Monster archetype from a name and/or its stand-in emoji glyph. */
+export function pickMonsterMotif(name = "", glyph = ""): string {
+  const g = glyph;
+  if (/💀|☠️|🦴/.test(g)) return "skull";
+  if (/👻|😭/.test(g)) return "ghost";
+  if (/🐲|🐉|🦖|🔥|🌋/.test(g)) return "dragon";
+  if (/👹|👺|😈/.test(g)) return "demon";
+  if (/🗿|⚱️/.test(g)) return "golem";
+  if (/🐗|🦡|🐺|🦁|🐻/.test(g)) return "beast";
+  if (/🟢|🫧|🦠/.test(g)) return "slime";
+
+  const n = name.toLowerCase();
+  if (/(skeleton|bone|lich|rattle|crypt|skull|dead)/.test(n)) return "skull";
+  if (/(wraith|weeping|ghost|spirit|shade|phantom)/.test(n)) return "ghost";
+  if (/(dragon|drake|wyrm|ember|molten|cinder|ashen|ash|flame|scale)/.test(n)) return "dragon";
+  if (/(demon|fiend|menace|cruel|devil|hell|dread)/.test(n)) return "demon";
+  if (/(goblin|warboss|snaggle|grub|fang|biter|mud|nix)/.test(n)) return "goblin";
+  if (/(badger|boar|beast|hound|wolf|rat|maw)/.test(n)) return "beast";
+  if (/(golem|warden|stone|marble|colossus|rock)/.test(n)) return "golem";
+  if (/(ooze|slime|blob|jelly)/.test(n)) return "slime";
+  return "fiend";
+}
+
+/** Currency motif. */
+export function pickCurrencyMotif(kind: string): string {
+  switch (kind) {
+    case "GOLD": return "coin";
+    case "MUSHROOMS": return "mushroom";
+    case "DUST": return "crystal";
+    default: return "coin";
+  }
+}
 
 /** Map an item's name + slot to a motif key (or null to fall back to a glyph). */
 export function pickItemMotif(name: string, slot: string): string | null {

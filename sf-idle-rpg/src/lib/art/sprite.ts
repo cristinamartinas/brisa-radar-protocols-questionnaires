@@ -14,7 +14,12 @@
 // the procedural placeholder, so every entity has an image from day one.
 // ---------------------------------------------------------------------------
 
-import { pickItemMotif } from "@/lib/art/motifs";
+import {
+  pickItemMotif,
+  pickClassMotif,
+  pickMonsterMotif,
+  pickCurrencyMotif,
+} from "@/lib/art/motifs";
 
 /** Frame silhouette. Different content families read at a glance by shape. */
 export type FrameShape =
@@ -174,6 +179,10 @@ export function fighterSprite(f: {
     seed: hashStr(`fighter:${f.name}`),
     kind: f.boss ? "boss" : "fighter",
     id: f.name,
+    // Bosses draw a monster archetype; ordinary fighters draw their class crest.
+    motif: f.boss
+      ? pickMonsterMotif(f.name, f.glyph ?? "")
+      : pickClassMotif(cls) ?? undefined,
   };
 }
 
@@ -190,6 +199,7 @@ export function classSprite(cls: string, glyph?: string): Sprite {
     seed: hashStr(`class:${c}`),
     kind: "class",
     id: c,
+    motif: pickClassMotif(c) ?? undefined,
   };
 }
 
@@ -206,6 +216,7 @@ export function currencySprite(kind: "GOLD" | "MUSHROOMS" | "DUST"): Sprite {
     seed: hashStr(`currency:${kind}`),
     kind: "currency",
     id: kind,
+    motif: pickCurrencyMotif(kind),
   };
 }
 
