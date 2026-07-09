@@ -2,7 +2,7 @@ import { loadCharacter } from "@/lib/data";
 import { loadPets, adoptPet, foragePet } from "@/lib/pets";
 import { ActionButton } from "@/components/ActionButton";
 import { GameSprite } from "@/components/GameSprite";
-import { catalogSprite } from "@/lib/art/sprite";
+import { petSprite } from "@/lib/art/sprite";
 
 /**
  * Pets & Companions. Self-contained server component: loads the hero and their
@@ -37,11 +37,7 @@ export default async function PetsPanel() {
             <div key={pet.id} className="flex flex-col rounded-lg bg-surface p-4">
               <div className="flex items-center gap-3">
                 <GameSprite
-                  sprite={catalogSprite({
-                    kind: "pet",
-                    id: pet.species.key,
-                    glyph: pet.species.emoji,
-                  })}
+                  sprite={petSprite(pet.species)}
                   size={52}
                   title={pet.species.name}
                 />
@@ -102,11 +98,7 @@ export default async function PetsPanel() {
           >
             <div className="flex items-center gap-2">
               <GameSprite
-                sprite={catalogSprite({
-                  kind: "pet",
-                  id: species.key,
-                  glyph: species.emoji,
-                })}
+                sprite={petSprite(species)}
                 size={44}
                 title={species.name}
               />

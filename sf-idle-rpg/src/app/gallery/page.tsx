@@ -6,6 +6,7 @@ import {
   currencySprite,
   catalogSprite,
   foeSprite,
+  petSprite,
 } from "@/lib/art/sprite";
 
 // A visual index of the procedural placeholder art system. Every content family
@@ -130,7 +131,7 @@ export default function GalleryPage() {
           ["union_beaver", "🦫", "Union Beaver"],
         ].map(([key, glyph, label]) => (
           <Cell key={key} label={label}>
-            <GameSprite size={52} sprite={catalogSprite({ kind: "pet", id: key, glyph })} />
+            <GameSprite size={52} sprite={petSprite({ key, emoji: glyph })} />
           </Cell>
         ))}
       </Section>

@@ -308,6 +308,123 @@ const crystal: MotifFn = (c) => (
   </g>
 );
 
+// --- pets & companions ------------------------------------------------------
+
+const chicken: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* plump body facing left */}
+    <path d="M30 58 Q30 40 50 40 Q72 42 72 62 Q72 78 50 78 Q32 78 30 58 Z" fill={c.steel} />
+    {/* tail feathers */}
+    <path d="M70 46 Q84 40 82 58 Q74 54 68 60 Z" fill={c.steel} />
+    {/* head */}
+    <circle cx={38} cy={38} r={12} fill={c.steel} />
+    {/* comb */}
+    <path d="M31 27 Q33 21 35 27 Q37 21 39 27 Q41 22 42 28 Z" fill={c.accent} stroke="none" />
+    {/* beak */}
+    <path d="M27 37 L17 40 L27 43 Z" fill={c.accent} stroke="none" />
+    {/* wattle */}
+    <path d="M29 44 Q28 51 33 49" fill={c.accent} />
+    {/* eye */}
+    <circle cx={39} cy={36} r={2.2} fill={c.ink} stroke="none" />
+    {/* legs */}
+    <path d="M46 78 L46 86 M42 86 L51 86 M58 77 L58 86 M54 86 L63 86" stroke={c.ink} strokeWidth={2} />
+  </g>
+);
+
+const snail: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* gliding foot */}
+    <path d="M16 70 Q16 62 30 62 L66 62 Q76 62 78 70 Q78 75 70 75 L22 75 Q16 75 16 70 Z" fill={c.steel} />
+    {/* eye stalks */}
+    <line x1={19} y1={60} x2={14} y2={45} />
+    <line x1={26} y1={60} x2={23} y2={43} />
+    <circle cx={13} cy={44} r={2.6} fill={c.ink} stroke="none" />
+    <circle cx={23} cy={42} r={2.6} fill={c.ink} stroke="none" />
+    {/* spiral shell */}
+    <circle cx={53} cy={48} r={20} fill={c.accent} />
+    <path d="M53 48 Q53 40 61 40 Q71 40 71 50 Q71 64 55 64 Q39 64 39 48 Q39 30 57 30" fill="none" stroke={c.ink} strokeWidth={2.2} />
+  </g>
+);
+
+const raccoon: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* ears */}
+    <path d="M30 34 L25 19 L43 30 Z" fill={c.steel} />
+    <path d="M70 34 L75 19 L57 30 Z" fill={c.steel} />
+    {/* head */}
+    <path d="M28 40 Q28 26 50 26 Q72 26 72 40 Q72 62 50 75 Q28 62 28 40 Z" fill={c.steel} />
+    {/* bandit mask */}
+    <path d="M29 46 Q40 39 50 44 Q60 39 71 46 Q64 57 50 57 Q36 57 29 46 Z" fill={c.ink} stroke="none" />
+    {/* eyes peeking from the mask */}
+    <circle cx={41} cy={48} r={3} fill={c.glint} stroke="none" />
+    <circle cx={59} cy={48} r={3} fill={c.glint} stroke="none" />
+    {/* snout */}
+    <path d="M45 59 Q50 67 55 59 Z" fill={c.accent} stroke="none" />
+    <circle cx={50} cy={61} r={2} fill={c.ink} stroke="none" />
+  </g>
+);
+
+const toad: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* squat body */}
+    <path d="M20 66 Q20 44 50 44 Q80 44 80 66 Q80 76 50 76 Q20 76 20 66 Z" fill={c.steel} />
+    {/* bulging eyes */}
+    <circle cx={36} cy={39} r={9} fill={c.steel} />
+    <circle cx={64} cy={39} r={9} fill={c.steel} />
+    <circle cx={36} cy={40} r={4} fill={c.ink} stroke="none" />
+    <circle cx={64} cy={40} r={4} fill={c.ink} stroke="none" />
+    <circle cx={38} cy={38} r={1.4} fill={c.glint} stroke="none" />
+    <circle cx={66} cy={38} r={1.4} fill={c.glint} stroke="none" />
+    {/* wide grin */}
+    <path d="M32 64 Q50 73 68 64" fill="none" stroke={c.ink} strokeWidth={2.2} />
+    {/* nostrils */}
+    <circle cx={46} cy={55} r={1.2} fill={c.ink} stroke="none" />
+    <circle cx={54} cy={55} r={1.2} fill={c.ink} stroke="none" />
+    {/* webbed feet */}
+    <path d="M28 76 L24 82 M33 76 L31 83 M67 76 L69 83 M72 76 L76 82" stroke={c.ink} strokeWidth={2} />
+  </g>
+);
+
+const owl: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* ear tufts */}
+    <path d="M35 24 L31 11 L44 22 Z" fill={c.steel} />
+    <path d="M65 24 L69 11 L56 22 Z" fill={c.steel} />
+    {/* body */}
+    <path d="M28 40 Q28 22 50 22 Q72 22 72 40 L72 60 Q72 80 50 82 Q28 80 28 60 Z" fill={c.steel} />
+    {/* big judging eyes */}
+    <circle cx={40} cy={42} r={11} fill={c.glint} />
+    <circle cx={60} cy={42} r={11} fill={c.glint} />
+    <circle cx={40} cy={43} r={4.5} fill={c.ink} stroke="none" />
+    <circle cx={60} cy={43} r={4.5} fill={c.ink} stroke="none" />
+    {/* beak */}
+    <path d="M50 48 L45 56 L55 56 Z" fill={c.accent} stroke="none" />
+    {/* breast feathers */}
+    <path d="M40 63 Q50 69 60 63 M42 71 Q50 75 58 71" fill="none" stroke={c.ink} strokeWidth={1.4} />
+  </g>
+);
+
+const beaver: MotifFn = (c) => (
+  <g {...stroke(c)}>
+    {/* flat paddle tail */}
+    <path d="M62 64 Q84 62 84 78 Q84 90 64 86 Z" fill={c.accent} />
+    <path d="M70 70 L80 80 M74 67 L82 75 M67 76 L77 86" stroke={c.ink} strokeWidth={1.2} />
+    {/* body/head */}
+    <path d="M20 58 Q20 40 44 40 Q68 40 68 58 Q68 78 44 80 Q20 78 20 58 Z" fill={c.steel} />
+    {/* round ears */}
+    <circle cx={29} cy={41} r={5} fill={c.steel} />
+    <circle cx={55} cy={41} r={5} fill={c.steel} />
+    {/* eyes */}
+    <circle cx={35} cy={53} r={2.4} fill={c.ink} stroke="none" />
+    <circle cx={51} cy={53} r={2.4} fill={c.ink} stroke="none" />
+    {/* nose */}
+    <path d="M38 61 Q43 66 48 61 Z" fill={c.ink} stroke="none" />
+    {/* buck teeth */}
+    <rect x={40} y={65} width={3.4} height={8} rx={1} fill={c.glint} />
+    <rect x={43.6} y={65} width={3.4} height={8} rx={1} fill={c.glint} />
+  </g>
+);
+
 // --- registry + picker ------------------------------------------------------
 
 export const MOTIFS: Record<string, MotifFn> = {
@@ -316,6 +433,7 @@ export const MOTIFS: Record<string, MotifFn> = {
   warriorCrest, mageCrest, scoutCrest,
   skull, ghost, dragon, demon, beast, slime, golem, goblin, knight, fiend,
   coin, mushroom, crystal,
+  chicken, snail, raccoon, toad, owl, beaver,
 };
 
 /** Class crest motif for a hero medallion. */
@@ -375,6 +493,28 @@ export function pickFoeMotif(name = "", glyph = "", category = ""): string | nul
   }
   // Tower / World Boss / anything else → best guess from name + emoji.
   return pickMonsterMotif(name, glyph);
+}
+
+/**
+ * Pet species motif. Keyed off the species key first (exact + stable), with an
+ * emoji fallback so a new critter still lands a sensible drawn silhouette.
+ */
+export function pickPetMotif(speciesKey = "", emoji = ""): string | null {
+  switch (speciesKey) {
+    case "battle_chicken": return "chicken";
+    case "warp_snail": return "snail";
+    case "trash_panda": return "raccoon";
+    case "tax_toad": return "toad";
+    case "judgemental_owl": return "owl";
+    case "union_beaver": return "beaver";
+  }
+  if (/🐔|🐓|🐣|🐤/.test(emoji)) return "chicken";
+  if (/🐌/.test(emoji)) return "snail";
+  if (/🦝/.test(emoji)) return "raccoon";
+  if (/🐸/.test(emoji)) return "toad";
+  if (/🦉/.test(emoji)) return "owl";
+  if (/🦫|🦦|🐿️/.test(emoji)) return "beaver";
+  return null;
 }
 
 /** Currency motif. */

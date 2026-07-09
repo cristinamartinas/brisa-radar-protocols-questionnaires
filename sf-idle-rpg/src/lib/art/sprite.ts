@@ -20,6 +20,7 @@ import {
   pickMonsterMotif,
   pickCurrencyMotif,
   pickFoeMotif,
+  pickPetMotif,
 } from "@/lib/art/motifs";
 
 /** Frame silhouette. Different content families read at a glance by shape. */
@@ -202,6 +203,21 @@ export function classSprite(cls: string, glyph?: string): Sprite {
     id: c,
     motif: pickClassMotif(c) ?? undefined,
   };
+}
+
+/**
+ * A pet / companion critter. Drawn on a round medallion (like the bestiary
+ * foes) with a species-specific vector motif, falling back to its emoji.
+ */
+export function petSprite(species: { key: string; emoji: string }): Sprite {
+  return catalogSprite({
+    kind: "pet",
+    id: species.key,
+    glyph: species.emoji,
+    shape: "round",
+    ring: "plain",
+    motif: pickPetMotif(species.key, species.emoji),
+  });
 }
 
 /** Currency chip (gold / mushrooms / dust). */
