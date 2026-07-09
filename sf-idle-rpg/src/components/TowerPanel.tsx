@@ -6,7 +6,7 @@ import {
   loadTowerLeaderboard,
 } from "@/lib/tower";
 import { getClass } from "@/lib/game";
-import { ActionButton } from "@/components/ActionButton";
+import { TowerFightButton } from "@/components/TowerFightButton";
 
 /**
  * The Infinite Tower. Self-contained server component: loads the hero, their
@@ -83,9 +83,7 @@ export default async function TowerPanel() {
       </div>
 
       <div className="mt-3">
-        <ActionButton action={climbTower} className="w-full bg-accent text-white">
-          Climb to Floor {state.currentFloor} ⚔️
-        </ActionButton>
+        <TowerFightButton action={climbTower} floor={state.currentFloor} />
       </div>
 
       {/* Highest climbers */}

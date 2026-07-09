@@ -36,6 +36,17 @@ export interface BattleReplay {
   title?: string;
   /** Reward summary line to show when the dust settles. */
   outcome: string;
+  /**
+   * Foe's HP at the START of the replay (defaults to `foe.maxHp`). Lets a
+   * shared, already-chipped pool — the World Boss — open partly drained so a
+   * single swing reads as a sliver off a huge bar rather than a full duel.
+   */
+  foeStartHp?: number;
+  /**
+   * Overrides the closing Victory/Defeat banner. World-boss hits aren't a
+   * win/lose duel — a landed blow just wants a triumphant line of its own.
+   */
+  banner?: { text: string; tone: "good" | "bad" | "gold" };
 }
 
 export interface ActionResult {

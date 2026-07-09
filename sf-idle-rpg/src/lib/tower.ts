@@ -220,8 +220,25 @@ export async function climbTower(): Promise<ActionResult> {
   const seed = randomSeed();
   const rng = makeRng(seed);
   const boss = towerBoss(rng, floor);
-  const result = resolveBattle(rng, toFighter(character, character.items), boss);
+  const meFighter = toFighter(character, character.items);
+  const result = resolveBattle(rng, meFighter, boss);
   const label = `🗼 ${boss.name} — Tower floor ${floor}`;
+
+  // Shared replay skeleton — the animated report draws the boss as a monster
+  // medallion (🗼 glyph), same treatment as the dungeon raids.
+  const replayBase = {
+    me: { name: meFighter.name, className: meFighter.class, maxHp: result.meMaxHp },
+    foe: {
+      name: boss.name,
+      className: boss.class,
+      maxHp: result.foeMaxHp,
+      boss: true,
+      glyph: "🗼",
+    },
+    events: result.events,
+    won: result.won,
+    title: `🗼 The Infinite Tower · Floor ${floor}`,
+  };
 
   const ops: Prisma.PrismaPromise<unknown>[] = [];
 
@@ -253,11 +270,13 @@ export async function climbTower(): Promise<ActionResult> {
     revalidatePath("/");
 
     const best = Math.max(state.highestFloor, floor - 1);
+    const message =
+      `${boss.name} sent you tumbling down the stairs on floor ${floor}. ` +
+      `The run ends here — back to floor 1. Personal best: floor ${best}. 🪜`;
     return {
       ok: true,
-      message:
-        `${boss.name} sent you tumbling down the stairs on floor ${floor}. ` +
-        `The run ends here — back to floor 1. Personal best: floor ${best}. 🪜`,
+      message,
+      battle: { ...replayBase, outcome: message },
     };
   }
 
@@ -328,5 +347,5 @@ export async function climbTower(): Promise<ActionResult> {
   if (beatBest) message += ` — new personal best! 🏆`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
   message += ` Onward to floor ${nextFloor}. 🗼`;
-  return { ok: true, message };
+  return { ok: true, message, battle: { ...replayBase, outcome: message } };
 }

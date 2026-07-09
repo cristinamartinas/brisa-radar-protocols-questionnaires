@@ -19,6 +19,12 @@ import { playSfx } from "@/lib/sound";
 
 const STEP_MS = 620;
 
+const TONE_VAR: Record<"good" | "bad" | "gold", string> = {
+  good: "var(--good)",
+  bad: "var(--bad)",
+  gold: "var(--gold)",
+};
+
 function HpBar({ hp, max, mine }: { hp: number; max: number; mine: boolean }) {
   const pct = Math.max(0, Math.min(100, (hp / Math.max(1, max)) * 100));
   const color = mine ? "var(--good)" : "var(--bad)";
@@ -30,7 +36,7 @@ function HpBar({ hp, max, mine }: { hp: number; max: number; mine: boolean }) {
 }
 
 export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClose: () => void }) {
-  const { me, foe, events, won, outcome, title } = replay;
+  const { me, foe, events, won, outcome, title, banner, foeStartHp } = replay;
   const heroSprite = classSprite(me.className);
   const oppSprite = fighterSprite({
     name: foe.name,
@@ -68,7 +74,7 @@ export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClos
 
   const applied = step < 0 ? -1 : Math.min(step, events.length - 1);
   const myHp = applied < 0 ? me.maxHp : events[applied].myHp;
-  const foeHp = applied < 0 ? foe.maxHp : events[applied].foeHp;
+  const foeHp = applied < 0 ? (foeStartHp ?? foe.maxHp) : events[applied].foeHp;
   const current = applied >= 0 ? events[applied] : null;
 
   // Damage/heal float shown over whichever fighter was struck this swing.
@@ -156,9 +162,9 @@ export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClos
           <div className="mt-4 text-center">
             <div
               className="text-lg font-black"
-              style={{ color: won ? "var(--good)" : "var(--bad)" }}
+              style={{ color: banner ? TONE_VAR[banner.tone] : won ? "var(--good)" : "var(--bad)" }}
             >
-              {won ? "🏆 Victory!" : "☠️ Defeat"}
+              {banner ? banner.text : won ? "🏆 Victory!" : "☠️ Defeat"}
             </div>
             <p className="mt-1 text-sm text-muted">{outcome}</p>
             <button

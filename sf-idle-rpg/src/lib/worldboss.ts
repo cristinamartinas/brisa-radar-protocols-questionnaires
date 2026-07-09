@@ -1,10 +1,10 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { loadCharacter, toFighter } from "@/lib/data";
-import { primaryValue } from "@/lib/game";
+import { primaryValue, maxHp } from "@/lib/game";
 import { currencyLedgerOps } from "@/lib/ledger";
 import { makeRng, randomSeed, pick, type Rng } from "@/lib/rng";
-import type { ActionResult } from "@/lib/actions";
+import type { ActionResult, BattleReplay } from "@/lib/actions";
 
 // ---------------------------------------------------------------------------
 // World Bosses — one server-wide colossus that EVERY hero chips away at
@@ -242,16 +242,64 @@ export async function attackWorldBoss(): Promise<ActionResult> {
   const spoils = `+${reward.gold}🪙 +${reward.dust}✨`;
   revalidatePath("/");
 
+  // A single dramatic swing at the shared colossus. Unlike an arena/dungeon
+  // duel this isn't a win/lose fight — the boss doesn't swing back and its bar
+  // is common ground — so we hand the report a one-event replay that opens on
+  // the boss's already-chipped HP (foeStartHp) and closes on a bespoke banner.
+  const heroMax = maxHp(fighter);
+  const buildReplay = (
+    foeHpEnd: number,
+    banner: { text: string; tone: "good" | "bad" | "gold" },
+    outcome: string,
+  ): BattleReplay => ({
+    me: { name: fighter.name, className: fighter.class, maxHp: heroMax },
+    foe: {
+      name: boss.name,
+      className: `Lv ${boss.level} Colossus`,
+      maxHp: boss.maxHp,
+      boss: true,
+      glyph: boss.emoji,
+    },
+    events: [
+      {
+        turn: 1,
+        byMe: true,
+        attacker: fighter.name,
+        defender: boss.name,
+        dmg: dealt,
+        crit,
+        absorbed: 0,
+        heal: 0,
+        myHp: heroMax,
+        foeHp: Math.max(0, foeHpEnd),
+        notes: [],
+      },
+    ],
+    foeStartHp: boss.hp,
+    won: true,
+    title: `🌍 ${boss.emoji} ${boss.name}`,
+    outcome,
+    banner,
+  });
+
   if (slain) {
     const next = await getOrSpawnBoss();
+    const message = `${crit ? "💥 CRIT! " : ""}You landed the KILLING BLOW on ${boss.name} for ${dealt} damage! The world roars your name. ${spoils}. A new terror stirs: ${next.emoji} ${next.name} (Lv ${next.level}). ⚔️`;
     return {
       ok: true,
-      message: `${crit ? "💥 CRIT! " : ""}You landed the KILLING BLOW on ${boss.name} for ${dealt} damage! The world roars your name. ${spoils}. A new terror stirs: ${next.emoji} ${next.name} (Lv ${next.level}). ⚔️`,
+      message,
+      battle: buildReplay(0, { text: "🏆 WORLD BOSS SLAIN!", tone: "gold" }, message),
     };
   }
 
+  const message = `${crit ? "💥 CRIT! " : ""}You strike ${boss.name} for ${dealt} damage! ${after.hp}/${after.maxHp} HP left — keep the pressure on. ${spoils}`;
   return {
     ok: true,
-    message: `${crit ? "💥 CRIT! " : ""}You strike ${boss.name} for ${dealt} damage! ${after.hp}/${after.maxHp} HP left — keep the pressure on. ${spoils}`,
+    message,
+    battle: buildReplay(
+      after.hp,
+      { text: crit ? "💥 Massive Blow!" : "🗡️ Blow Landed!", tone: "good" },
+      message,
+    ),
   };
 }

@@ -1,5 +1,5 @@
 import { loadCharacter } from "@/lib/data";
-import { ActionButton } from "@/components/ActionButton";
+import { WorldBossFightButton } from "@/components/WorldBossFightButton";
 import { GameSprite } from "@/components/GameSprite";
 import { fighterSprite } from "@/lib/art/sprite";
 import {
@@ -155,9 +155,7 @@ export default async function WorldBossPanel() {
             💤 Out of swings — back tomorrow
           </button>
         ) : (
-          <ActionButton action={attackWorldBoss} className="bg-accent text-white">
-            ⚔️ Strike the Boss ({swingsLeft} left)
-          </ActionButton>
+          <WorldBossFightButton action={attackWorldBoss} swingsLeft={swingsLeft} />
         )}
       </div>
     </section>
