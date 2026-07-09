@@ -35,7 +35,19 @@ function HpBar({ hp, max, mine }: { hp: number; max: number; mine: boolean }) {
   );
 }
 
-export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClose: () => void }) {
+export function BattleReport({
+  replay,
+  onClose,
+  onFightAgain,
+  fightPending = false,
+}: {
+  replay: BattleReplay;
+  onClose: () => void;
+  /** When provided, a "Fight again" button re-runs the same fight in place. */
+  onFightAgain?: () => void;
+  /** True while a re-fight is resolving on the server. */
+  fightPending?: boolean;
+}) {
   const { me, foe, events, won, outcome, title, banner, foeStartHp } = replay;
   const heroSprite = classSprite(me.className);
   const oppSprite = fighterSprite({
@@ -167,13 +179,25 @@ export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClos
               {banner ? banner.text : won ? "🏆 Victory!" : "☠️ Defeat"}
             </div>
             <p className="mt-1 text-sm text-muted">{outcome}</p>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mt-3 w-full rounded-lg bg-gold px-4 py-2.5 font-bold text-[#2b1d12]"
-            >
-              Continue
-            </button>
+            <div className="mt-3 flex gap-2">
+              {onFightAgain && (
+                <button
+                  type="button"
+                  onClick={onFightAgain}
+                  disabled={fightPending}
+                  className="flex-1 rounded-lg bg-accent px-4 py-2.5 font-bold text-white transition active:scale-[0.98] disabled:opacity-60"
+                >
+                  {fightPending ? "Fighting…" : "Fight again ⚔️"}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 rounded-lg bg-gold px-4 py-2.5 font-bold text-[#2b1d12]"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         ) : (
           <div className="mt-4 flex justify-center">

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { fightArena, type BattleReplay } from "@/lib/actions";
+import { fightArena } from "@/lib/actions";
 import { BattleReport } from "@/components/BattleReport";
+import { useBattleAction } from "@/components/useBattleAction";
 
 /**
  * The Arena entry point. Runs the server-side fight, then plays the returned
@@ -10,35 +10,34 @@ import { BattleReport } from "@/components/BattleReport";
  * revalidated by the action itself; this component only owns the animation.
  */
 export function ArenaButton() {
-  const [pending, startTransition] = useTransition();
-  const [replay, setReplay] = useState<BattleReplay | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const fight = useBattleAction(fightArena);
 
   return (
     <>
       <button
         type="button"
-        disabled={pending}
-        onClick={() =>
-          startTransition(async () => {
-            setError(null);
-            const res = await fightArena();
-            if (res.ok && res.battle) setReplay(res.battle);
-            else if (!res.ok) setError(res.message);
-          })
-        }
+        disabled={fight.pending}
+        onClick={fight.run}
         className="w-full rounded-lg bg-accent px-4 py-2.5 font-semibold text-white transition active:scale-[0.98] disabled:opacity-50"
       >
-        {pending ? "Entering the lists…" : "Enter the Arena"}
+        {fight.pending ? "Entering the lists…" : "Enter the Arena"}
       </button>
 
-      {error && (
+      {fight.error && (
         <p className="mt-2 text-sm text-bad" role="status">
-          {error}
+          {fight.error}
         </p>
       )}
 
-      {replay && <BattleReport replay={replay} onClose={() => setReplay(null)} />}
+      {fight.replay && (
+        <BattleReport
+          key={fight.replayKey}
+          replay={fight.replay}
+          onClose={fight.close}
+          onFightAgain={fight.run}
+          fightPending={fight.pending}
+        />
+      )}
     </>
   );
 }

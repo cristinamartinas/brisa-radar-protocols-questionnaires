@@ -617,13 +617,7 @@ export default async function Home({
                 </div>
 
                 <div className="mt-3">
-                  {cleared ? (
-                    <div className="rounded-lg bg-surface-2 px-3 py-2 text-center text-sm font-semibold text-good">
-                      🏅 Conquered
-                    </div>
-                  ) : (
-                    <DungeonFightButton dungeonKey={d.key} floor={floor} />
-                  )}
+                  <DungeonFightButton dungeonKey={d.key} floor={floor} cleared={cleared} />
                 </div>
               </div>
             );

@@ -28,7 +28,6 @@ export default async function WorldBossPanel() {
   ]);
 
   const swingsLeft = Math.max(0, WORLDBOSS_DAILY_CAP - swungToday);
-  const capReached = swingsLeft <= 0;
   const hpPct = Math.max(0, Math.min(100, (boss.hp / boss.maxHp) * 100));
 
   return (
@@ -146,17 +145,7 @@ export default async function WorldBossPanel() {
 
       {/* Attack */}
       <div className="mt-4">
-        {capReached ? (
-          <button
-            type="button"
-            disabled
-            className="w-full cursor-not-allowed rounded-lg bg-surface-2 px-4 py-3 font-semibold text-muted opacity-60"
-          >
-            💤 Out of swings — back tomorrow
-          </button>
-        ) : (
-          <WorldBossFightButton action={attackWorldBoss} swingsLeft={swingsLeft} />
-        )}
+        <WorldBossFightButton action={attackWorldBoss} swingsLeft={swingsLeft} />
       </div>
     </section>
   );
