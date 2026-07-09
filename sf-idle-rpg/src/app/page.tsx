@@ -52,6 +52,7 @@ import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
+import { GearCompare } from "@/components/GearCompare";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -154,6 +155,9 @@ export default async function Home({
     slot: s,
     item: items.find((i) => i.location === "EQUIPPED" && i.slot === s.id),
   }));
+  // What's equipped in a given slot (for gear-comparison badges).
+  const equippedFor = (slotId: string) =>
+    equippedBySlot.find((e) => e.slot.id === slotId)?.item ?? null;
   const inventory = items.filter((i) => i.location === "INVENTORY");
   const shop = items.filter((i) => i.location === "SHOP");
 
@@ -430,6 +434,7 @@ export default async function Home({
                       </span>
                     </div>
                     <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
+                    <GearCompare candidate={item} equipped={equippedFor(item.slot)} className="mt-0.5" />
                   </li>
                 ))}
               </ul>
@@ -525,7 +530,8 @@ export default async function Home({
                     {rarity.label}
                   </div>
                   <div className="mt-0.5 font-semibold leading-snug">{item.name}</div>
-                  <div className="mt-1 flex-1 text-xs text-muted">{itemBonuses(item)}</div>
+                  <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
+                  <GearCompare candidate={item} equipped={equippedFor(item.slot)} className="mt-1 flex-1" />
                   <form action={buyItem.bind(null, item.id)} className="mt-3">
                     <button
                       disabled={!affordable}

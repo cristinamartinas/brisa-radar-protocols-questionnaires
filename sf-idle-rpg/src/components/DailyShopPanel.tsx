@@ -3,6 +3,7 @@ import { loadDailyShop, buyDailyItem, type DailyShopItem } from "@/lib/dailyshop
 import { getRarity, type Attributes } from "@/lib/game";
 import { ActionButton } from "@/components/ActionButton";
 import { GameSprite } from "@/components/GameSprite";
+import { GearCompare } from "@/components/GearCompare";
 import { itemSprite } from "@/lib/art/sprite";
 
 const STAT_ABBR: [keyof Attributes, string][] = [
@@ -40,6 +41,10 @@ export default async function DailyShopPanel() {
   if (!character) return null;
 
   const shop = await loadDailyShop(character.id);
+
+  // What's equipped in a slot, for the gear-comparison badge.
+  const equippedFor = (slotId: string) =>
+    character.items.find((i) => i.location === "EQUIPPED" && i.slot === slotId) ?? null;
 
   return (
     <section className="panel mt-6 p-5">
@@ -90,9 +95,10 @@ export default async function DailyShopPanel() {
                 >
                   {item.name}
                 </div>
-                <div className="mt-1 flex-1 text-xs text-muted">
+                <div className="mt-1 text-xs text-muted">
                   {itemBonuses(item)}
                 </div>
+                <GearCompare candidate={item} equipped={equippedFor(item.slot)} className="mt-1 flex-1" />
                 <div className="mt-3">
                   <ActionButton
                     action={buyDailyItem.bind(null, item.id)}
