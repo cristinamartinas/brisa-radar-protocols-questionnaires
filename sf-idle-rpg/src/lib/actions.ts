@@ -28,9 +28,12 @@ import type { Prisma } from "@/generated/prisma/client";
 /** An animatable blow-by-blow replay handed back to the client after a fight. */
 export interface BattleReplay {
   me: { name: string; className: string; maxHp: number };
-  foe: { name: string; className: string; maxHp: number };
+  /** `boss`/`glyph` let the report draw a monster medallion for dungeon foes. */
+  foe: { name: string; className: string; maxHp: number; boss?: boolean; glyph?: string };
   events: BattleEvent[];
   won: boolean;
+  /** Title shown above the duel (e.g. the dungeon + floor). */
+  title?: string;
   /** Reward summary line to show when the dust settles. */
   outcome: string;
 }
@@ -320,13 +323,29 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
   const seed = randomSeed();
   const rng = makeRng(seed);
   const boss = generateBoss(rng, dungeon, floor);
+  const meFighter = toFighter(character, character.items);
   const result = resolveBattle(
     rng,
-    toFighter(character, character.items),
+    meFighter,
     boss,
     parseLoadout(character.skillLoadout),
   );
   const label = `${dungeon.emoji} ${boss.name} — ${dungeon.name} floor ${floor}`;
+
+  // Shared replay skeleton — the animated report draws the boss as a monster.
+  const replayBase = {
+    me: { name: meFighter.name, className: meFighter.class, maxHp: result.meMaxHp },
+    foe: {
+      name: boss.name,
+      className: boss.class,
+      maxHp: result.foeMaxHp,
+      boss: true,
+      glyph: dungeon.emoji,
+    },
+    events: result.events,
+    won: result.won,
+    title: `${dungeon.emoji} ${dungeon.name} · Floor ${floor}`,
+  };
 
   const ops: Prisma.PrismaPromise<unknown>[] = [];
 
@@ -345,10 +364,8 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
     );
     await prisma.$transaction(ops);
     revalidatePath("/");
-    return {
-      ok: true,
-      message: `${boss.name} defeated you on floor ${floor}. Regroup and try again!`,
-    };
+    const message = `${boss.name} defeated you on floor ${floor}. Regroup and try again!`;
+    return { ok: true, message, battle: { ...replayBase, outcome: message } };
   }
 
   // Victory: reward, possible loot, and advance the run.
@@ -437,7 +454,7 @@ export async function raidDungeon(dungeonKey: string): Promise<ActionResult> {
   if (reward.loot) message += ` — loot: ${reward.loot.name}! 🎁`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
   if (cleared) message += ` You have conquered ${dungeon.name}! 🏅`;
-  return { ok: true, message };
+  return { ok: true, message, battle: { ...replayBase, outcome: message } };
 }
 
 // ---------------------------------------------------------------------------

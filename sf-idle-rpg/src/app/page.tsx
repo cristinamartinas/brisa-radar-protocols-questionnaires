@@ -8,7 +8,6 @@ import {
   unequipItem,
   sellItem,
   refreshShop,
-  raidDungeon,
   joinGuild,
   leaveGuild,
 } from "@/lib/actions";
@@ -26,7 +25,6 @@ import {
 } from "@/lib/game";
 import { logout } from "@/lib/auth";
 import { AuthScreen } from "@/components/AuthScreen";
-import { ActionButton } from "@/components/ActionButton";
 import { QuestTimer } from "@/components/QuestTimer";
 import DailiesPanel from "@/components/DailiesPanel";
 import ForgePanel from "@/components/ForgePanel";
@@ -53,6 +51,7 @@ import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
+import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -623,12 +622,7 @@ export default async function Home({
                       🏅 Conquered
                     </div>
                   ) : (
-                    <ActionButton
-                      action={raidDungeon.bind(null, d.key)}
-                      className="w-full bg-accent text-white"
-                    >
-                      Fight Floor {floor} ⚔️
-                    </ActionButton>
+                    <DungeonFightButton dungeonKey={d.key} floor={floor} />
                   )}
                 </div>
               </div>

@@ -30,7 +30,14 @@ function HpBar({ hp, max, mine }: { hp: number; max: number; mine: boolean }) {
 }
 
 export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClose: () => void }) {
-  const { me, foe, events, won, outcome } = replay;
+  const { me, foe, events, won, outcome, title } = replay;
+  const heroSprite = classSprite(me.className);
+  const oppSprite = fighterSprite({
+    name: foe.name,
+    class: foe.className,
+    glyph: foe.glyph,
+    boss: foe.boss,
+  });
 
   // step: -1 = intro, 0..n-1 = each swing applied, >= n = finished.
   // (Reduced-motion is honored in CSS — the .bt-* animations become fades.)
@@ -79,25 +86,17 @@ export function BattleReport({ replay, onClose }: { replay: BattleReplay; onClos
         className="panel w-full max-w-lg p-5"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="mb-4 text-center font-black text-gold">⚔️ Arena Duel</h3>
+        <h3 className="mb-4 text-center font-black text-gold">{title ?? "⚔️ Arena Duel"}</h3>
 
         {/* Combatants */}
         <div className="flex items-stretch justify-between gap-3">
           {[
-            { f: me, hp: myHp, mine: true, struck: struckMe },
-            { f: foe, hp: foeHp, mine: false, struck: current ? current.byMe : false },
+            { f: me, hp: myHp, mine: true, struck: struckMe, sprite: heroSprite },
+            { f: foe, hp: foeHp, mine: false, struck: current ? current.byMe : false, sprite: oppSprite },
           ].map((side, i) => (
             <div key={i} className={`flex flex-1 flex-col items-center ${i === 1 ? "order-3" : ""}`}>
               <div className={`relative ${side.struck ? "bt-hit" : ""}`} key={`fx-${step}-${i}`}>
-                <GameSprite
-                  size={64}
-                  sprite={
-                    side.mine
-                      ? classSprite(side.f.className)
-                      : fighterSprite({ name: side.f.name, class: side.f.className })
-                  }
-                  title={side.f.name}
-                />
+                <GameSprite size={64} sprite={side.sprite} title={side.f.name} />
                 {/* floating damage / heal for this swing */}
                 {current && side.struck && current.dmg > 0 && (
                   <span
