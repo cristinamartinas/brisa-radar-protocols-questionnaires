@@ -558,6 +558,57 @@ export async function unequipItem(itemId: string, _formData?: FormData): Promise
   revalidatePath("/");
 }
 
+/**
+ * Equip the highest-stat owned item in every slot. "Best" is the raw sum of an
+ * item's five attribute bonuses — the same net used by the shop comparison
+ * badges — so this is the one-click version of chasing every ▲ Upgrade. Ties
+ * keep whatever is already equipped, so it never churns gear pointlessly.
+ */
+export async function autoEquipBestGear(): Promise<ActionResult> {
+  const character = await loadCharacter();
+  if (!character) return { ok: false, message: "No hero found." };
+
+  const power = (i: { strength: number; dexterity: number; intelligence: number; constitution: number; luck: number }) =>
+    i.strength + i.dexterity + i.intelligence + i.constitution + i.luck;
+
+  const slots = ["WEAPON", "ARMOR", "AMULET"];
+  const ops: Prisma.PrismaPromise<unknown>[] = [];
+  let changes = 0;
+
+  for (const slot of slots) {
+    const inSlot = character.items.filter((i) => i.slot === slot);
+    if (inSlot.length === 0) continue;
+
+    const maxPower = Math.max(...inSlot.map(power));
+    const equipped = inSlot.find((i) => i.location === "EQUIPPED");
+    // Already wearing a best-in-slot (or tied-best) piece — leave it be.
+    if (equipped && power(equipped) === maxPower) continue;
+
+    const best = inSlot.find((i) => power(i) === maxPower);
+    if (!best) continue;
+
+    ops.push(
+      prisma.item.updateMany({
+        where: { characterId: character.id, slot, location: "EQUIPPED" },
+        data: { location: "INVENTORY" },
+      }),
+      prisma.item.update({ where: { id: best.id }, data: { location: "EQUIPPED" } }),
+    );
+    changes += 1;
+  }
+
+  if (changes === 0) {
+    return { ok: true, message: "Your gear is already the best you own. ⭐" };
+  }
+
+  await prisma.$transaction(ops);
+  revalidatePath("/");
+  return {
+    ok: true,
+    message: `Auto-equipped your best gear across ${changes} slot${changes > 1 ? "s" : ""}. ⭐`,
+  };
+}
+
 /** Sell an owned item (equipped or in the bag) for half its price. */
 export async function sellItem(itemId: string, _formData?: FormData): Promise<void> {
   const character = await loadCharacter();

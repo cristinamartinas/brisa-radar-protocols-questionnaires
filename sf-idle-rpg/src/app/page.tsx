@@ -7,6 +7,7 @@ import {
   equipItem,
   unequipItem,
   sellItem,
+  autoEquipBestGear,
   refreshShop,
   joinGuild,
   leaveGuild,
@@ -53,6 +54,7 @@ import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GearCompare } from "@/components/GearCompare";
+import { ActionButton } from "@/components/ActionButton";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -343,6 +345,18 @@ export default async function Home({
               </li>
             ))}
           </ul>
+
+          {/* One-click: equip the best owned item in every slot. */}
+          {items.some((i) => i.location === "INVENTORY") && (
+            <div className="mt-3">
+              <ActionButton
+                action={autoEquipBestGear}
+                className="w-full bg-surface-2 !py-2 text-sm hover:text-gold"
+              >
+                ⭐ Auto-equip best gear
+              </ActionButton>
+            </div>
+          )}
         </section>
 
         {/* Actions */}
