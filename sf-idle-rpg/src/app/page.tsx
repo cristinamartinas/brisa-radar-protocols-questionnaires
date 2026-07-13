@@ -4,10 +4,6 @@ import {
   startQuest,
   abandonHero,
   buyItem,
-  equipItem,
-  unequipItem,
-  sellItem,
-  autoEquipBestGear,
   refreshShop,
   joinGuild,
   leaveGuild,
@@ -17,8 +13,9 @@ import {
   getClass,
   maxHp,
   xpForLevel,
-  equippedBonus,
   getRarity,
+  damageRange,
+  critChance,
   SLOTS,
   QUEST_LENGTHS,
   DUNGEONS,
@@ -55,7 +52,6 @@ import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GearCompare } from "@/components/GearCompare";
 import CharacterScreen from "@/components/CharacterScreen";
-import { ActionButton } from "@/components/ActionButton";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -147,9 +143,10 @@ export default async function Home({
 
   const cls = getClass(character.class);
   const items = character.items as ItemRow[];
-  const bonus = equippedBonus(items);
   const fighter = toFighter(character, items);
   const hp = maxHp(fighter);
+  const dmg = damageRange(fighter);
+  const critPct = Math.round(critChance(fighter) * 100);
   const nextLevelXp = xpForLevel(character.level);
   const xpPct = Math.min(100, Math.round((character.experience / nextLevelXp) * 100));
   const leaderboard = await loadLeaderboard();
@@ -162,7 +159,6 @@ export default async function Home({
   // What's equipped in a given slot (for gear-comparison badges).
   const equippedFor = (slotId: string) =>
     equippedBySlot.find((e) => e.slot.id === slotId)?.item ?? null;
-  const inventory = items.filter((i) => i.location === "INVENTORY");
   const shop = items.filter((i) => i.location === "SHOP");
 
   return (
@@ -263,102 +259,29 @@ export default async function Home({
             </div>
           </div>
 
-          {/* Attributes (base + equipped gear) */}
-          <ul className="mt-4 space-y-1.5">
-            {STAT_KEYS.map(([label, key]) => {
-              const primary = cls.primary === key;
-              const gearBonus = bonus[key];
-              return (
-                <li
-                  key={key}
-                  className="flex items-center justify-between rounded-md px-3 py-1.5"
-                  style={{ background: primary ? "var(--surface-2)" : "transparent" }}
-                >
-                  <span className="text-muted">
-                    {label} {primary && <span className="text-gold">★</span>}
-                  </span>
-                  <span className="font-bold tabular-nums">
-                    {character[key] + gearBonus}
-                    {gearBonus > 0 && (
-                      <span className="ml-1 text-xs font-normal text-gold">
-                        (+{gearBonus})
-                      </span>
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Equipment slots */}
-          <h3 className="mt-5 mb-2 text-sm font-black uppercase tracking-wide text-muted">
-            Equipment
-          </h3>
-          <ul className="space-y-2">
-            {equippedBySlot.map(({ slot, item }) => (
-              <li key={slot.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-2">
-                    {item ? (
-                      <>
-                        <GameSprite
-                          sprite={itemSprite({ name: item.name, slot: item.slot, rarity: item.rarity })}
-                          size={34}
-                          title={item.name}
-                        />
-                        <span
-                          className="font-semibold"
-                          style={{ color: getRarity(item.rarity).color }}
-                        >
-                          {item.name}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <span style={{ opacity: 0.4 }}>
-                          <GameSprite
-                            sprite={catalogSprite({ kind: "slot", id: slot.id, glyph: slot.emoji })}
-                            size={34}
-                            title={`Empty ${slot.label.toLowerCase()}`}
-                          />
-                        </span>
-                        <span className="text-muted">Empty {slot.label.toLowerCase()}</span>
-                      </>
-                    )}
-                  </span>
-                  {item && (
-                    <span className="flex shrink-0 gap-1">
-                      <form action={unequipItem.bind(null, item.id)}>
-                        <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-gold">
-                          Unequip
-                        </button>
-                      </form>
-                      <form action={sellItem.bind(null, item.id)}>
-                        <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-bad">
-                          Sell
-                        </button>
-                      </form>
-                    </span>
-                  )}
-                </div>
-                {item && (
-                  <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          {/* One-click: equip the best owned item in every slot. */}
-          {items.some((i) => i.location === "INVENTORY") && (
-            <div className="mt-3">
-              <ActionButton
-                action={autoEquipBestGear}
-                className="w-full bg-surface-2 !py-2 text-sm hover:text-gold"
-              >
-                ⭐ Auto-equip best gear
-              </ActionButton>
+          {/* Combat readout at a glance */}
+          <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-lg bg-surface px-3 py-2">
+              <div className="text-muted">⚔️ Damage</div>
+              <div className="font-bold tabular-nums">
+                {dmg.min}–{dmg.max}
+              </div>
             </div>
-          )}
+            <div className="rounded-lg bg-surface px-3 py-2">
+              <div className="text-muted">🎯 Crit</div>
+              <div className="font-bold tabular-nums">{critPct}%</div>
+            </div>
+          </div>
+
+          {/* The full sheet — equipment, all attributes, and the backpack — lives
+              on the Character tab, so Overview stays a dashboard. */}
+          <Link
+            href="/?tab=character"
+            scroll={false}
+            className="mt-4 block rounded-lg bg-surface-2 px-4 py-2.5 text-center text-sm font-semibold transition hover:text-gold"
+          >
+            🛡️ Manage gear &amp; stats →
+          </Link>
         </section>
 
         {/* Actions */}
@@ -409,52 +332,6 @@ export default async function Home({
               Fight another hero. Win gold, risk a little pride.
             </p>
             <ArenaButton />
-          </div>
-
-          {/* Inventory */}
-          <div className="panel p-5">
-            <h3 className="font-black text-gold">🎒 Inventory</h3>
-            {inventory.length === 0 ? (
-              <p className="mt-2 text-sm text-muted">
-                Your bag is empty. Buy gear in the shop below.
-              </p>
-            ) : (
-              <ul className="mt-3 space-y-2">
-                {inventory.map((item) => (
-                  <li key={item.id} className="rounded-lg bg-surface px-3 py-2 text-sm">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="flex min-w-0 items-center gap-2">
-                        <GameSprite
-                          sprite={itemSprite({ name: item.name, slot: item.slot, rarity: item.rarity })}
-                          size={34}
-                          title={item.name}
-                        />
-                        <span
-                          className="truncate font-semibold"
-                          style={{ color: getRarity(item.rarity).color }}
-                        >
-                          {item.name}
-                        </span>
-                      </span>
-                      <span className="flex shrink-0 gap-1">
-                        <form action={equipItem.bind(null, item.id)}>
-                          <button className="rounded bg-good px-2 py-1 text-xs font-semibold text-[#10240a]">
-                            Equip
-                          </button>
-                        </form>
-                        <form action={sellItem.bind(null, item.id)}>
-                          <button className="rounded bg-surface-2 px-2 py-1 text-xs hover:text-bad">
-                            Sell {Math.max(1, Math.round(item.price / 2))}🪙
-                          </button>
-                        </form>
-                      </span>
-                    </div>
-                    <div className="mt-1 text-xs text-muted">{itemBonuses(item)}</div>
-                    <GearCompare candidate={item} equipped={equippedFor(item.slot)} className="mt-0.5" />
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
 
           {/* Daily tasks & login streak */}
