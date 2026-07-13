@@ -1,7 +1,6 @@
 import { loadCharacter } from "@/lib/data";
 import { getRarity, type Attributes } from "@/lib/game";
-import { GameSprite } from "@/components/GameSprite";
-import { itemSprite } from "@/lib/art/sprite";
+import { ItemPopover } from "@/components/ui/ItemPopover";
 import {
   STAT_KEYS,
   salvageValue,
@@ -55,6 +54,10 @@ export default async function ForgePanel() {
     .filter((i) => i.location === "INVENTORY" || i.location === "EQUIPPED")
     .sort((a, b) => b.price - a.price);
 
+  // What's worn in a slot — so a bagged piece's tooltip can compare against it.
+  const equippedFor = (slotId: string) =>
+    items.find((i) => i.location === "EQUIPPED" && i.slot === slotId) ?? null;
+
   return (
     <section className="panel mt-6 p-5">
       <div className="mb-3 flex items-center justify-between gap-3">
@@ -106,22 +109,14 @@ export default async function ForgePanel() {
                     <span className="text-xs font-semibold text-good">equipped</span>
                   )}
                 </div>
-                <div className="mt-0.5 font-semibold leading-snug">
-                  <span
-                    className="inline-flex items-center gap-2"
-                    style={{ color: rarity.color }}
-                  >
-                    <GameSprite
-                      sprite={itemSprite({
-                        name: item.name,
-                        slot: item.slot,
-                        rarity: item.rarity,
-                      })}
-                      size={34}
-                      title={item.name}
-                    />
-                    {item.name}
-                  </span>
+                <div className="mt-0.5 flex items-center gap-2 font-semibold leading-snug">
+                  <ItemPopover
+                    item={item}
+                    equipped={equipped ? null : equippedFor(item.slot)}
+                    variant="stats"
+                    size={34}
+                  />
+                  <span style={{ color: rarity.color }}>{item.name}</span>
                 </div>
                 <div className="mt-1 flex-1 text-xs text-muted">
                   {itemBonuses(item) || "No bonuses — a truly humble trinket."}
