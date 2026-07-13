@@ -549,6 +549,10 @@ export function pickItemMotif(name: string, slot: string): string | null {
     if (n.includes("ring")) return "ring";
     return "amulet";
   }
+  if (s === "RING") return "ring";
+  if (s === "HEAD") return "knight"; // great-helm silhouette reads as headgear
+  if (s === "CLOAK") return "robe"; // draped-cloth silhouette
+  // HANDS / FEET fall back to their framed emoji glyph.
   return null;
 }
 

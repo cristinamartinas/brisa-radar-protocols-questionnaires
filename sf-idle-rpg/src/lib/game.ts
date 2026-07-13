@@ -420,7 +420,15 @@ const NPC_NAMES = [
 // Equipment + the Magic Shop
 // ---------------------------------------------------------------------------
 
-export type ItemSlot = "WEAPON" | "ARMOR" | "AMULET";
+export type ItemSlot =
+  | "WEAPON"
+  | "HEAD"
+  | "ARMOR"
+  | "HANDS"
+  | "FEET"
+  | "CLOAK"
+  | "AMULET"
+  | "RING";
 export type Rarity = "COMMON" | "RARE" | "EPIC" | "LEGENDARY";
 
 export interface RarityDef {
@@ -461,6 +469,13 @@ export const SLOTS: SlotDef[] = [
     nouns: ["Sword", "Axe", "Dagger", "War Staff", "Mace", "Bow", "Cudgel"],
   },
   {
+    id: "HEAD",
+    label: "Head",
+    emoji: "🪖",
+    favors: ["constitution", "intelligence"],
+    nouns: ["Helm", "Coif", "Hood", "Circlet", "Crown"],
+  },
+  {
     id: "ARMOR",
     label: "Armor",
     emoji: "🛡️",
@@ -468,11 +483,39 @@ export const SLOTS: SlotDef[] = [
     nouns: ["Plate", "Chainmail", "Robe", "Leather Jerkin", "Cuirass"],
   },
   {
+    id: "HANDS",
+    label: "Hands",
+    emoji: "🧤",
+    favors: ["dexterity", "strength"],
+    nouns: ["Gloves", "Gauntlets", "Grips", "Mitts", "Bracers"],
+  },
+  {
+    id: "FEET",
+    label: "Feet",
+    emoji: "🥾",
+    favors: ["dexterity", "luck"],
+    nouns: ["Boots", "Greaves", "Sandals", "Treads", "Sabatons"],
+  },
+  {
+    id: "CLOAK",
+    label: "Cloak",
+    emoji: "🧣",
+    favors: ["dexterity", "luck", "intelligence"],
+    nouns: ["Cloak", "Cape", "Mantle", "Shroud", "Wrap"],
+  },
+  {
     id: "AMULET",
     label: "Amulet",
     emoji: "📿",
     favors: ["luck", "intelligence", "dexterity"],
-    nouns: ["Amulet", "Ring", "Charm", "Talisman", "Pendant"],
+    nouns: ["Amulet", "Charm", "Talisman", "Pendant", "Necklace"],
+  },
+  {
+    id: "RING",
+    label: "Ring",
+    emoji: "💍",
+    favors: ["luck", "intelligence"],
+    nouns: ["Ring", "Band", "Signet", "Loop", "Seal"],
   },
 ];
 

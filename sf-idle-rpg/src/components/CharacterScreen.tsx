@@ -40,27 +40,27 @@ function DStat({ k, v }: { k: string; v: string }) {
 function Slot({
   slotId,
   item,
+  size = 56,
 }: {
   slotId: string;
-  item?: PopoverItem;
+  item?: PopoverItem | null;
+  size?: number;
 }) {
   const slot = getSlot(slotId);
   return (
     <div className="flex flex-col items-center gap-1.5">
       {item ? (
-        <ItemPopover item={item} variant="equipped" size={64} />
+        <ItemPopover item={item} variant="equipped" size={size} />
       ) : (
-        <span style={{ opacity: 0.4 }}>
+        <span style={{ opacity: 0.38 }}>
           <GameSprite
             sprite={catalogSprite({ kind: "slot", id: slotId, glyph: slot.emoji })}
-            size={64}
+            size={size}
             title={`Empty ${slot.label.toLowerCase()}`}
           />
         </span>
       )}
-      <span className="text-[10px] uppercase tracking-wide text-muted">
-        {item ? slot.label : `${slot.label} · empty`}
-      </span>
+      <span className="text-[10px] uppercase tracking-wide text-muted">{slot.label}</span>
     </div>
   );
 }
@@ -89,10 +89,9 @@ export default async function CharacterScreen() {
     items.find((i) => i.location === "EQUIPPED" && i.slot === slotId) ?? null;
   const inventory = items.filter((i) => i.location === "INVENTORY");
 
-  // Slot positions around the hero: weapon top-center, armor & amulet below.
-  const weapon = equippedFor("WEAPON") ?? undefined;
-  const armor = equippedFor("ARMOR") ?? undefined;
-  const amulet = equippedFor("AMULET") ?? undefined;
+  // Paper-doll: two columns of sockets flanking the hero, weapon below.
+  const DOLL_LEFT = ["HEAD", "ARMOR", "HANDS", "FEET"];
+  const DOLL_RIGHT = ["AMULET", "CLOAK", "RING"];
 
   return (
     <section className="mt-6 flex flex-col gap-5">
@@ -142,19 +141,21 @@ export default async function CharacterScreen() {
         {/* Paper-doll */}
         <div className="panel p-5">
           <h3 className="mb-3 text-xs font-black uppercase tracking-wide text-muted">Equipment</h3>
-          <div className="grid grid-cols-3 items-center justify-items-center gap-y-4">
-            <div className="col-start-2 row-start-1">
-              <Slot slotId="WEAPON" item={weapon} />
+          <div className="flex items-start justify-center gap-2 sm:gap-4">
+            <div className="flex flex-col gap-3">
+              {DOLL_LEFT.map((id) => (
+                <Slot key={id} slotId={id} item={equippedFor(id)} />
+              ))}
             </div>
-            <div className="col-start-2 row-start-2 flex flex-col items-center">
-              <GameSprite sprite={classSprite(character.class, cls.emoji)} size={112} title={character.name} />
-              <p className="mt-1.5 text-center text-xs text-muted">{cls.label}</p>
+            <div className="flex flex-col items-center gap-3 pt-4">
+              <GameSprite sprite={classSprite(character.class, cls.emoji)} size={116} title={character.name} />
+              <p className="text-center text-xs text-muted">{cls.label}</p>
+              <Slot slotId="WEAPON" item={equippedFor("WEAPON")} size={64} />
             </div>
-            <div className="col-start-1 row-start-3">
-              <Slot slotId="ARMOR" item={armor} />
-            </div>
-            <div className="col-start-3 row-start-3">
-              <Slot slotId="AMULET" item={amulet} />
+            <div className="flex flex-col gap-3">
+              {DOLL_RIGHT.map((id) => (
+                <Slot key={id} slotId={id} item={equippedFor(id)} />
+              ))}
             </div>
           </div>
         </div>

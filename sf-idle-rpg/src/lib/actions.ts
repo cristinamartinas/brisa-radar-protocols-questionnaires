@@ -17,6 +17,7 @@ import {
   getDungeon,
   generateBoss,
   dungeonReward,
+  SLOTS,
   type CharClass,
   type Progression,
   type BattleEvent,
@@ -571,7 +572,7 @@ export async function autoEquipBestGear(): Promise<ActionResult> {
   const power = (i: { strength: number; dexterity: number; intelligence: number; constitution: number; luck: number }) =>
     i.strength + i.dexterity + i.intelligence + i.constitution + i.luck;
 
-  const slots = ["WEAPON", "ARMOR", "AMULET"];
+  const slots = SLOTS.map((s) => s.id);
   const ops: Prisma.PrismaPromise<unknown>[] = [];
   let changes = 0;
 
