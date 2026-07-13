@@ -192,23 +192,31 @@ export async function cancelQuest(): Promise<void> {
 // Fight in the arena (PvP against another real hero, or an NPC if alone)
 // ---------------------------------------------------------------------------
 
-export async function fightArena(): Promise<ActionResult> {
+export async function fightArena(opponentId?: string): Promise<ActionResult> {
   const character = await loadCharacter();
   if (!character) return { ok: false, message: "No hero found." };
 
   const seed = randomSeed();
   const rng = makeRng(seed);
 
-  // Try to find a real opponent: another player's hero (with their gear).
-  const others = await prisma.character.findMany({
-    where: { id: { not: character.id } },
-    take: 25,
-    include: { items: true, guild: { include: { rooms: true } } },
-  });
-  const opponent =
-    others.length > 0
-      ? others[Math.floor(rng() * others.length)]
-      : null;
+  // A specific challenge (from the scouting board) targets one hero; otherwise
+  // pick a random real opponent, falling back to a generated NPC.
+  const include = { items: true, guild: { include: { rooms: true } } } as const;
+  let opponent;
+  if (opponentId) {
+    opponent = await prisma.character.findFirst({
+      where: { id: opponentId, NOT: { id: character.id } },
+      include,
+    });
+    if (!opponent) return { ok: false, message: "That challenger has left the arena." };
+  } else {
+    const others = await prisma.character.findMany({
+      where: { id: { not: character.id } },
+      take: 25,
+      include,
+    });
+    opponent = others.length > 0 ? others[Math.floor(rng() * others.length)] : null;
+  }
   const foe = opponent
     ? toFighter(opponent, opponent.items)
     : randomOpponent(rng, character.level);

@@ -47,6 +47,7 @@ import OnboardingPanel from "@/components/OnboardingPanel";
 import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
+import ArenaScoutPanel from "@/components/ArenaScoutPanel";
 import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
@@ -541,6 +542,9 @@ export default async function Home({
       <div className="mt-6">
         <WorldBossPanel />
       </div>
+
+      {/* Scout & challenge specific opponents */}
+      <ArenaScoutPanel />
 
       {/* Ranked arena ladder */}
       <ArenaLadderPanel />
