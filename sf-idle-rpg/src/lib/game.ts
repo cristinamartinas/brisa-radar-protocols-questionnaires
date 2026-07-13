@@ -96,6 +96,26 @@ export function maxHp(f: Fighter): number {
   return Math.round(f.constitution * (f.level + 1) * getClass(f.class).hpFactor);
 }
 
+// --- derived combat stats -------------------------------------------------
+// One source of truth for the numbers shown on the Character screen. These
+// mirror what `strike()` actually does, so the sheet never drifts from combat.
+
+/** Per-swing damage spread: primary stat × the 0.6–1.4 variance in `strike`. */
+export function damageRange(f: Fighter): { min: number; max: number } {
+  const power = primaryValue(f);
+  return { min: Math.round(power * 0.6), max: Math.round(power * 1.4) };
+}
+
+/** Critical-hit chance as a 0–1 fraction (5% base + Luck/200, capped at 50%). */
+export function critChance(f: Fighter): number {
+  return Math.min(0.5, 0.05 + f.luck / 200);
+}
+
+/** Flat damage soaked from each incoming hit (Constitution × 0.3, rounded). */
+export function mitigation(f: Fighter): number {
+  return Math.round(f.constitution * 0.3);
+}
+
 /** One resolved swing, with enough state to animate a blow-by-blow replay. */
 export interface BattleEvent {
   turn: number;

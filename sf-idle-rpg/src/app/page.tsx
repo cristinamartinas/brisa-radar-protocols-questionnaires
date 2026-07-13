@@ -54,6 +54,7 @@ import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GearCompare } from "@/components/GearCompare";
+import CharacterScreen from "@/components/CharacterScreen";
 import { ActionButton } from "@/components/ActionButton";
 import { GameSprite } from "@/components/GameSprite";
 import {
@@ -114,6 +115,7 @@ function itemBonuses(item: ItemRow): string {
 
 const TABS = [
   ["overview", "🧭 Overview"],
+  ["character", "🛡️ Character"],
   ["liveops", "📅 Daily"],
   ["market", "🪄 Market"],
   ["idle", "⛏️ Idle & Games"],
@@ -490,6 +492,8 @@ export default async function Home({
 
         </>
       )}
+
+      {tab === "character" && <CharacterScreen />}
 
       {tab === "liveops" && (
         <>
