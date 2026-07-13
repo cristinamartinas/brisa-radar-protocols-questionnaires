@@ -53,6 +53,7 @@ import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GearCompare } from "@/components/GearCompare";
 import CharacterScreen from "@/components/CharacterScreen";
 import RestCard from "@/components/RestCard";
+import { LevelUpWatcher } from "@/components/LevelUpWatcher";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -164,6 +165,9 @@ export default async function Home({
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 p-4 sm:p-6">
+      {/* Fires a celebration whenever the hero levels up, from any source. */}
+      <LevelUpWatcher level={character.level} />
+
       {/* Header */}
       <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-black tracking-tight text-gold">
