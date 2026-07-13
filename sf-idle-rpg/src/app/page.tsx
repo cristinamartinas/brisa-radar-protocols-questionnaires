@@ -48,6 +48,7 @@ import TrophyRoomPanel from "@/components/TrophyRoomPanel";
 import { SoundToggle } from "@/components/SoundToggle";
 import ArenaLadderPanel from "@/components/ArenaLadderPanel";
 import ArenaScoutPanel from "@/components/ArenaScoutPanel";
+import TonicsPanel from "@/components/TonicsPanel";
 import PrestigePanel from "@/components/PrestigePanel";
 import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
@@ -542,6 +543,9 @@ export default async function Home({
       <div className="mt-6">
         <WorldBossPanel />
       </div>
+
+      {/* Battle Tonics — arm a consumable buff before you fight */}
+      <TonicsPanel />
 
       {/* Scout & challenge specific opponents */}
       <ArenaScoutPanel />

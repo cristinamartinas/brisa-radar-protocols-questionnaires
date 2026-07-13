@@ -37,6 +37,7 @@ export async function loadCharacter() {
       },
       questLogs: { orderBy: { createdAt: "desc" }, take: 8 },
       battleLogs: { orderBy: { createdAt: "desc" }, take: 8 },
+      tonics: true,
     },
   });
 }

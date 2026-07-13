@@ -84,6 +84,7 @@ model Character {
   bounty       BountyState?
   dice         DiceState?
   dailyShop    DailyShopState?
+  tonics       TonicState?
 }
 
 // ---------------------------------------------------------------------------
@@ -98,6 +99,20 @@ model BountyState {
   characterId String    @unique
   day         String    // UTC yyyy-mm-dd the current board is for
   claimed     String    @default("[]") // JSON array of claimed bounty keys
+  updatedAt   DateTime  @updatedAt
+}
+
+/// Battle tonics: single-use pre-fight buffs (consumables). Owned by the Tonics
+/// feature (src/lib/tonics.ts). Holds the hero's owned counts; `armed` names the
+/// tonic queued to auto-apply to the next arena fight, then clears on use.
+model TonicState {
+  id          String    @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String    @unique
+  berserk     Int       @default(0)
+  ironhide    Int       @default(0)
+  fortune     Int       @default(0)
+  armed       String?   // "berserk" | "ironhide" | "fortune" | null
   updatedAt   DateTime  @updatedAt
 }
 

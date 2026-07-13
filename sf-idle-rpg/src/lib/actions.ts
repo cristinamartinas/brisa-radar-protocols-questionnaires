@@ -24,6 +24,7 @@ import {
 } from "@/lib/game";
 import { makeRng, randomSeed } from "@/lib/rng";
 import { parseLoadout } from "@/lib/skills";
+import { applyTonic, TONIC_DEFS, isTonicId } from "@/lib/tonics";
 import type { Prisma } from "@/generated/prisma/client";
 
 /** An animatable blow-by-blow replay handed back to the client after a fight. */
@@ -221,7 +222,13 @@ export async function fightArena(opponentId?: string): Promise<ActionResult> {
     ? toFighter(opponent, opponent.items)
     : randomOpponent(rng, character.level);
 
-  const meFighter = toFighter(character, character.items);
+  // An armed Battle Tonic (a consumable) buffs one combat stat for this fight
+  // only, then is spent. Applied before the duel so the buff flows through all
+  // the derived-combat math; consumed in the transaction below.
+  const armedTonic = isTonicId(character.tonics?.armed) ? character.tonics.armed : null;
+  const meFighter = armedTonic
+    ? applyTonic(toFighter(character, character.items), armedTonic)
+    : toFighter(character, character.items);
   const result = resolveBattle(
     rng,
     meFighter,
@@ -301,6 +308,15 @@ export async function fightArena(opponentId?: string): Promise<ActionResult> {
       }),
     );
   }
+  // Spend the armed tonic (decrement its count, clear the armed slot).
+  if (armedTonic) {
+    ops.push(
+      prisma.tonicState.update({
+        where: { characterId: character.id },
+        data: { [armedTonic]: { decrement: 1 }, armed: null },
+      }),
+    );
+  }
   await prisma.$transaction(ops);
 
   revalidatePath("/");
@@ -312,6 +328,7 @@ export async function fightArena(opponentId?: string): Promise<ActionResult> {
   if (xpGain) message += `, +${xpGain} XP`;
   message += ` · ${ratingStr}`;
   if (levels > 0) message += ` — LEVEL UP to ${progression.level}! ✨`;
+  if (armedTonic) message = `${TONIC_DEFS[armedTonic].emoji} ${TONIC_DEFS[armedTonic].name} kicked in! ${message}`;
 
   const battle: BattleReplay = {
     me: { name: meFighter.name, className: meFighter.class, maxHp: result.meMaxHp },

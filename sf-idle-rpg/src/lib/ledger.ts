@@ -51,7 +51,8 @@ export type LedgerReason =
   | "DICE_WIN"
   | "DICE_LOSS"
   | "DAILY_SHOP_BUY"
-  | "REST_REWARD";
+  | "REST_REWARD"
+  | "TONIC_BUY";
 
 /**
  * Build ledger-insert operations for a currency change. `current` is the
