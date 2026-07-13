@@ -52,6 +52,7 @@ import { ArenaButton } from "@/components/ArenaButton";
 import { DungeonFightButton } from "@/components/DungeonFightButton";
 import { GearCompare } from "@/components/GearCompare";
 import CharacterScreen from "@/components/CharacterScreen";
+import RestCard from "@/components/RestCard";
 import { GameSprite } from "@/components/GameSprite";
 import {
   itemSprite,
@@ -209,6 +210,9 @@ export default async function Home({
 
       {tab === "overview" && (
         <>
+          {/* "While you were away" rested earnings (hides until enough accrues) */}
+          <RestCard />
+
           {/* New-player onboarding (hides itself for veterans) */}
           <OnboardingPanel />
 
