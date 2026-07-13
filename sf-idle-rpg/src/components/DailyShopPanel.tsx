@@ -1,25 +1,6 @@
 import { loadCharacter } from "@/lib/data";
-import { loadDailyShop, buyDailyItem, type DailyShopItem } from "@/lib/dailyshop";
-import { getRarity, type Attributes } from "@/lib/game";
-import { ActionButton } from "@/components/ActionButton";
-import { GameSprite } from "@/components/GameSprite";
-import { GearCompare } from "@/components/GearCompare";
-import { itemSprite } from "@/lib/art/sprite";
-
-const STAT_ABBR: [keyof Attributes, string][] = [
-  ["strength", "STR"],
-  ["dexterity", "DEX"],
-  ["intelligence", "INT"],
-  ["constitution", "CON"],
-  ["luck", "LCK"],
-];
-
-/** "+3 STR · +1 LCK" — the item's positive stat bonuses, shop-card style. */
-function itemBonuses(item: DailyShopItem): string {
-  return STAT_ABBR.map(([k, abbr]) => (item[k] > 0 ? `+${item[k]} ${abbr}` : ""))
-    .filter(Boolean)
-    .join(" · ");
-}
+import { loadDailyShop, buyDailyItem } from "@/lib/dailyshop";
+import { ItemPopover } from "@/components/ui/ItemPopover";
 
 /** Turn a seconds countdown into a friendly "5h 12m" refresh hint. */
 function refreshHint(seconds: number): string {
@@ -64,49 +45,26 @@ export default async function DailyShopPanel() {
           Shelves are bare today. Come back tomorrow, eh?
         </p>
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-wrap gap-4">
           {shop.items.map((item) => {
-            const rarity = getRarity(item.rarity);
             const affordable = shop.gold >= item.price;
             return (
-              <div
-                key={item.id}
-                className="flex flex-col rounded-lg border bg-surface p-3"
-                style={{ borderColor: rarity.color }}
-              >
-                <GameSprite
-                  sprite={itemSprite({
-                    name: item.name,
-                    slot: item.slot,
-                    rarity: item.rarity,
-                  })}
-                  size={44}
-                  title={item.name}
+              <div key={item.id} className="flex flex-col items-center gap-1.5">
+                <ItemPopover
+                  item={item}
+                  equipped={equippedFor(item.slot)}
+                  variant="buy"
+                  buyAction={async () => {
+                    "use server";
+                    await buyDailyItem(item.id);
+                  }}
+                  affordable={affordable}
                 />
-                <div
-                  className="mt-1 text-xs uppercase tracking-wide"
-                  style={{ color: rarity.color }}
+                <span
+                  className={`text-xs font-bold tabular-nums ${affordable ? "text-gold" : "text-muted"}`}
                 >
-                  {rarity.label}
-                </div>
-                <div
-                  className="mt-0.5 font-semibold leading-snug"
-                  style={{ color: rarity.color }}
-                >
-                  {item.name}
-                </div>
-                <div className="mt-1 text-xs text-muted">
-                  {itemBonuses(item)}
-                </div>
-                <GearCompare candidate={item} equipped={equippedFor(item.slot)} className="mt-1 flex-1" />
-                <div className="mt-3">
-                  <ActionButton
-                    action={buyDailyItem.bind(null, item.id)}
-                    className="w-full bg-gold text-[#2b1d12]"
-                  >
-                    {affordable ? `Buy ${item.price}🪙` : `Need ${item.price}🪙`}
-                  </ActionButton>
-                </div>
+                  {item.price}🪙
+                </span>
               </div>
             );
           })}
