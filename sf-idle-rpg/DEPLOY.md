@@ -80,10 +80,16 @@ _(Supabase works too: use its "Connection pooling" / Transaction-mode string.)_
 
 | Name | Value | Environments |
 |------|-------|--------------|
-| `DATABASE_URL` | the Neon **pooled** string from step 1 | Production, Preview, Development |
+| `DATABASE_URL` | the Neon **pooled** string from step 1 (has `-pooler` in the host) | Production, Preview, Development |
+| `DIRECT_URL` | the same string with **`-pooler` removed** from the host (a direct connection) | Production, Preview, Development |
 
-That's the only required variable. `NODE_ENV=production` is set by Vercel
-automatically, which turns on the `Secure` flag for the session cookie.
+Both are required. The app runtime talks to Postgres over the **pooled**
+`DATABASE_URL`; the build's `prisma migrate deploy` uses the **direct**
+`DIRECT_URL`, because the advisory lock migrations take doesn't work over Neon's
+PgBouncer pooler (you'd hit `P1002: timed out acquiring an advisory lock`).
+`prisma.config.ts` prefers `DIRECT_URL` when present and falls back to
+`DATABASE_URL` locally. `NODE_ENV=production` is set by Vercel automatically,
+which turns on the `Secure` flag for the session cookie.
 
 Optional but recommended for stable Server Actions across deploys:
 
