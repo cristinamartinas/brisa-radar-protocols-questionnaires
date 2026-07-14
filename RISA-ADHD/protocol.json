@@ -1,7 +1,7 @@
 {
-  "version": "0.4.5",
+  "version": "0.0.1",
   "schemaVersion": "0.0.2",
-  "name": "BRISA-ADHD",
+  "name": "RISA-ADHD",
   "healthIssues": "",
   "protocols": 
   [
@@ -31,14 +31,16 @@
         "repeatProtocol": 
         {
           "unit": "day",
-          "amount": 1
+          "amount": 3
         },
         "repeatQuestionnaire": 
         {
             "unit": "min",
             "unitsFromZero": 
             [
-              0, 1, 2, 3, 4, 5, 6
+              480,
+              2280,
+              4080
             ]
         },
         "reminders": 
@@ -47,7 +49,7 @@
             "offset": 
             {
               "unit": "min",
-              "amount": 0
+              "amount": 210
             },
             "notification": {
               "title": {
@@ -63,7 +65,7 @@
         ],
         "completionWindow": {
           "unit": "hour",
-          "amount": 24
+          "amount": 4
         }
       }
     },
@@ -90,7 +92,7 @@
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [1, 2, 3, 4, 5, 6, 7, 8]
+          "unitsFromZero": [1200]
         },
         "reminders": 
         [
@@ -98,7 +100,7 @@
             "offset": 
             {
               "unit": "min",
-              "amount": 0
+              "amount": 120
             },
             "notification": {
               "title": {
@@ -107,7 +109,7 @@
               },
               "text": {
                 "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!",
-                "nl": ""
+                "nl": "Zorg ervoor om de overdag gebeurtenissen vóór de ochtend in te vullen, ook al heb je niks geconsumeerd!"
               }
             }
           }
@@ -115,7 +117,7 @@
         "completionWindow": 
         {
           "unit": "hour",
-          "amount": 24
+          "amount": 12
         }
       }
     },
@@ -142,7 +144,7 @@
         "repeatQuestionnaire": 
         {
           "unit": "min",
-          "unitsFromZero": [0,1,2,3,4,5,6,7]
+          "unitsFromZero": [480]
         },
         "reminders": 
         [
@@ -150,16 +152,16 @@
             "offset": 
             {
               "unit": "hour",
-              "amount": 0
+              "amount": 3
             },
             "notification": {
               "title": {
                 "en": "Night-time Report:",
-                "nl": ""
+                "nl": "Gisteravond/Nacht Rapportage:"
               },
               "text": {
                 "en": "Make sure to fill in last night's events before the evening, even if you didn't consume anything!",
-                "nl": ""
+                "nl": "Zorg ervoor om de gebeurtenissen van gisteravond vóór de volgende avond, ook al heb je niks geconsumeerd!"
               }
             }
           },
@@ -167,7 +169,7 @@
             "offset": 
             {
               "unit": "hour",
-              "amount": 0
+              "amount": 10
             },
             "notification": {
               "title": {
@@ -184,7 +186,7 @@
         "completionWindow": 
         {
           "unit": "hour",
-          "amount": 24
+          "amount": 12
         }
       }
     }
