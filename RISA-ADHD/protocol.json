@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "schemaVersion": "0.0.2",
   "name": "RISA-ADHD",
   "healthIssues": "",
@@ -174,11 +174,11 @@
             "notification": {
               "title": {
                 "en": "Last chance for the Night Report!",
-                "nl": ""
+                "nl": "Laatste kans om de nacht rapportage in te vullen!"
               },
               "text": {
                 "en": "It's been a long time, but try to report the events from last night until this morning! Careful: don't include any events after 8AM.",
-                "nl": ""
+                "nl": "Het is al een tijdje geleden geweest, maar probeer de evenementen van gisteravond tot vanochtend in te vullen! Vergeet niet om geen evenementen van na 8uur s’ochtends mee te tellen."
               }
             }
           }
