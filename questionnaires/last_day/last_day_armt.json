@@ -29,7 +29,7 @@
         "section_header": "Indicate the approximate time when you had the first alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you start?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "8",
                 "label": "08:00"
@@ -79,9 +79,9 @@
                 "label": "19:00"
             }
         ],
-        "branching_logic": "last_day_1=\"1\"", 
+        "branching_logic": "last_day_1=\"1\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_1'] == \"1\"" 
+        "evaluated_logic": "responses['last_day_1'] == \"1\""
     },
     {
         "field_name": "last_day_end_0",
@@ -89,7 +89,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "9",
                 "label": "09:00"
@@ -143,9 +143,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"8\"", 
+        "branching_logic": "last_day_start=\"8\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"8\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"8\""
     },
     {
         "field_name": "last_day_end_1",
@@ -153,7 +153,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "10",
                 "label": "10:00"
@@ -203,9 +203,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"9\"", 
+        "branching_logic": "last_day_start=\"9\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"9\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"9\""
     },
     {
         "field_name": "last_day_end_2",
@@ -213,7 +213,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "11",
                 "label": "11:00"
@@ -259,9 +259,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"10\"", 
+        "branching_logic": "last_day_start=\"10\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"10\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"10\""
     },
     {
         "field_name": "last_day_end_3",
@@ -269,7 +269,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "12",
                 "label": "12:00"
@@ -311,9 +311,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"11\"", 
+        "branching_logic": "last_day_start=\"11\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"11\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"11\""
     },
     {
         "field_name": "last_day_end_4",
@@ -321,7 +321,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "13",
                 "label": "13:00"
@@ -359,9 +359,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"12\"", 
+        "branching_logic": "last_day_start=\"12\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"12\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"12\""
     },
     {
         "field_name": "last_day_end_5",
@@ -369,7 +369,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "14",
                 "label": "14:00"
@@ -403,9 +403,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"13\"", 
+        "branching_logic": "last_day_start=\"13\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"13\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"13\""
     },
     {
         "field_name": "last_day_end_6",
@@ -413,7 +413,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "15",
                 "label": "15:00"
@@ -443,17 +443,17 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"14\"", 
+        "branching_logic": "last_day_start=\"14\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"14\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"14\""
     },
     {
         "field_name": "last_day_end_7",
         "form_name": "last_day",
-        "section_header": "Approximate the time when you stopped.",
+        "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "16",
                 "label": "16:00"
@@ -479,9 +479,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"15\"", 
+        "branching_logic": "last_day_start=\"15\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"15\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"15\""
     },
     {
         "field_name": "last_day_end_8",
@@ -489,7 +489,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "17",
                 "label": "17:00"
@@ -511,9 +511,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"16\"", 
+        "branching_logic": "last_day_start=\"16\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"16\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"16\""
     },
     {
         "field_name": "last_day_end_9",
@@ -521,7 +521,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "18",
                 "label": "18:00"
@@ -539,9 +539,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"17\"", 
+        "branching_logic": "last_day_start=\"17\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"17\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"17\""
     },
     {
         "field_name": "last_day_end_10",
@@ -549,7 +549,7 @@
         "section_header": "Indicate the approximated time when you had the last alcohol unit.",
         "field_type": "radio",
         "field_label": "When did you stop?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "19",
                 "label": "19:00"
@@ -563,9 +563,9 @@
                 "label": "I did not stop"
             }
         ],
-        "branching_logic": "last_day_start=\"18\"", 
+        "branching_logic": "last_day_start=\"18\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"18\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"18\""
     },
     {
         "field_name": "last_day_end_11",
@@ -573,7 +573,7 @@
         "section_header": "",
         "field_type": "radio",
         "field_label": "Did you stop? If not, report in the next question your consumption until now.",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "0",
                 "label": "I did not stop"
@@ -583,17 +583,17 @@
                 "label": "Yes, I stopped"
             }
         ],
-        "branching_logic": "last_day_start=\"19\"", 
+        "branching_logic": "last_day_start=\"19\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_day_start'] == \"19\"" 
+        "evaluated_logic": "responses['last_day_start'] == \"19\""
     },
     {
         "field_name": "last_day_quantity",
-        "form_name":"last_day",
-        "section_header": "1 Standard Unit:\n\uD83C\uDF7A 330ml beer | \uD83E\uDD43 40ml liquor | \uD83C\uDF77 150ml wine",
+        "form_name": "last_day",
+        "section_header": "1 Standard Unit:\n🍺 330ml beer | 🥃 40ml liquor | 🍷 150ml wine",
         "field_type": "range",
         "field_label": "How many Standard Units did you consume in the reported interval?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "1",
                 "label": ""
@@ -637,8 +637,7 @@
         "section_header": "Estimate your confidence in recalling the reported events. How well do you remember?",
         "field_type": "slider",
         "field_label": "How sure are you?",
-        "range":
-        {
+        "range": {
             "min": "0",
             "max": "10",
             "step": "1"

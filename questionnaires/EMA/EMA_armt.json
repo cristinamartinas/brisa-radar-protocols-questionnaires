@@ -1,117 +1,117 @@
 [
     {
-    "field_name": "EMA_mood",
-    "form_name": "EMA",
-    "section_header": "Describe your feelings at this moment. Think of your disposition right now.",
-    "field_type": "range",
-    "field_label": "Overall Mood",
-    "select_choices_or_calculations": [
-        {
-        "code": "0",
-        "label": "Very Bad"
+        "field_name": "EMA_mood",
+        "form_name": "EMA",
+        "section_header": "Describe your feelings at this moment. Think of your disposition right now.",
+        "field_type": "range",
+        "field_label": "Overall Mood",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "Very Bad"
+            },
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": "Neutral"
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": "Very Good"
+            }
+        ],
+        "required_field": "y"
     },
     {
-        "code": "1",
-        "label": ""
+        "field_name": "EMA_stress",
+        "form_name": "EMA",
+        "section_header": "Only consider what you are feeling right now. Think of how tense or worried you feel at this time.",
+        "field_type": "range",
+        "field_label": "Stress level",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "Not at all"
+            },
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": ""
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": "Very Stressed"
+            }
+        ],
+        "required_field": "y"
     },
     {
-        "code": "2",
-        "label": ""
-    },
-    {
-        "code": "3",
-        "label": "Neutral"
-    },
-    {
-        "code": "4",
-        "label": ""
-    },
-    {
-        "code": "5",
-        "label": ""
-    },
-    {
-        "code": "6",
-        "label": "Very Good"
-    }
-    ],
-    "required_field": "y"
-    },
-    {
-    "field_name": "EMA_stress",
-    "form_name": "EMA",
-    "section_header": "Only consider what you are feeling right now Think of how tense or worried you feel at this time.",
-    "field_type": "range",
-    "field_label": "Stress level",
-    "select_choices_or_calculations": [
-    {
-        "code": "0",
-        "label": "Not at all"
-    },
-    {
-        "code": "1",
-        "label": ""
-    },
-    {
-        "code": "2",
-        "label": ""
-    },
-    {
-        "code": "3",
-        "label": ""
-    },
-    {
-        "code": "4",
-        "label": ""
-    },
-    {
-        "code": "5",
-        "label": ""
-    },
-    {
-        "code": "6",
-        "label": "Very Stressed"
-    }
-    ],
-    "required_field": "y"
-    },
-    {
-    "field_name": "EMA_craving",
-    "form_name": "EMA",
-    "section_header": "Are you thinking about consumption? Do you feel driven by an internal urge right now?",
-    "field_type": "range",
-    "field_label": "Craving",
-    "select_choices_or_calculations": [
-    {
-        "code": "0",
-        "label": "No craving"
-    },
-    {
-        "code": "1",
-        "label": ""
-    },
-    {
-        "code": "2",
-        "label": ""
-    },
-    {
-        "code": "3",
-        "label": ""
-    },
-    {
-        "code": "4",
-        "label": ""
-    },
-    {
-        "code": "5",
-        "label": ""
-    },
-    {
-        "code": "6",
-        "label": "High urge"
-    }
-    ],
-    "field_note": "Right now, are you thinking about consuming alcohol?",
-    "required_field": "y"
+        "field_name": "EMA_craving",
+        "form_name": "EMA",
+        "section_header": "Are you thinking about consumption? Do you feel driven by an internal urge right now?",
+        "field_type": "range",
+        "field_label": "Craving",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "No craving"
+            },
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": ""
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": "High urge"
+            }
+        ],
+        "field_note": "Right now, are you thinking about consuming alcohol?",
+        "required_field": "y"
     }
 ]

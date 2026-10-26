@@ -1,4 +1,4 @@
-[    
+[
     {
         "field_name": "last_night_intro",
         "form_name": "last_night",
@@ -26,10 +26,10 @@
     {
         "field_name": "last_night_start",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het eerste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de eerste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je begonnen?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "20",
                 "label": "20:00"
@@ -79,17 +79,17 @@
                 "label": "07:00"
             }
         ],
-        "branching_logic": "last_night_1=\"1\"", 
+        "branching_logic": "last_night_1=\"1\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_1'] == \"1\"" 
+        "evaluated_logic": "responses['last_night_1'] == \"1\""
     },
     {
         "field_name": "last_night_end_0",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "21",
                 "label": "21:00"
@@ -139,17 +139,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"20\"", 
+        "branching_logic": "last_night_start=\"20\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"20\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"20\""
     },
     {
         "field_name": "last_night_end_1",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "22",
                 "label": "22:00"
@@ -195,17 +195,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"21\"", 
+        "branching_logic": "last_night_start=\"21\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"21\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"21\""
     },
     {
         "field_name": "last_night_end_2",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "23",
                 "label": "23:00"
@@ -247,17 +247,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"22\"", 
+        "branching_logic": "last_night_start=\"22\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"22\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"22\""
     },
     {
         "field_name": "last_night_end_3",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "24",
                 "label": "00:00"
@@ -295,17 +295,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"23\"", 
+        "branching_logic": "last_night_start=\"23\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"23\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"23\""
     },
     {
         "field_name": "last_night_end_4",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "1",
                 "label": "01:00"
@@ -339,17 +339,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"24\"", 
+        "branching_logic": "last_night_start=\"24\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"24\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"24\""
     },
     {
         "field_name": "last_night_end_5",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "2",
                 "label": "02:00"
@@ -379,17 +379,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"1\"", 
+        "branching_logic": "last_night_start=\"1\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"1\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"1\""
     },
     {
         "field_name": "last_night_end_6",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "3",
                 "label": "03:00"
@@ -415,17 +415,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"2\"", 
+        "branching_logic": "last_night_start=\"2\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"2\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"2\""
     },
     {
         "field_name": "last_night_end_7",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "4",
                 "label": "04:00"
@@ -447,17 +447,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"3\"", 
+        "branching_logic": "last_night_start=\"3\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"3\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"3\""
     },
     {
         "field_name": "last_night_end_8",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "5",
                 "label": "05:00"
@@ -475,17 +475,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"4\"", 
+        "branching_logic": "last_night_start=\"4\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"4\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"4\""
     },
     {
         "field_name": "last_night_end_9",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "6",
                 "label": "06:00"
@@ -499,17 +499,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"5\"", 
+        "branching_logic": "last_night_start=\"5\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"5\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"5\""
     },
     {
         "field_name": "last_night_end_10",
         "form_name": "last_night",
-        "section_header": "Geef aan rond welk tijdstip je het laatste alcohol-eenheid hebt genuttigd",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
-        "select_choices_or_calculations":[
+        "select_choices_or_calculations": [
             {
                 "code": "7",
                 "label": "07:00"
@@ -519,17 +519,17 @@
                 "label": "Ik ben nog niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"6\"", 
+        "branching_logic": "last_night_start=\"6\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"6\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"6\""
     },
     {
-        "field_name": "last_night_end_10",
+        "field_name": "last_night_end_11",
         "form_name": "last_night",
         "section_header": "",
         "field_type": "radio",
-        "field_label": "Ben je gestopt?  Zo niet, geef bij de volgende vraag aan hoevel je tot nu toe hebt genuttigd.",
-        "select_choices_or_calculations":[
+        "field_label": "Ben je gestopt? Zo niet, geef bij de volgende vraag aan hoeveel je tot nu toe hebt genuttigd.",
+        "select_choices_or_calculations": [
             {
                 "code": "7",
                 "label": "Ja, ik ben gestopt"
@@ -539,17 +539,17 @@
                 "label": "Nee, ik ben niet gestopt"
             }
         ],
-        "branching_logic": "last_night_start=\"7\"", 
+        "branching_logic": "last_night_start=\"7\"",
         "required_field": "y",
-        "evaluated_logic": "responses['last_night_start'] == \"7\"" 
+        "evaluated_logic": "responses['last_night_start'] == \"7\""
     },
     {
         "field_name": "last_night_quantity",
-        "form_name":"last_night",
-        "section_header": "1 Standard Eenheid:\n\uD83C\uDF7A 250ml bier| \uD83E\uDD43 35ml sterk drank| \uD83C\uDF77 100ml wijn",
+        "form_name": "last_night",
+        "section_header": "1 Standaardeenheid:\n🍺 250ml bier | 🥃 35ml sterke drank | 🍷 100ml wijn",
         "field_type": "range",
-        "field_label": "Hoeveel  eenheden heb je in de aangegeven periode genuttigd?",
-        "select_choices_or_calculations":[
+        "field_label": "Hoeveel eenheden heb je in de aangegeven periode genuttigd?",
+        "select_choices_or_calculations": [
             {
                 "code": "1",
                 "label": ""
@@ -580,7 +580,7 @@
             },
             {
                 "code": "8+",
-                "label": "(or more)"
+                "label": "(of meer)"
             }
         ],
         "branching_logic": "last_night_1=\"1\"",
@@ -590,11 +590,10 @@
     {
         "field_name": "last_night_recall",
         "form_name": "last_night",
-        "section_header": "Hoe hoog schat je de betrouwbaarheid van de beschreven gebeurtenissen in? Hoe goed kunt je het herrineren?",
+        "section_header": "Hoe hoog schat je de betrouwbaarheid van de beschreven gebeurtenissen in? Hoe goed kun je het herinneren?",
         "field_type": "slider",
         "field_label": "Hoe zeker ben je?",
-        "range":
-        {
+        "range": {
             "min": "0",
             "max": "10",
             "step": "1"

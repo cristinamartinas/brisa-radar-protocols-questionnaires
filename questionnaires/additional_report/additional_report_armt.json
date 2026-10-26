@@ -1,0 +1,345 @@
+[
+    {
+        "field_name": "additional_report_intro",
+        "form_name": "additional_report",
+        "field_type": "descriptive",
+        "field_label": "<h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Additional Report</h2><p>This is a questionnaire to report a drinking event apart from the morning and evening report. Fill in this questionnaire if:</p><ul><li>you forgot to report a drinking event in the previous days, and the questionnaire is no longer available</li><li>you want to add another drinking event to what you have already reported</li></ul><p><b>Please fill in one questionnaire per drinking event.</b></p>"
+    },
+    {
+        "field_name": "additional_report_date",
+        "form_name": "additional_report",
+        "section_header": "On which day did the drinking event take place?",
+        "field_type": "text",
+        "field_label": "Date of the drinking event (DD-MM-YYYY)",
+        "text_validation_type_or_show_slider_number": "date_dmy",
+        "text_validation_max": "today",
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_start",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the first alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you start?",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_end",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_quantity",
+        "form_name": "additional_report",
+        "section_header": "1 Standard Unit:\n🍺 330ml beer | 🥃 40ml liquor | 🍷 150ml wine",
+        "field_type": "range",
+        "field_label": "How many Standard Units did you consume during this drinking event?",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": ""
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": ""
+            },
+            {
+                "code": "7",
+                "label": ""
+            },
+            {
+                "code": "8",
+                "label": "(8 or more)"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_recall",
+        "form_name": "additional_report",
+        "section_header": "Estimate your confidence in recalling the reported event. How well do you remember?",
+        "field_type": "slider",
+        "field_label": "How sure are you?",
+        "range": {
+            "min": "0",
+            "max": "10",
+            "step": "1"
+        },
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_reason",
+        "form_name": "additional_report",
+        "section_header": "Why are you submitting this additional report?",
+        "field_type": "radio",
+        "field_label": "Reason for the additional report",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": "I forgot to submit the report on time"
+            },
+            {
+                "code": "2",
+                "label": "I wanted to add another drinking event that I forgot to report"
+            },
+            {
+                "code": "3",
+                "label": "Other reason"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_reason_other",
+        "form_name": "additional_report",
+        "section_header": "",
+        "field_type": "text",
+        "field_label": "Please describe the other reason",
+        "branching_logic": "additional_report_reason=\"3\"",
+        "evaluated_logic": "responses['additional_report_reason'] == \"3\"",
+        "required_field": "n"
+    }
+]

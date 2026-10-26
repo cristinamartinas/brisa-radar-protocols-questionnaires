@@ -1,0 +1,345 @@
+[
+    {
+        "field_name": "additional_report_intro",
+        "form_name": "additional_report",
+        "field_type": "descriptive",
+        "field_label": "<h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Aanvullende Rapportage</h2><p>Dit is een vragenlijst om een drinkmoment te melden naast de ochtend- en avondrapportage. Vul deze vragenlijst in als:</p><ul><li>je bent vergeten een drinkmoment van de afgelopen dagen te melden en de vragenlijst niet meer beschikbaar is</li><li>je nog een drinkmoment wilt toevoegen aan wat je al hebt gemeld</li></ul><p><b>Vul per drinkmoment één vragenlijst in.</b></p>"
+    },
+    {
+        "field_name": "additional_report_date",
+        "form_name": "additional_report",
+        "section_header": "Op welke dag vond het drinkmoment plaats?",
+        "field_type": "text",
+        "field_label": "Datum van het drinkmoment (DD-MM-JJJJ)",
+        "text_validation_type_or_show_slider_number": "date_dmy",
+        "text_validation_max": "today",
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_start",
+        "form_name": "additional_report",
+        "section_header": "Geef aan rond welk tijdstip je de eerste alcoholeenheid hebt genuttigd.",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je begonnen?",
+        "select_choices_or_calculations": [
+            {
+                "code": "0",
+                "label": "00:00"
+            },
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_end",
+        "form_name": "additional_report",
+        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "field_type": "radio",
+        "field_label": "Wanneer ben je gestopt?",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": "01:00"
+            },
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (volgende dag)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (volgende dag)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (volgende dag)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (volgende dag)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (volgende dag)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (volgende dag)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (volgende dag)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (volgende dag)"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_quantity",
+        "form_name": "additional_report",
+        "section_header": "1 Standaardeenheid:\n🍺 250ml bier | 🥃 35ml sterke drank | 🍷 100ml wijn",
+        "field_type": "range",
+        "field_label": "Hoeveel eenheden heb je tijdens dit drinkmoment genuttigd?",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": ""
+            },
+            {
+                "code": "2",
+                "label": ""
+            },
+            {
+                "code": "3",
+                "label": ""
+            },
+            {
+                "code": "4",
+                "label": ""
+            },
+            {
+                "code": "5",
+                "label": ""
+            },
+            {
+                "code": "6",
+                "label": ""
+            },
+            {
+                "code": "7",
+                "label": ""
+            },
+            {
+                "code": "8",
+                "label": "(8 of meer)"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_recall",
+        "form_name": "additional_report",
+        "section_header": "Hoe betrouwbaar schat je de beschreven gebeurtenis in? Hoe goed kun je het je herinneren?",
+        "field_type": "slider",
+        "field_label": "Hoe zeker ben je?",
+        "range": {
+            "min": "0",
+            "max": "10",
+            "step": "1"
+        },
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_reason",
+        "form_name": "additional_report",
+        "section_header": "Waarom vul je deze aanvullende rapportage in?",
+        "field_type": "radio",
+        "field_label": "Reden voor de aanvullende rapportage",
+        "select_choices_or_calculations": [
+            {
+                "code": "1",
+                "label": "Ik ben vergeten de rapportage op tijd in te vullen"
+            },
+            {
+                "code": "2",
+                "label": "Ik wilde nog een drinkmoment toevoegen dat ik vergeten was te melden"
+            },
+            {
+                "code": "3",
+                "label": "Andere reden"
+            }
+        ],
+        "required_field": "y"
+    },
+    {
+        "field_name": "additional_report_reason_other",
+        "form_name": "additional_report",
+        "section_header": "",
+        "field_type": "text",
+        "field_label": "Beschrijf de andere reden",
+        "branching_logic": "additional_report_reason=\"3\"",
+        "evaluated_logic": "responses['additional_report_reason'] == \"3\"",
+        "required_field": "n"
+    }
+]

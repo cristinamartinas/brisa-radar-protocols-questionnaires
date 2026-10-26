@@ -1,64 +1,54 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.4",
   "schemaVersion": "0.0.2",
   "name": "RISA-ADHD",
   "healthIssues": "",
-  "protocols": 
-  [
+  "protocols": [
     {
       "name": "EMA",
       "showIntroduction": true,
-      "questionnaire": 
-      {
+      "questionnaire": {
         "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "EMA",
         "avsc": "questionnaire"
       },
       "warn": {},
-      "startText": 
-      {
+      "startText": {
         "en": "How are you feeling today?",
         "nl": "Hoe voel je je vandaag?"
       },
-      "endText": 
-      {
+      "endText": {
         "en": "",
         "nl": ""
       },
       "estimatedCompletionTime": 1,
-      "protocol":
-      {
-        "repeatProtocol": 
-        {
+      "protocol": {
+        "repeatProtocol": {
           "unit": "day",
           "amount": 3
         },
-        "repeatQuestionnaire": 
-        {
-            "unit": "min",
-            "unitsFromZero": 
-            [
-              480,
-              2280,
-              4080
-            ]
+        "repeatQuestionnaire": {
+          "unit": "min",
+          "unitsFromZero": [
+            480,
+            2280,
+            4080
+          ]
         },
-        "reminders": 
-        [
+        "reminders": [
           {
-            "offset": 
-            {
+            "offset": {
               "unit": "min",
-              "amount": 210
+              "amount": 150
             },
             "notification": {
               "title": {
-                "en": "Don't forget the Daily EMA!",
-                "nl": "Vergeet de dagelijkse EMA niet!"
+                "en": "Don't forget the EMA!",
+                "nl": "Vergeet de EMA niet!"
               },
               "text": {
-                "en": "You only have one hour left. Please fill it in, it only takes 1 minute!",
-                "nl": "Je hebt nog maar een uur de tijd. Vul het alsjeblieft in, het duurt maar 1 minuut!"
+                "en": "You have 1.5 hours left to fill it in. It only takes 1 minute!",
+                "nl": "Je hebt nog anderhalf uur om hem in te vullen. Het duurt maar 1 minuut!"
               }
             }
           }
@@ -66,127 +56,212 @@
         "completionWindow": {
           "unit": "hour",
           "amount": 4
+        },
+        "notification": {
+          "title": {
+            "en": "Time for your EMA",
+            "nl": "Tijd voor je EMA"
+          },
+          "text": {
+            "en": "How are you feeling right now? It only takes 1 minute.",
+            "nl": "Hoe voel je je op dit moment? Het duurt maar 1 minuut."
+          }
         }
       }
     },
     {
       "name": "Dag Rapportage",
       "showIntroduction": false,
-      "questionnaire": 
-      {
+      "questionnaire": {
         "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "last_day",
         "avsc": "questionnaire"
       },
-      "startText": {"en":""},
-      "endText": {"en":""},
+      "startText": {
+        "en": "",
+        "nl": ""
+      },
+      "endText": {
+        "en": "Thank you for your report!",
+        "nl": "Bedankt voor je rapportage!"
+      },
       "warn": {},
       "estimatedCompletionTime": 1,
-      "protocol": 
-      {
-        "repeatProtocol": 
-        {
+      "protocol": {
+        "repeatProtocol": {
           "unit": "day",
           "amount": 1
         },
-        "repeatQuestionnaire": 
-        {
+        "repeatQuestionnaire": {
           "unit": "min",
-          "unitsFromZero": [1200]
+          "unitsFromZero": [
+            1200
+          ]
         },
-        "reminders": 
-        [
+        "reminders": [
           {
-            "offset": 
-            {
+            "offset": {
               "unit": "min",
-              "amount": 120
+              "amount": 60
             },
             "notification": {
               "title": {
-                "en": "Daytime Report:",
-                "nl": "Dag Rapportage:"
+                "en": "Don't forget the Daytime Report!",
+                "nl": "Vergeet de Dag Rapportage niet!"
               },
               "text": {
-                "en": "Make sure to fill in daytime events before the morning, even if you didn't consume anything!",
-                "nl": "Zorg ervoor om de overdag gebeurtenissen vóór de ochtend in te vullen, ook al heb je niks geconsumeerd!"
+                "en": "Please report today's consumption (08:00-20:00), even if you didn't drink anything. It's open until 08:00 tomorrow.",
+                "nl": "Vul je consumptie van vandaag in (08:00-20:00), ook als je niks hebt gedronken. Je kunt hem invullen tot morgen 08:00."
+              }
+            }
+          },
+          {
+            "offset": {
+              "unit": "min",
+              "amount": 150
+            },
+            "notification": {
+              "title": {
+                "en": "Reminder: Daytime Report",
+                "nl": "Herinnering: Dag Rapportage"
+              },
+              "text": {
+                "en": "Your Daytime Report is still open until 08:00 tomorrow. It only takes 1 minute!",
+                "nl": "Je Dag Rapportage staat nog open tot morgen 08:00. Het duurt maar 1 minuut!"
               }
             }
           }
         ],
-        "completionWindow": 
-        {
+        "completionWindow": {
           "unit": "hour",
           "amount": 12
+        },
+        "notification": {
+          "title": {
+            "en": "Daytime Report",
+            "nl": "Dag Rapportage"
+          },
+          "text": {
+            "en": "Time to report your consumption between 08:00 and 20:00 today, even if you didn't drink anything.",
+            "nl": "Tijd om je consumptie tussen 08:00 en 20:00 vandaag in te vullen, ook als je niks hebt gedronken."
+          }
         }
       }
     },
     {
       "name": "Night Report",
       "showIntroduction": false,
-      "questionnaire": 
-      {
+      "questionnaire": {
         "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
         "name": "last_night",
         "avsc": "questionnaire"
       },
-      "startText": {"en":""},
-      "endText": {"en":""},
+      "startText": {
+        "en": "",
+        "nl": ""
+      },
+      "endText": {
+        "en": "Thank you for your report!",
+        "nl": "Bedankt voor je rapportage!"
+      },
       "warn": {},
       "estimatedCompletionTime": 1,
-      "protocol": 
-      {
-        "repeatProtocol": 
-        {
+      "protocol": {
+        "repeatProtocol": {
           "unit": "day",
           "amount": 1
         },
-        "repeatQuestionnaire": 
-        {
+        "repeatQuestionnaire": {
           "unit": "min",
-          "unitsFromZero": [480]
+          "unitsFromZero": [
+            480
+          ]
         },
-        "reminders": 
-        [
+        "reminders": [
           {
-            "offset": 
-            {
-              "unit": "hour",
-              "amount": 3
+            "offset": {
+              "unit": "min",
+              "amount": 120
             },
             "notification": {
               "title": {
-                "en": "Night-time Report:",
-                "nl": "Gisteravond/Nacht Rapportage:"
+                "en": "Don't forget the Night Report!",
+                "nl": "Vergeet de Nacht Rapportage niet!"
               },
               "text": {
-                "en": "Make sure to fill in last night's events before the evening, even if you didn't consume anything!",
-                "nl": "Zorg ervoor om de gebeurtenissen van gisteravond vóór de volgende avond, ook al heb je niks geconsumeerd!"
+                "en": "Please report last night's consumption (20:00-08:00), even if you didn't drink anything. It's open until 20:00 today.",
+                "nl": "Vul je consumptie van gisteravond in (20:00-08:00), ook als je niks hebt gedronken. Je kunt hem invullen tot 20:00 vandaag."
               }
             }
           },
           {
-            "offset": 
-            {
-              "unit": "hour",
-              "amount": 10
+            "offset": {
+              "unit": "min",
+              "amount": 600
             },
             "notification": {
               "title": {
                 "en": "Last chance for the Night Report!",
-                "nl": "Laatste kans om de nacht rapportage in te vullen!"
+                "nl": "Laatste kans voor de Nacht Rapportage!"
               },
               "text": {
-                "en": "It's been a long time, but try to report the events from last night until this morning! Careful: don't include any events after 8AM.",
-                "nl": "Het is al een tijdje geleden geweest, maar probeer de evenementen van gisteravond tot vanochtend in te vullen! Vergeet niet om geen evenementen van na 8uur s’ochtends mee te tellen."
+                "en": "Only 2 hours left (closes at 20:00). Report events from 20:00 last night until 08:00 this morning, even if you didn't drink anything. Don't include anything after 08:00.",
+                "nl": "Nog maar 2 uur (sluit om 20:00). Vul de gebeurtenissen van 20:00 gisteravond tot 08:00 vanochtend in, ook als je niks hebt gedronken. Tel niets van na 08:00 mee."
               }
             }
           }
         ],
-        "completionWindow": 
-        {
+        "completionWindow": {
           "unit": "hour",
           "amount": 12
+        },
+        "notification": {
+          "title": {
+            "en": "Night Report",
+            "nl": "Gisteravond/Nacht Rapportage"
+          },
+          "text": {
+            "en": "Time to report your consumption between 20:00 last night and 08:00 this morning, even if you didn't drink anything.",
+            "nl": "Tijd om je consumptie tussen 20:00 gisteravond en 08:00 vanochtend in te vullen, ook als je niks hebt gedronken."
+          }
+        }
+      }
+    },
+    {
+      "name": "Additional Report",
+      "type": "on_demand",
+      "showIntroduction": false,
+      "questionnaire": {
+        "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
+        "name": "additional_report",
+        "avsc": "questionnaire"
+      },
+      "startText": {
+        "en": "Additional reporting",
+        "nl": "Aanvullende rapportage"
+      },
+      "endText": {
+        "en": "Thank you for your additional report!",
+        "nl": "Bedankt voor je aanvullende rapportage!"
+      },
+      "warn": {},
+      "estimatedCompletionTime": 1,
+      "protocol": {
+        "onDemandProtocol": {},
+        "repeatProtocol": {
+          "unit": "day",
+          "amount": 1
+        },
+        "repeatQuestionnaire": {
+          "unit": "min",
+          "unitsFromZero": [
+            0
+          ]
+        },
+        "reminders": [],
+        "completionWindow": {
+          "unit": "day",
+          "amount": 1
         }
       }
     }
