@@ -3,7 +3,7 @@
         "field_name": "additional_report_intro",
         "form_name": "additional_report",
         "field_type": "descriptive",
-        "field_label": "<h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Additional Report</h2><p>This is a questionnaire to report a drinking event apart from the morning and evening report. Fill in this questionnaire if:</p><ul><li>you forgot to report a drinking event in the previous days, and the questionnaire is no longer available</li><li>you want to add another drinking event to what you have already reported</li></ul><p><b>Please fill in one questionnaire per drinking event.</b></p>"
+        "field_label": "<h2 style='text-align:center; font-size:1.5em; font-weight:bold;'>Additional Report</h2><p style='text-align:center;'>Please only report events that were not reported in the day or night report. If there are more events to report, please fill in the questionnaire for each.</p>"
     },
     {
         "field_name": "additional_report_date",
@@ -122,7 +122,7 @@
         "required_field": "y"
     },
     {
-        "field_name": "additional_report_end",
+        "field_name": "additional_report_end_0",
         "form_name": "additional_report",
         "section_header": "Indicate the approximate time when you had the last alcohol unit.",
         "field_type": "radio",
@@ -253,7 +253,2033 @@
                 "label": "07:00 (next day)"
             }
         ],
-        "required_field": "y"
+        "branching_logic": "additional_report_start=\"0\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"0\""
+    },
+    {
+        "field_name": "additional_report_end_1",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "2",
+                "label": "02:00"
+            },
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"1\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"1\""
+    },
+    {
+        "field_name": "additional_report_end_2",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "3",
+                "label": "03:00"
+            },
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"2\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"2\""
+    },
+    {
+        "field_name": "additional_report_end_3",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "4",
+                "label": "04:00"
+            },
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"3\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"3\""
+    },
+    {
+        "field_name": "additional_report_end_4",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "5",
+                "label": "05:00"
+            },
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"4\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"4\""
+    },
+    {
+        "field_name": "additional_report_end_5",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "6",
+                "label": "06:00"
+            },
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"5\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"5\""
+    },
+    {
+        "field_name": "additional_report_end_6",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "7",
+                "label": "07:00"
+            },
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"6\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"6\""
+    },
+    {
+        "field_name": "additional_report_end_7",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "8",
+                "label": "08:00"
+            },
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"7\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"7\""
+    },
+    {
+        "field_name": "additional_report_end_8",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "9",
+                "label": "09:00"
+            },
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"8\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"8\""
+    },
+    {
+        "field_name": "additional_report_end_9",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "10",
+                "label": "10:00"
+            },
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"9\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"9\""
+    },
+    {
+        "field_name": "additional_report_end_10",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "11",
+                "label": "11:00"
+            },
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"10\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"10\""
+    },
+    {
+        "field_name": "additional_report_end_11",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "12",
+                "label": "12:00"
+            },
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"11\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"11\""
+    },
+    {
+        "field_name": "additional_report_end_12",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "13",
+                "label": "13:00"
+            },
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"12\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"12\""
+    },
+    {
+        "field_name": "additional_report_end_13",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "14",
+                "label": "14:00"
+            },
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"13\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"13\""
+    },
+    {
+        "field_name": "additional_report_end_14",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "15",
+                "label": "15:00"
+            },
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"14\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"14\""
+    },
+    {
+        "field_name": "additional_report_end_15",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "16",
+                "label": "16:00"
+            },
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"15\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"15\""
+    },
+    {
+        "field_name": "additional_report_end_16",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "17",
+                "label": "17:00"
+            },
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"16\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"16\""
+    },
+    {
+        "field_name": "additional_report_end_17",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "18",
+                "label": "18:00"
+            },
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"17\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"17\""
+    },
+    {
+        "field_name": "additional_report_end_18",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "19",
+                "label": "19:00"
+            },
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"18\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"18\""
+    },
+    {
+        "field_name": "additional_report_end_19",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "20",
+                "label": "20:00"
+            },
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"19\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"19\""
+    },
+    {
+        "field_name": "additional_report_end_20",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "21",
+                "label": "21:00"
+            },
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"20\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"20\""
+    },
+    {
+        "field_name": "additional_report_end_21",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "22",
+                "label": "22:00"
+            },
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"21\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"21\""
+    },
+    {
+        "field_name": "additional_report_end_22",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "23",
+                "label": "23:00"
+            },
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"22\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"22\""
+    },
+    {
+        "field_name": "additional_report_end_23",
+        "form_name": "additional_report",
+        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "field_type": "radio",
+        "field_label": "When did you stop?",
+        "select_choices_or_calculations": [
+            {
+                "code": "24",
+                "label": "00:00 (next day)"
+            },
+            {
+                "code": "25",
+                "label": "01:00 (next day)"
+            },
+            {
+                "code": "26",
+                "label": "02:00 (next day)"
+            },
+            {
+                "code": "27",
+                "label": "03:00 (next day)"
+            },
+            {
+                "code": "28",
+                "label": "04:00 (next day)"
+            },
+            {
+                "code": "29",
+                "label": "05:00 (next day)"
+            },
+            {
+                "code": "30",
+                "label": "06:00 (next day)"
+            },
+            {
+                "code": "31",
+                "label": "07:00 (next day)"
+            }
+        ],
+        "branching_logic": "additional_report_start=\"23\"",
+        "required_field": "y",
+        "evaluated_logic": "responses['additional_report_start'] == \"23\""
     },
     {
         "field_name": "additional_report_quantity",
