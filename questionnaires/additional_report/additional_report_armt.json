@@ -8,9 +8,9 @@
     {
         "field_name": "additional_report_date",
         "form_name": "additional_report",
-        "section_header": "On which day did the drinking event take place?",
+        "section_header": "On which day did the event take place?",
         "field_type": "text",
-        "field_label": "Date of the drinking event (DD-MM-YYYY)",
+        "field_label": "Date of the event (DD-MM-YYYY)",
         "text_validation_type_or_show_slider_number": "date_dmy",
         "text_validation_max": "today",
         "required_field": "y"
@@ -18,7 +18,7 @@
     {
         "field_name": "additional_report_start",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the first alcohol unit.",
+        "section_header": "Indicate the approximate time when you started.",
         "field_type": "radio",
         "field_label": "When did you start?",
         "select_choices_or_calculations": [
@@ -124,7 +124,7 @@
     {
         "field_name": "additional_report_end_0",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -260,7 +260,7 @@
     {
         "field_name": "additional_report_end_1",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -392,7 +392,7 @@
     {
         "field_name": "additional_report_end_2",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -520,7 +520,7 @@
     {
         "field_name": "additional_report_end_3",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -644,7 +644,7 @@
     {
         "field_name": "additional_report_end_4",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -764,7 +764,7 @@
     {
         "field_name": "additional_report_end_5",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -880,7 +880,7 @@
     {
         "field_name": "additional_report_end_6",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -992,7 +992,7 @@
     {
         "field_name": "additional_report_end_7",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1100,7 +1100,7 @@
     {
         "field_name": "additional_report_end_8",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1204,7 +1204,7 @@
     {
         "field_name": "additional_report_end_9",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1304,7 +1304,7 @@
     {
         "field_name": "additional_report_end_10",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1400,7 +1400,7 @@
     {
         "field_name": "additional_report_end_11",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1492,7 +1492,7 @@
     {
         "field_name": "additional_report_end_12",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1580,7 +1580,7 @@
     {
         "field_name": "additional_report_end_13",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1664,7 +1664,7 @@
     {
         "field_name": "additional_report_end_14",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1744,7 +1744,7 @@
     {
         "field_name": "additional_report_end_15",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1820,7 +1820,7 @@
     {
         "field_name": "additional_report_end_16",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1892,7 +1892,7 @@
     {
         "field_name": "additional_report_end_17",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -1960,7 +1960,7 @@
     {
         "field_name": "additional_report_end_18",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2024,7 +2024,7 @@
     {
         "field_name": "additional_report_end_19",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2084,7 +2084,7 @@
     {
         "field_name": "additional_report_end_20",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2140,7 +2140,7 @@
     {
         "field_name": "additional_report_end_21",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2192,7 +2192,7 @@
     {
         "field_name": "additional_report_end_22",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2240,7 +2240,7 @@
     {
         "field_name": "additional_report_end_23",
         "form_name": "additional_report",
-        "section_header": "Indicate the approximate time when you had the last alcohol unit.",
+        "section_header": "Indicate the approximate time when you stopped.",
         "field_type": "radio",
         "field_label": "When did you stop?",
         "select_choices_or_calculations": [
@@ -2286,7 +2286,7 @@
         "form_name": "additional_report",
         "section_header": "1 Standard Unit:\n🍺 330ml beer | 🥃 40ml liquor | 🍷 150ml wine",
         "field_type": "range",
-        "field_label": "How many Standard Units did you consume during this drinking event?",
+        "field_label": "How many Standard Units of alcohol did you consume during this event?",
         "select_choices_or_calculations": [
             {
                 "code": "1",
@@ -2349,7 +2349,7 @@
             },
             {
                 "code": "2",
-                "label": "I wanted to add another drinking event that I forgot to report"
+                "label": "I wanted to add another event that I forgot to report"
             },
             {
                 "code": "3",

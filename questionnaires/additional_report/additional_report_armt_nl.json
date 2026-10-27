@@ -8,9 +8,9 @@
     {
         "field_name": "additional_report_date",
         "form_name": "additional_report",
-        "section_header": "Op welke dag vond het drinkmoment plaats?",
+        "section_header": "Op welke dag vond de gebeurtenis plaats?",
         "field_type": "text",
-        "field_label": "Datum van het drinkmoment (DD-MM-JJJJ)",
+        "field_label": "Datum van de gebeurtenis (DD-MM-JJJJ)",
         "text_validation_type_or_show_slider_number": "date_dmy",
         "text_validation_max": "today",
         "required_field": "y"
@@ -18,7 +18,7 @@
     {
         "field_name": "additional_report_start",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de eerste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent begonnen.",
         "field_type": "radio",
         "field_label": "Wanneer ben je begonnen?",
         "select_choices_or_calculations": [
@@ -124,7 +124,7 @@
     {
         "field_name": "additional_report_end_0",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -260,7 +260,7 @@
     {
         "field_name": "additional_report_end_1",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -392,7 +392,7 @@
     {
         "field_name": "additional_report_end_2",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -520,7 +520,7 @@
     {
         "field_name": "additional_report_end_3",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -644,7 +644,7 @@
     {
         "field_name": "additional_report_end_4",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -764,7 +764,7 @@
     {
         "field_name": "additional_report_end_5",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -880,7 +880,7 @@
     {
         "field_name": "additional_report_end_6",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -992,7 +992,7 @@
     {
         "field_name": "additional_report_end_7",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1100,7 +1100,7 @@
     {
         "field_name": "additional_report_end_8",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1204,7 +1204,7 @@
     {
         "field_name": "additional_report_end_9",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1304,7 +1304,7 @@
     {
         "field_name": "additional_report_end_10",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1400,7 +1400,7 @@
     {
         "field_name": "additional_report_end_11",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1492,7 +1492,7 @@
     {
         "field_name": "additional_report_end_12",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1580,7 +1580,7 @@
     {
         "field_name": "additional_report_end_13",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1664,7 +1664,7 @@
     {
         "field_name": "additional_report_end_14",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1744,7 +1744,7 @@
     {
         "field_name": "additional_report_end_15",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1820,7 +1820,7 @@
     {
         "field_name": "additional_report_end_16",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1892,7 +1892,7 @@
     {
         "field_name": "additional_report_end_17",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -1960,7 +1960,7 @@
     {
         "field_name": "additional_report_end_18",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2024,7 +2024,7 @@
     {
         "field_name": "additional_report_end_19",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2084,7 +2084,7 @@
     {
         "field_name": "additional_report_end_20",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2140,7 +2140,7 @@
     {
         "field_name": "additional_report_end_21",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2192,7 +2192,7 @@
     {
         "field_name": "additional_report_end_22",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2240,7 +2240,7 @@
     {
         "field_name": "additional_report_end_23",
         "form_name": "additional_report",
-        "section_header": "Geef aan rond welk tijdstip je de laatste alcoholeenheid hebt genuttigd.",
+        "section_header": "Geef aan rond welk tijdstip je bent gestopt.",
         "field_type": "radio",
         "field_label": "Wanneer ben je gestopt?",
         "select_choices_or_calculations": [
@@ -2286,7 +2286,7 @@
         "form_name": "additional_report",
         "section_header": "1 Standaardeenheid:\n🍺 250ml bier | 🥃 35ml sterke drank | 🍷 100ml wijn",
         "field_type": "range",
-        "field_label": "Hoeveel eenheden heb je tijdens dit drinkmoment genuttigd?",
+        "field_label": "Hoeveel alcoholeenheden heb je tijdens deze gebeurtenis genuttigd?",
         "select_choices_or_calculations": [
             {
                 "code": "1",
@@ -2349,7 +2349,7 @@
             },
             {
                 "code": "2",
-                "label": "Ik wilde nog een drinkmoment toevoegen dat ik vergeten was te melden"
+                "label": "Ik wilde nog een gebeurtenis toevoegen die ik vergeten was te melden"
             },
             {
                 "code": "3",

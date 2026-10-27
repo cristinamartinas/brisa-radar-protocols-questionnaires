@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "schemaVersion": "0.0.2",
   "name": "RISA-ADHD",
   "healthIssues": "",
@@ -47,7 +47,7 @@
                 "nl": "Vergeet de EMA niet!"
               },
               "text": {
-                "en": "You have 1.5 hours left to fill it in. It only takes 1 minute!",
+                "en": "You have another hour left to fill it in. It only takes 1 minute!",
                 "nl": "Je hebt nog anderhalf uur om hem in te vullen. Het duurt maar 1 minuut!"
               }
             }
@@ -110,8 +110,8 @@
                 "nl": "Vergeet de Dag Rapportage niet!"
               },
               "text": {
-                "en": "Please report today's consumption (08:00-20:00), even if you didn't drink anything. It's open until 08:00 tomorrow.",
-                "nl": "Vul je consumptie van vandaag in (08:00-20:00), ook als je niks hebt gedronken. Je kunt hem invullen tot morgen 08:00."
+                "en": "Please fill in the report for the interval between 8hrs and 20hrs, even if you didn't consume anything. It's open until 8 in the morning tomorrow.",
+                "nl": "Vul de rapportage in voor de periode tussen 8u en 20u, ook als je niets hebt geconsumeerd. Je kunt hem invullen tot morgenochtend 8 uur."
               }
             }
           },
@@ -126,8 +126,8 @@
                 "nl": "Herinnering: Dag Rapportage"
               },
               "text": {
-                "en": "Your Daytime Report is still open until 08:00 tomorrow. It only takes 1 minute!",
-                "nl": "Je Dag Rapportage staat nog open tot morgen 08:00. Het duurt maar 1 minuut!"
+                "en": "Your Daytime Report is still open until 8uur tomorrow. It only takes 1 minute!",
+                "nl": "Je Dag Rapportage staat nog open tot morgen 8uur. Het duurt maar 1 minuut!"
               }
             }
           }
@@ -142,8 +142,8 @@
             "nl": "Dag Rapportage"
           },
           "text": {
-            "en": "Time to report your consumption between 08:00 and 20:00 today, even if you didn't drink anything.",
-            "nl": "Tijd om je consumptie tussen 08:00 en 20:00 vandaag in te vullen, ook als je niks hebt gedronken."
+            "en": "Time to report your consumption between 8hrs and 20hrs, even if you didn't consume anything.",
+            "nl": "Tijd om je consumptie tussen 8u en 20u vandaag in te vullen, ook als je niets hebt geconsumeerd."
           }
         }
       }
@@ -189,8 +189,8 @@
                 "nl": "Vergeet de Nacht Rapportage niet!"
               },
               "text": {
-                "en": "Please report last night's consumption (20:00-08:00), even if you didn't drink anything. It's open until 20:00 today.",
-                "nl": "Vul je consumptie van gisteravond in (20:00-08:00), ook als je niks hebt gedronken. Je kunt hem invullen tot 20:00 vandaag."
+                "en": "Please fill in the report for the time interval between 20hrs and 8hrs, even if you didn't consume anything. It's open until 20hrs today.",
+                "nl": "Vul de rapportage in voor de periode tussen 20u en 8u, ook als je niets hebt geconsumeerd. Je kunt hem invullen tot vandaag 2u."
               }
             }
           },
@@ -205,8 +205,8 @@
                 "nl": "Laatste kans voor de Nacht Rapportage!"
               },
               "text": {
-                "en": "Only 2 hours left (closes at 20:00). Report events from 20:00 last night until 08:00 this morning, even if you didn't drink anything. Don't include anything after 08:00.",
-                "nl": "Nog maar 2 uur (sluit om 20:00). Vul de gebeurtenissen van 20:00 gisteravond tot 08:00 vanochtend in, ook als je niks hebt gedronken. Tel niets van na 08:00 mee."
+                "en": "Only 2 hours left (closes at 20hrs). Report events from 20hrs last night until 8hrs this morning, even if you didn't consume anything. Don't include anything after 8hrs.",
+                "nl": "Nog maar 2 uur (sluit om 20u). Vul de gebeurtenissen van 20u gisteravond tot 8u vanochtend in, ook als je niets hebt geconsumeerd. Tel niets van na 8u mee."
               }
             }
           }
@@ -221,8 +221,8 @@
             "nl": "Gisteravond/Nacht Rapportage"
           },
           "text": {
-            "en": "Time to report your consumption between 20:00 last night and 08:00 this morning, even if you didn't drink anything.",
-            "nl": "Tijd om je consumptie tussen 20:00 gisteravond en 08:00 vanochtend in te vullen, ook als je niks hebt gedronken."
+            "en": "Time to report your consumption between 20hrs last night and 8hrs this morning, even if there is nothing to report.",
+            "nl": "Tijd om je consumptie tussen 20u gisteravond en 8u vanochtend te melden, ook als er niets te melden is."
           }
         }
       }
