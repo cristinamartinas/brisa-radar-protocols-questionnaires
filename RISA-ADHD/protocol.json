@@ -1,5 +1,5 @@
 {
-  "version": "0.0.5",
+  "version": "0.0.6",
   "schemaVersion": "0.0.2",
   "name": "RISA-ADHD",
   "healthIssues": "",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "name": "Dag Rapportage",
+      "name": "Last Day Report",
       "showIntroduction": false,
       "questionnaire": {
         "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
@@ -149,7 +149,7 @@
       }
     },
     {
-      "name": "Night Report",
+      "name": "Last Night Report",
       "showIntroduction": false,
       "questionnaire": {
         "repository": "https://raw.githubusercontent.com/cristinamartinas/brisa-radar-protocols-questionnaires/master/questionnaires/",
